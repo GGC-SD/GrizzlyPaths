@@ -28,6 +28,14 @@ Further develop the website tool by cleaning, analyzing, and creating visualizat
 ### Fall '23: [Fall 2023 Final Report](https://github.com/GGC-DSA/itskills/blob/main/Fall%202023/Report/Fall_2023_Report.pdf)
 ### Spring '23: [Grizzly Insights Final Report](https://github.com/GGC-DSA/itskills/blob/main/Spr%20'23/Grizzly%20Insights%20Final%20Report.pdf)
 
+## Fall '25 Team
+* Students: Sidibaba Simpara - Project Manager & UI/UX design
+
+* Advisor: Dr. Anca Doloc-Mihu
+
+
+
+
 ## Spring '25 Team
 * Student: Michelle Webb - Data Analyzer/Project Manager, Nikhita Nikhita- Visualization/Project Documenter, Krishan Bhalsod - Data Modeler/Data Analyzer/data cleaning/collection, Lucas Leon Visualization/Client_Liason
 * Advisor: Dr. Anca Doloc-Mihu, Assistant Professor of Information Technology
