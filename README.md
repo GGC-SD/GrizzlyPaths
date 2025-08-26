@@ -29,7 +29,7 @@ Further develop the website tool by cleaning, analyzing, and creating visualizat
 ### Spring '23: [Grizzly Insights Final Report](https://github.com/GGC-DSA/itskills/blob/main/Spr%20'23/Grizzly%20Insights%20Final%20Report.pdf)
 
 ## Fall '25 Team
-* Students: Sidibaba Simpara - Project Manager & UI/UX design, Hieu Do - Lead Programmer & Documentation Lead
+* Students: Sidibaba Simpara - Project Manager & UI/UX design, Hieu Do - Lead Programmer & Documentation Lead, Charles Sarpong - Testing lead
 * Advisor: Dr. Anca Doloc-Mihu
 
 
