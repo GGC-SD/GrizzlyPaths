@@ -4,27 +4,71 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
 <body>
-
+    <!--
     <div class="dropdown">
     
         <form>
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>
     <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword1">
     </div>
-    <!-- <div class="mb-3 form-check">
+     <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div> -->
+    </div> 
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    -->
+    
+    <!-- Navbar with Logout button -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Grizzly Path</a>
+            <div class="d-flex">
+                <button id="logoutBtn" class="btn btn-danger">Logout</button>
+            </div>
+        </div>
+    </nav>
 
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to Grizzly Path</h1>
+        <h2 class="mb-3">My Dashboard</h2>
+        <div class="row mt-4">
 
+        <!-- Profile Card -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Profile</h5>
+                    <p class="card-text" id="profileInfo">Student Name: _____<br>Student ID: _____</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
 
+    <script>
+      // Get student info from localStorage
+      const studentName = localStorage.getItem('studentName') || "Guest";
+      const studentID = localStorage.getItem('studentID') || "N/A";
+
+      // Fill the Profile Card
+      document.getElementById('profileInfo').innerHTML = 
+      `Student Name: ${studentName}<br>Student ID: ${studentID}`;
+
+      // Logout button
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = "login.html";
+    });
+    </script>
+
+    <br>
     <select class="form-select form-select-sm" aria-label="small select example">
         <option selected>Change Majors</option>
         <option value="1">Software Engineer</option>
@@ -88,3 +132,4 @@
         </div>
     </div>
 </body>
+</html>
