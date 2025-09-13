@@ -1,1 +1,9 @@
+:root {
+    --primaryButtonColor: #FF0000;    
+     --primaryButtonRadius: 12px;         
+}
 
+.my-btn-primary {
+    background-color: var(--primaryButtonColor);
+    border-radius: var(--primaryButtonRadius);
+}
