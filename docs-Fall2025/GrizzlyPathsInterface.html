@@ -28,13 +28,11 @@
     </form>
     -->
     
-    <!-- Navbar with Logout button -->
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Majors
-                </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#sd">Software Development</a>
                     <a class="dropdown-item" href="#">Systems and Cybersecurity </a>
@@ -201,23 +199,21 @@
             </div>
         </div>
     </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const timelineBodies = document.querySelectorAll('.timeline-body');
-        const modalBody = document.getElementById('modalBodyContent');
-        const modal = new bootstrap.Modal(document.getElementById('timelineModal'));
 
-        timelineBodies.forEach(body => {
-        body.addEventListener('click', () => {
-            const content = body.innerHTML;
-            modalBody.innerHTML = content;
-            modal.show();
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const timelineBodies = document.querySelectorAll('.timeline-body');
+            const modalBody = document.getElementById('modalBodyContent');
+            const modal = new bootstrap.Modal(document.getElementById('timelineModal'));
+
+            timelineBodies.forEach(body => {
+            body.addEventListener('click', () => {
+                const content = body.innerHTML;
+                modalBody.innerHTML = content;
+                modal.show();
+                });
             });
         });
-    });
-
-
-        
     </script>
 </body>
 </html>
