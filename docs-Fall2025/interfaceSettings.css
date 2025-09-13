@@ -1,9 +1,16 @@
 :root {
-    --primaryButtonColor: #FF0000;    
-     --primaryButtonRadius: 12px;         
+    --primaryButtonColor: red;    
+    --primaryButtonRadius: 12px;
+    --primaryButtonHover: darkred;     
+    --primaryButtonText: white;         
 }
 
 .my-btn-primary {
     background-color: var(--primaryButtonColor);
     border-radius: var(--primaryButtonRadius);
+}
+
+.my-btn-primary:hover {
+    background-color: var(--primaryButtonHover);
+    color: var(--primaryButtonText);
 }
