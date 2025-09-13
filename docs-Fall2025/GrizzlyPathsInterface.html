@@ -28,9 +28,20 @@
     -->
     
     <!-- Navbar with Logout button -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Grizzly Path</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Majors
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#sd">Software Development</a>
+                    <a class="dropdown-item" href="#">Systems and Cybersecurity </a>
+                    <a class="dropdown-item" href="#">Digital Media</a>
+                    <a class="dropdown-item" href="#">Data Science and Analytics</a>
+                    <a class="dropdown-item" href="#">Enterprise System</a>
+                </div>
+            </div>
             <div class="d-flex">
                 <button id="logoutBtn" class="btn btn-danger">Logout</button>
             </div>
@@ -52,6 +63,47 @@
                 </div>
             </div>
         </div>
+        </div>
+    </div>
+    <br>
+
+    <div id="sd" class="container-fluid bg-dark text-light">
+        <h2 class="text-center">Software Development</h2>
+    </div>
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 2140</h5>
+                        <p class="card-text""> Programming Fundamental<br>Skill: Java</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 2150</h5>
+                        <p class="card-text">Intermediate Programming<br>Skill: Java</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 3150</h5>
+                        <p class="card-text">Advanced Programming<br>Skill: Java</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 3860</h5>
+                        <p class="card-text">Software Development 1<br>Skill: Java, SQL</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
