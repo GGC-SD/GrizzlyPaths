@@ -35,7 +35,7 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Majors
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id = "courseChange">
                     <a class="dropdown-item" href="#sd">Software Development</a>
                     <a class="dropdown-item" href="#">Systems and Cybersecurity </a>
                     <a class="dropdown-item" href="#">Digital Media</a>
@@ -59,7 +59,7 @@
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">Profile</h5>
-                    <p class="card-text" id="profileInfo">Student Name: _____<br>Student ID: _____</p>
+                    <p class="card-text" id="profileInfo">Student Name: _____<br>Student ID: _____<br>Student Major: _____</p>
                     <a href="#" class="btn btn-outline-primary btn-sm">Edit Profile</a>
                 </div>
             </div>
@@ -112,10 +112,59 @@
       // Get student info from localStorage
       const studentName = localStorage.getItem('studentName') || "Guest";
       const studentID = localStorage.getItem('studentID') || "N/A";
+      const studentMajor = localStorage.getItem('studentMajor') || "Undecided";
 
       // Fill the Profile Card
       document.getElementById('profileInfo').innerHTML = 
       `Student Name: ${studentName}<br>Student ID: ${studentID}`;
+
+      //make major information
+      const profileInfo = document.getElementById('profileInfo');
+      const storedMajor = localStorage.getItem('studentMajor');
+      if (storedMajor){
+        profileInfo.innerHTML += `<br>Student Major: ${storedMajor}`;
+      }
+      else {
+        profileInfo.innerHTML += `<br>Student Major: <em>Undecided</em>`;
+      }
+
+    function setMajor(major) {
+        if (!localStorage.getItem('studentMajor')) {
+            localStorage.setItem('studentMajor', major);
+            profileInfo.innerHTML = profileInfo.innerHTML.replace('Undecided', major);
+            renderMajor;
+        document.getElementById('majorControls').style.display = 'none';
+        }
+    }
+
+    function renderMajor(){
+        const storedMajor = localStorage.getItem('studentMajor') || "Undecided";
+        profileInfo.innerHTML = `Student Name: ${studentName}<br>
+                           Student ID: ${studentID}<br>
+                           Student Major: ${storedMajor}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderMajor();
+        const majorSelect = document.querySelector('select.form-select');
+        if (majorSelect){
+            majorSelect.addEventListener('change', e => {
+                const text = e.target.options[e.target.selectedIndex].text;
+                if (e.target.selectedIndex > 0){
+                    setMajor(text);
+                }
+            })
+        }
+
+        document
+        .querySelectorAll('.dropdown-menu .dropdown-item')
+            .forEach(item => {
+                item.addEventListener('click', e => {
+                e.preventDefault();
+                setMajor(item.textContent.trim())
+            })
+        })
+    });
 
       // Logout button
       document.getElementById('logoutBtn').addEventListener('click', () => {
