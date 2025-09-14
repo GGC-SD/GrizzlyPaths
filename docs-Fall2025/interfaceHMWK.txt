@@ -10,5 +10,5 @@ Global Variable
 --primaryBackgroundColor: Sets the main background color for the page, use for GrizzlyPathsInterface.html
 
 William Chokbengboune
---form-select: highlighted width
---timelineContainer: custom global variable used for timeline. 
+--form-select: highlighted width, use for GrizzlyPathsInterface.html
+--timelineContainer: custom global variable used for timeline, use for GrizzlyPathsInterface.html
