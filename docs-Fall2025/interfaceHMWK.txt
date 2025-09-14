@@ -8,3 +8,7 @@ Global Variable
 --primaryButtonHover: Sets the hover background color of logout buttons
 --primaryButtonText: Sets the text color on hover for logout buttons
 --primaryBackgroundColor: Sets the main background color for the page
+
+William Chokbengboune
+--form-select: highlighted width
+--timelineContainer: custom global variable used for timeline. 
