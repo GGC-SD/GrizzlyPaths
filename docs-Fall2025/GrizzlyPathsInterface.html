@@ -13,7 +13,7 @@
     <!-- Navbar with Logout button -->
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
-            <div class="dropdown">
+            <div class="dropdown" id="majorDropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Majors
                 </button>
@@ -25,6 +25,15 @@
                     <a class="dropdown-item" href="#es">Enterprise System</a>
                 </div>
             </div>
+            <select class="form-select form-select-sm" aria-label="small select example" id="changeMajors" style="display: none;">
+                <option selected>Change Majors</option>
+                <option value="1">Software Engineer</option>
+                <option value="2">Software Developer</option>
+                <option value="3">Systems and security</option>
+                <option value="4">Digital Media</option>
+                <option value="5">Enterprise Systems</option>
+                <option value="6">Digital Media</option>
+            </select>
             <div class="d-flex">
                 <button id="logoutBtn" class="btn my-btn-primary">Logout</button>
             </div>
@@ -48,17 +57,6 @@
         </div>
         </div>
     </div>
-    <br>
-
-    <select class="form-select form-select-sm" aria-label="small select example" id="majorControls">
-            <option selected>Change Majors</option>
-            <option value="1">Software Engineer</option>
-            <option value="2">Software Developer</option>
-            <option value="3">Systems and security</option>
-            <option value="4">Digital Media</option>
-            <option value="5">Enterprise Systems</option>
-            <option value="6">Digital Media</option>
-    </select>
 
     <br>
 
@@ -312,36 +310,50 @@
     // Fill the Profile Card
     document.getElementById('profileInfo').innerHTML = `Student Name: ${studentName}<br>Student ID: ${studentID}`;
 
-    //make major information
-    if (storedMajor){
-        profileInfo.innerHTML += `<br>Student Major: ${storedMajor}`;
-    }
-    else {
-        profileInfo.innerHTML += `<br>Student Major: <em>Undecided</em>`;
+    function renderMajor() {
+        const studentName = localStorage.getItem('studentName') || "Guest";
+        const studentID = localStorage.getItem('studentID') || "N/A";
+        const studentMajor = localStorage.getItem('studentMajor') || "Undecided";
+
+        const profileInfo = document.getElementById('profileInfo');
+        if (profileInfo) {
+            profileInfo.innerHTML = `
+                Student Name: ${studentName}<br>
+                Student ID: ${studentID}<br>
+                Student Major: ${studentMajor}
+            `;
+        }
     }
 
     function setMajor(major) {
         if (!localStorage.getItem('studentMajor')) {
             localStorage.setItem('studentMajor', major);
             renderMajor();
-        document.getElementById('majorControls').style.display = 'none';
+            const controls = document.getElementById('changeMajors');
+            const dropdown = document.getElementById('majorDropdown');
+            //control is select
+            //dropdown is intitial major
+            if (controls) controls.style.display = 'block';
+            if (dropdown) dropdown.style.display = 'none';
         }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
     renderMajor();
 
-    const majorSelect = document.querySelector('select.form-select');
-    if (majorSelect) {
-      majorSelect.addEventListener('change', e => {
+    const changeMajorsSelect = document.getElementById('changeMajors');
+    if (changeMajorsSelect) {
+      changeMajorsSelect.addEventListener('change', e => {
         const idx  = e.target.selectedIndex;
         const text = e.target.options[idx].text;
-        if (idx > 0) setMajor(val);               // no “only first time” guard here
+        if (idx > 0){
+            localStorage.setItem('studentMajor', text)
+            renderMajor();
+        };      
       });
     }
     // dropdown-items
-    document
-    .querySelectorAll('.dropdown-menu .dropdown-item')
+    document.querySelectorAll('.dropdown-menu .dropdown-item')
     .forEach(item =>
         item.addEventListener('click', e => {
             e.preventDefault();
@@ -349,58 +361,12 @@
             })
         );
     });
-    
-
-    //change major
-    function renderMajor(){
-        const storedMajor = localStorage.getItem('studentMajor') || "Undecided";
-        profileInfo.innerHTML = `Student Name: ${studentName}<br>
-                           Student ID: ${studentID}<br>
-                           Student Major: ${storedMajor}`;
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        renderMajor();
-        const majorSelect = document.querySelector('select.form-select');
-        if (majorSelect){
-            majorSelect.addEventListener('change', e => {
-                const text = e.target.options[e.target.selectedIndex].text;
-                if (e.target.selectedIndex > 0){
-                    setMajor(text);
-                }
-            })
-        }
-
-        document
-        .querySelectorAll('.dropdown-menu .dropdown-item')
-            .forEach(item => {
-                item.addEventListener('click', e => {
-                e.preventDefault();
-                setMajor(item.textContent.trim())
-            })
-        })
-    });
 
       // Logout button
       document.getElementById('logoutBtn').addEventListener('click', () => {
       localStorage.clear();
       window.location.href = "login.html";
     });
-
-    document.getElementById('profileInfo').innerHTML += `<br>Student Major: ${studentMajor}`;
-        document.addEventListener('DOMContentLoaded', function () {
-            const timelineBodies = document.querySelectorAll('.timeline-body');
-            const modalBody = document.getElementById('modalBodyContent');
-            const modal = new bootstrap.Modal(document.getElementById('timelineModal'));
-
-            timelineBodies.forEach(body => {
-            body.addEventListener('click', () => {
-                const content = body.innerHTML;
-                modalBody.innerHTML = content;
-                modal.show();
-                });
-            });
-        });
     </script>
 </body>
 </html>
