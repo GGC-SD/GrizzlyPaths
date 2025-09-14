@@ -1,3 +1,4 @@
+
 /* Reset some defaults */
 * {
   margin: 0;
@@ -123,4 +124,39 @@ form {
 .my-btn-primary {
     background-color: var(--primaryButtonColor);
     border-radius: var(--primaryButtonRadius);
+}
+
+:root {
+    --primaryButtonColor: red;    
+    --primaryButtonRadius: 12px;
+    --primaryButtonHover: darkred;     
+    --primaryButtonText: white;  
+    --primaryBackgroundColor: #e6f7ff;
+}
+
+.my-btn-primary {
+    background-color: var(--primaryButtonColor);
+    border-radius: var(--primaryButtonRadius);
+}
+
+.my-btn-primary:hover {
+    background-color: var(--primaryButtonHover);
+    color: var(--primaryButtonText);
+}
+
+.my-background-color{
+    background-color: var(--primaryBackgroundColor);
+}
+
+.form-select{
+    width: 150px;
+    margin-left: 10px;
+    border-width: small;
+    border-color: black;
+    font-weight: 600;
+}
+.timelineContainer{
+    background-color: #fff;
+    border-color: black;
+    margin-bottom: 10px;
 }
