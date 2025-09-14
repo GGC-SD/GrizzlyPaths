@@ -11,3 +11,10 @@ Global Variable
 William Chokbengboune
 --form-select: highlighted width, use for GrizzlyPathsInterface.html
 --timelineContainer: custom global variable used for timeline, use for GrizzlyPathsInterface.html
+
+
+Sidibaba Simpara
+-- Created the css file
+-- Reseter: Removes default margin/padding browsers might add, use for GrizzlyPathsInterface.html
+-- timeline li: Positions each li item along the line
+-- container: applied function that creates a white card-like box for your login form. 
