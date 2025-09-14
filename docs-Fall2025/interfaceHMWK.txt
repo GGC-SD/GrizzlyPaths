@@ -1,1 +1,10 @@
+Global CSS File: interfaceSettings.css
+File Location (Path in Project): interfaceSettings.css
 
+Team Member: Hieu
+Global Variable
+--primaryButtonColor: Sets the background color of logout buttons
+--primaryButtonRadius: Sets the border radius of logout buttons
+--primaryButtonHover: Sets the hover background color of logout buttons
+--primaryButtonText: Sets the text color on hover for logout buttons
+--primaryBackgroundColor: Sets the main background color for the page
