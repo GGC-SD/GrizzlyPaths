@@ -7,7 +7,6 @@ Global Variable
 --primaryButtonRadius: Sets the border radius of logout buttons, use for GrizzlyPathsInterface.html
 --primaryButtonHover: Sets the hover background color of logout buttons, use for GrizzlyPathsInterface.html
 --primaryButtonText: Sets the text color on hover for logout buttons, use for GrizzlyPathsInterface.html
---primaryBackgroundColor: Sets the main background color for the page, use for GrizzlyPathsInterface.html
 
 William Chokbengboune
 --form-select: highlighted width, use for GrizzlyPathsInterface.html
