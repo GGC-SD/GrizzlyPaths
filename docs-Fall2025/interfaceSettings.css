@@ -63,13 +63,6 @@ form {
   transition: background-color 0.3s ease;
 }
 
-/* Dropdown select */
-.form-select {
-  max-width: 400px;
-  margin: 10px auto 40px auto;
-  border-radius: 8px;
-}
-
 /* Timeline styles */
 .timeline {
   list-style: none;
