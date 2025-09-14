@@ -2,7 +2,8 @@
     --primaryButtonColor: red;    
     --primaryButtonRadius: 12px;
     --primaryButtonHover: darkred;     
-    --primaryButtonText: white;         
+    --primaryButtonText: white;  
+    --primaryBackgroundColor: #e6f7ff;
 }
 
 .my-btn-primary {
@@ -13,4 +14,8 @@
 .my-btn-primary:hover {
     background-color: var(--primaryButtonHover);
     color: var(--primaryButtonText);
+}
+
+.my-background-color{
+    background-color: var(--primaryBackgroundColor);
 }
