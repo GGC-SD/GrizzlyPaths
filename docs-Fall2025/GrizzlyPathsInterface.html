@@ -8,6 +8,30 @@
     <link rel="stylesheet" type="text/css" href="interfaceSetting.css">
 </head>
 <body>
+<<<<<<< HEAD
+=======
+    <!--
+    <div class="dropdown">
+    
+        <form>
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+     <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div> 
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    -->
+    
+    <!-- Navbar with Logout button -->
+>>>>>>> 2f2c9bbc8422c5f321992b9d7c0a3ad8d15a2348
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
             <div class="dropdown">
@@ -192,31 +216,9 @@
             renderMajor();
         document.getElementById('majorControls').style.display = 'none';
         }
-        else{
-            document.addEventListener('DOMContentLoaded', () => {
-                renderMajor();
-
-                const majorSelect = document.querySelector('select.form-select');
-                if (majorSelect){
-                    majorSelect.addEventListener('change', e => {
-                    const idx  = e.target.selectedIndex;
-                    const text = e.target.options[idx].text;
-                    if (idx > 0) setMajor(text);               // no “only first time” guard here
-                    });
-                }
-                document
-                .querySelectorAll('.dropdown-menu .dropdown-item')
-                .forEach(item =>
-                    item.addEventListener('click', e => {
-                        e.preventDefault();
-                        setMajor(item.textContent.trim());
-                    })
-                )
-            });
-        }
     }
 
-    /*document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
     renderMajor();
 
     const majorSelect = document.querySelector('select.form-select');
@@ -237,7 +239,7 @@
             })
         );
     });
-    */
+    
 
     //change major
     function renderMajor(){
