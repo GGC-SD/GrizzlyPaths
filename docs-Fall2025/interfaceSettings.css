@@ -19,3 +19,16 @@
 .my-background-color{
     background-color: var(--primaryBackgroundColor);
 }
+
+.form-select{
+    width: 12.5%;
+    margin-left: 10px;
+    border-width: medium;
+    border-color: black;
+    font-weight: 600;
+}
+.timelineContainer{
+    background-color: #fff;
+    border-color: black;
+    margin-bottom: 10px;
+}
