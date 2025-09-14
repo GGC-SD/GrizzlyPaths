@@ -23,7 +23,7 @@
 .form-select{
     width: 12.5%;
     margin-left: 10px;
-    border-width: medium;
+    border-width: small;
     border-color: black;
     font-weight: 600;
 }
