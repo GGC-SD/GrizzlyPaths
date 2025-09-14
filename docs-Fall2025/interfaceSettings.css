@@ -8,7 +8,7 @@
 /* General body styling */
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #74ebd5, #ACB6E5);
+  background: linear-gradient(to right, #36d352, #ace5bc);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -114,4 +114,13 @@ form {
   .timeline-badge {
     left: -25px;
   }
+}
+:root {
+    --primaryButtonColor: #FF0000;    
+     --primaryButtonRadius: 12px;         
+}
+
+.my-btn-primary {
+    background-color: var(--primaryButtonColor);
+    border-radius: var(--primaryButtonRadius);
 }
