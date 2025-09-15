@@ -1,85 +1,282 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="interfaceSettings.css">
+    <title>Grizzly Path</title>
+
 </head>
-<body>
-
-    <div class="dropdown">
+<body class="my-background-color">
     
-        <form>
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+    <!-- Navbar with Logout button -->
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <div class="dropdown" id="majorDropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Majors
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id = "courseChange">
+                    <a class="dropdown-item" href="#">Software Engineer</a>
+                    <a class="dropdown-item" href="#sd">Software Developer</a>
+                    <a class="dropdown-item" href="#cy">Systems and Cybersecurity </a>
+                    <a class="dropdown-item" href="#dm">Digital Media</a>
+                    <a class="dropdown-item" href="#ds">Data Science and Analytics</a>
+                    <a class="dropdown-item" href="#es">Enterprise System</a>
+                </div>
+            </div>
+            <select class="form-select form-select-sm" aria-label="small select example" id="changeMajors" style="display: none;">
+                <option selected>Change Majors</option>
+                <option value="1">Software Engineer</option>
+                <option value="2">Software Developer</option>
+                <option value="3">Systems and security</option>
+                <option value="4">Digital Media</option>
+                <option value="5">Enterprise Systems</option>
+                <option value="6">Digital Media</option>
+            </select>
+            <div class="d-flex">
+                <button id="logoutBtn" class="btn my-btn-primary">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to Grizzly Path</h1>
+        <h2 class="mb-3">My Dashboard</h2>
+        <div class="row mt-4">
+
+        <!-- Profile Card -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Profile</h5>
+                    <p class="card-text" id="profileInfo">Student Name: _____<br>Student ID: _____<br>Student Major: _____</p>
+                    <a href="#" class="btn btn-outline-primary btn-sm">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+
+    <br>
+
+    <!-- Software Development -->
+    <div id="sd" class="container-fluid bg-dark text-light">
+        <h2 class="text-center">Software Development</h2>
     </div>
-    <!-- <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div> -->
-    <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 2140</h5>
+                        <p class="card-text"> Programming Fundamental<br>Skill: Java</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 2150</h5>
+                        <p class="card-text">Intermediate Programming<br>Skill: Java</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 3150</h5>
+                        <p class="card-text">Advanced Programming<br>Skill: Java</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 3860</h5>
+                        <p class="card-text">Software Development 1<br>Skill: Java, SQL</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Cyber Security -->
+    <br>
+    <div id="cy" class="container-fluid bg-dark text-light">
+        <h2 class="text-center">System and Cybersecurity</h2>
+    </div>
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 3100</h5>
+                        <p class="card-text"> Introduction to Network<br>Skill: Hardware and Networking </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 3300</h5>
+                        <p class="card-text">Information Security<br>Skill: Core Security Principles</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 3600</h5>
+                        <p class="card-text">Operation System<br>Skill: OS Architecture</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Digital Media -->
+    <br>
+    <div id="dm" class="container-fluid bg-dark text-light">
+        <h2 class="text-center">Digital Media</h2>
+    </div>
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 2110</h5>
+                        <p class="card-text"> Digital Media<br>Skill: Adobe, HTML</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 2130</h5>
+                        <p class="card-text">Web Technology<br>Skill: HTML, CSS, Javascript, Jquery</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 4450</h5>
+                        <p class="card-text">Web Development<br>Skill: HTML, CSS, PHP</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <select class="form-select form-select-sm" aria-label="small select example">
-        <option selected>Change Majors</option>
-        <option value="1">Software Engineer</option>
-        <option value="2">Software Developer</option>
-        <option value="3">Systems and security</option>
-        <option value="4">Digital Media</option>
-        <option value="5">Enterprise Systems</option>
-        <option value="6">Digital Media</option>
-    </select>
+    <!-- Data Science and Analytics -->
+    <br>
+    <div id="ds" class="container-fluid bg-dark text-light">
+        <h2 class="text-center">Data Science and Analytics</h2>
+    </div>
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">MATH 2050</h5>
+                        <p class="card-text"> Introduction to Statistic<br>Skill: Statistic, R</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 4210</h5>
+                        <p class="card-text">Information Analytics<br>Skill: Data Strcture, Microsoft Azure </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enterprise System -->
+    <br>
+    <div id="es" class="container-fluid bg-dark text-light">
+        <h2 class="text-center">Enterprise System</h2>
+    </div>
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 2201</h5>
+                        <p class="card-text"> Information Systems<br>Skill: Strategic Application</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">ITEC 3350</h5>
+                        <p class="card-text">Digital Commerce<br>Skill: E-commerce and Marketing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
 
     <div class="container py-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <ul class="timeline">
                     <li>
-                        <div class="timeline-badge bg-success">Step 1</div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5>Research & Planning</h5>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Define goals, gather requirements, and sketch initial ideas.</p>
+                        <div class = "card shadow-sm timelineContainer">
+                            <div class="timeline-badge bg-success">Step 1</div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h5>Junior Hard Skills</h5>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>Define goals, gather requirements, and sketch initial ideas.</p>
+                                </div>
                             </div>
                         </div>
                     </li>   
                     <li>
-                        <div class="timeline-badge bg-success">Step 2</div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5>Design & Prototyping</h5>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Create wireframes and UI mockups using Figma or Bootstrap Studio.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-badge bg-success">Step 3</div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5>Design</h5>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Sort assignments of plans</p>
+                        <div class = "card shadow-sm timelineContainer">
+                            <div class="timeline-badge bg-success">Step 2</div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h5>Junior Soft Skills</h5>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>Create wireframes and UI mockups using Figma or Bootstrap Studio.</p>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <div class="timeline-badge bg-success">Step 4</div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h5>Clean</h5>
+                        <div class = "card shadow-sm timelineContainer">
+                            <div class="timeline-badge bg-success">Step 3</div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h5>Senior Hard Skills</h5>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>Sort assignments of plans</p>
+                                </div>
                             </div>
-                            <div class="timeline-body">
-                                <p>Something here</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class = "card shadow-sm timelineContainer">
+                            <div class="timeline-badge bg-success">Step 4</div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h5>Senior Soft Skills</h5>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>Something here</p>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -87,4 +284,90 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="timelineModal" tabindex="-1" aria-labelledby="timelineModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="timelineModalLabel">Step Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBodyContent">
+                    <!-- Dynamic content goes here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Get student info from localStorage
+    const studentName = localStorage.getItem('studentName') || "Guest";
+    const studentID = localStorage.getItem('studentID') || "N/A";
+    const studentMajor = localStorage.getItem('studentMajor') || "Undecided";
+    const profileInfo = document.getElementById('profileInfo');
+    const storedMajor = localStorage.getItem('studentMajor');
+
+    // Fill the Profile Card
+    document.getElementById('profileInfo').innerHTML = `Student Name: ${studentName}<br>Student ID: ${studentID}`;
+
+    function renderMajor() {
+        const studentName = localStorage.getItem('studentName') || "Guest";
+        const studentID = localStorage.getItem('studentID') || "N/A";
+        const studentMajor = localStorage.getItem('studentMajor') || "Undecided";
+
+        const profileInfo = document.getElementById('profileInfo');
+        if (profileInfo) {
+            profileInfo.innerHTML = `
+                Student Name: ${studentName}<br>
+                Student ID: ${studentID}<br>
+                Student Major: ${studentMajor}
+            `;
+        }
+    }
+
+    function setMajor(major) {
+        if (!localStorage.getItem('studentMajor')) {
+            localStorage.setItem('studentMajor', major);
+            renderMajor();
+            const controls = document.getElementById('changeMajors');
+            const dropdown = document.getElementById('majorDropdown');
+            //control is select
+            //dropdown is intitial major
+            if (controls) controls.style.display = 'block';
+            if (dropdown) dropdown.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    renderMajor();
+
+    const changeMajorsSelect = document.getElementById('changeMajors');
+    if (changeMajorsSelect) {
+      changeMajorsSelect.addEventListener('change', e => {
+        const idx  = e.target.selectedIndex;
+        const text = e.target.options[idx].text;
+        if (idx > 0){
+            localStorage.setItem('studentMajor', text)
+            renderMajor();
+        };      
+      });
+    }
+    // dropdown-items
+    document.querySelectorAll('.dropdown-menu .dropdown-item')
+    .forEach(item =>
+        item.addEventListener('click', e => {
+            e.preventDefault();
+            setMajor(item.textContent.trim());
+            })
+        );
+    });
+
+      // Logout button
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = "login.html";
+    });
+    </script>
 </body>
+</html>
