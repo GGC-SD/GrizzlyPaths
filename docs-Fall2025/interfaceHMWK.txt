@@ -1,5 +1,5 @@
 Global CSS File: interfaceSettings.css
-File Location (Path in Project): interfaceSettings.css
+File Location (Path in Project): /GGC-SD/GrizzlyPaths/tree/main/docs-Fall20255/interfaceSettings.css
 
 Team Member: Hieu
 Global Variable
