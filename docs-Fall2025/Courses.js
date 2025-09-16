@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-
-
-/* ========== SKILLS  ========== */
+/* ========== SKILLS ========== */
 const SKILLS = [
   "Java", "Python", "JavaScript", "React",
   "Web Frontend", "Web Backend / APIs",
@@ -15,7 +12,6 @@ const SKILLS = [
   "Professional Practice / Ethics", "Project / Capstone", "Internship / Research"
 ];
 
-/* ========== COURSES (code, title, and skill tags) ========== */
 const COURSES = [
   { code: "ITEC 2110", title: "Digital Media", skills: ["Digital Media", "UX / UI / HCI"] },
   { code: "ITEC 2120", title: "Intro to Programming", skills: ["Java", "Data Structures", "Algorithms"] },
@@ -73,63 +69,64 @@ const COURSES = [
   { code: "ITEC 4900", title: "IT Internship", skills: ["Internship / Research", "Professional Practice / Ethics"] },
 ];
 
-export default function App() {
-  const [selected, setSelected] = useState([]);
 
-  function toggleSkill(s) {
-    setSelected(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);
+/* ========== STATE ========== */
+let selected = [];
+
+/* ========== DOM ELEMENTS ========== */
+const skillsDiv = document.getElementById("skills");
+const coursesList = document.getElementById("courses");
+const countSpan = document.getElementById("count");
+const clearBtn = document.getElementById("clearBtn");
+
+/* ========== RENDER SKILLS ========== */
+SKILLS.forEach(skill => {
+  const btn = document.createElement("button");
+  btn.textContent = "+ " + skill;
+  btn.onclick = () => toggleSkill(skill, btn);
+  skillsDiv.appendChild(btn);
+});
+
+/* ========== TOGGLE SKILLS ========== */
+function toggleSkill(skill, button) {
+  if (selected.includes(skill)) {
+    selected = selected.filter(s => s !== skill);
+    button.classList.remove("selected");
+    button.textContent = "+ " + skill;
+  } else {
+    selected.push(skill);
+    button.classList.add("selected");
+    button.textContent = "✓ " + skill;
   }
+  renderCourses();
+}
 
-  // If nothing is selected, show everything. Otherwise, show courses
-  // that have at least ONE of the selected skills.
+/* ========== CLEAR BUTTON ========== */
+clearBtn.onclick = () => {
+  selected = [];
+  document.querySelectorAll("#skills button").forEach(btn => {
+    btn.classList.remove("selected");
+    btn.textContent = "+ " + btn.textContent.replace("✓ ", "").replace("+ ", "");
+  });
+  renderCourses();
+};
+
+/* ========== RENDER COURSES ========== */
+function renderCourses() {
   const results = COURSES.filter(c =>
     selected.length === 0 ? true : c.skills.some(s => selected.includes(s))
   );
 
-  return (
-    <div style={{ padding: 16, fontFamily: "system-ui, Arial" }}>
-      <h1 style={{ marginTop: 0 }}>Grizzly Paths </h1>
-      <p style={{ marginTop: -8 }}>Pick skills. </p>
+  coursesList.innerHTML = "";
+  results.forEach(c => {
+    const li = document.createElement("li");
+    li.innerHTML = `<b>${c.code}</b> — ${c.title}<br>
+      <span style="font-size: 12px; color: #555">Skills: ${c.skills.join(", ")}</span>`;
+    coursesList.appendChild(li);
+  });
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, margin: "12px 0" }}>
-        {SKILLS.map((s) => (
-          <button
-            key={s}
-            onClick={() => toggleSkill(s)}
-            style={{
-              padding: "6px 10px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              background: selected.includes(s) ? "#eef" : "#fff",
-              cursor: "pointer"
-            }}
-          >
-            {selected.includes(s) ? "✓ " : "+ "}{s}
-          </button>
-        ))}
-        <button
-          onClick={() => setSelected([])}
-          style={{ padding: "6px 10px", borderRadius: 6, border: "1px solid #ccc", background: "#fff", cursor: "pointer" }}
-        >
-          Clear
-        </button>
-      </div>
-
-      <hr />
-
-      <div>
-        <b>Courses shown: {results.length}</b>
-        <ul>
-          {results.map((c) => (
-            <li key={c.code} style={{ margin: "8px 0" }}>
-              <div><b>{c.code}</b> — {c.title}</div>
-              <div style={{ fontSize: 12, color: "#555" }}>
-                Skills: {c.skills.join(", ")}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
+  countSpan.textContent = results.length;
 }
+
+/* ========== INITIAL LOAD ========== */
+renderCourses();
