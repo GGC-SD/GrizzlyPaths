@@ -5,11 +5,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="interfaceSettings.css">
+    <link rel="stylesheet" type="text/css" href="coursesBackUp.html">
     <title>Grizzly Path</title>
-
 </head>
 <body class="my-background-color">
-    
     <!-- Navbar with Logout button -->
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
@@ -40,7 +39,7 @@
             </div>
         </div>
     </nav>
-
+    
     <div class="container mt-5">
         <h1 class="text-center">Welcome to Grizzly Path</h1>
         <h2 class="mb-3">My Dashboard</h2>
@@ -58,171 +57,31 @@
         </div>
         </div>
     </div>
-
     <br>
 
-    <!-- Software Development -->
-    <div id="sd" class="container-fluid bg-dark text-light">
-        <h2 class="text-center">Software Development</h2>
+    <!-- Pick Tech SKill -->
+    <h3>Pick Skill to see ITEC courses</h3>
+    <div id="skills"></div>
+        <button id="clearBtn">Clear</button>
+        <hr>
+    <div>
+        <ul id="courses"></ul>
     </div>
-    <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 2140</h5>
-                        <p class="card-text"> Programming Fundamental<br>Skill: Java</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 2150</h5>
-                        <p class="card-text">Intermediate Programming<br>Skill: Java</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 3150</h5>
-                        <p class="card-text">Advanced Programming<br>Skill: Java</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 3860</h5>
-                        <p class="card-text">Software Development 1<br>Skill: Java, SQL</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script src="Courses.js"></script>
 
-    <!-- Cyber Security -->
-    <br>
-    <div id="cy" class="container-fluid bg-dark text-light">
-        <h2 class="text-center">System and Cybersecurity</h2>
+    <!-- Pick skill -->
+    <h3>Pick Major To Show the Skills</h3>
+    <div id="role"></div>
+        <button id="clearBtn1">Clear</button>
+        <hr>
+    <div>
+        <ul id="course"></ul>
     </div>
-    <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 3100</h5>
-                        <p class="card-text"> Introduction to Network<br>Skill: Hardware and Networking </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 3300</h5>
-                        <p class="card-text">Information Security<br>Skill: Core Security Principles</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 3600</h5>
-                        <p class="card-text">Operation System<br>Skill: OS Architecture</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Digital Media -->
-    <br>
-    <div id="dm" class="container-fluid bg-dark text-light">
-        <h2 class="text-center">Digital Media</h2>
-    </div>
-    <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 2110</h5>
-                        <p class="card-text"> Digital Media<br>Skill: Adobe, HTML</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 2130</h5>
-                        <p class="card-text">Web Technology<br>Skill: HTML, CSS, Javascript, Jquery</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 4450</h5>
-                        <p class="card-text">Web Development<br>Skill: HTML, CSS, PHP</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Data Science and Analytics -->
-    <br>
-    <div id="ds" class="container-fluid bg-dark text-light">
-        <h2 class="text-center">Data Science and Analytics</h2>
-    </div>
-    <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">MATH 2050</h5>
-                        <p class="card-text"> Introduction to Statistic<br>Skill: Statistic, R</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 4210</h5>
-                        <p class="card-text">Information Analytics<br>Skill: Data Strcture, Microsoft Azure </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Enterprise System -->
-    <br>
-    <div id="es" class="container-fluid bg-dark text-light">
-        <h2 class="text-center">Enterprise System</h2>
-    </div>
-    <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 2201</h5>
-                        <p class="card-text"> Information Systems<br>Skill: Strategic Application</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">ITEC 3350</h5>
-                        <p class="card-text">Digital Commerce<br>Skill: E-commerce and Marketing</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <br>
+    <script src="HardandSoftSkills.js"></script>  
+    
+    <form action="coursesBackUp.html" method="POST" class="me-auto">
+        <button type="submit" class="btn btn-primary">View Recommend Course </button>
+    </form>
 
     <div class="container py-5">
         <div class="row">
@@ -259,6 +118,7 @@
         </div>
     </div>
 
+    
     <!-- Modal -->
     <div class="modal fade" id="timelineModal" tabindex="-1" aria-labelledby="timelineModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -268,7 +128,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modalBodyContent">
-                    <p>infromation from react should go in here</p>
+                    <p>information from react should go in here</p>
                 </div>
             </div>
         </div>
