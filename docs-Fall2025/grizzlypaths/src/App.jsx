@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
-import RecommendCourse from "./recommendCourse";
+import RecommendCourse from "./RecommendCourse";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
