@@ -22,15 +22,6 @@ export default function Dashboard({ onLogout, onViewCourses }) {
     }
   };
 
-  {/*
-  const handleDropdownMajor = (major) => {
-    if (!localStorage.getItem("studentMajor")) {
-      localStorage.setItem("studentMajor", major);
-      setStudentMajor(major);
-    }
-  };
-  */}
-
   const handleLogoutClick = () => {
     localStorage.clear();
     onLogout(); // Call App's logout
