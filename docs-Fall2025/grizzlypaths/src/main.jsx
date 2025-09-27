@@ -1,0 +1,10 @@
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+// Import Bootstrap and your custom CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './interfaceSettings.css';
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <App />
+);
