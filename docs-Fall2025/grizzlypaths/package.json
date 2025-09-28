@@ -11,11 +11,8 @@
     "firebase": "^12.3.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-<<<<<<< HEAD
+
     "react-scripts": "^5.0.1",
-=======
-    "react-scripts": "^0.0.0",
->>>>>>> parent of 292bc4f (adding index.js and updating package and main for firebase and vite)
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -43,10 +40,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.0.3",
-<<<<<<< HEAD
     "vite": "^7.1.7"
-=======
-    "vite": "^7.1.6"
->>>>>>> parent of 292bc4f (adding index.js and updating package and main for firebase and vite)
+
   }
 }
