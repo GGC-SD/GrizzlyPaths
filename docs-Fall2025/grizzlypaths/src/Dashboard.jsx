@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SoftHardSkills from "./SoftHardSkills";
 import Course from "./Course";
 
-export default function Dashboard({ onLogout, onViewCourses }) {
+export default function Dashboard({ onLogout, onViewCourses, onAboutUS }) {
   const [studentName, setStudentName] = useState("");
   const [studentID, setStudentID] = useState("");
   const [studentMajor, setStudentMajor] = useState("");
@@ -52,7 +52,10 @@ export default function Dashboard({ onLogout, onViewCourses }) {
             ))}
           </select>
 
-          <div className="d-flex ms-auto">
+          <div className="d-flex flex-row gap-2"> 
+            <button onClick={onAboutUS} className="bg-secondary rounded mt-1">
+              About Us
+            </button>
             <button onClick={handleLogoutClick} className="btn my-btn-primary">
               Logout
             </button>
@@ -75,9 +78,11 @@ export default function Dashboard({ onLogout, onViewCourses }) {
                   Student ID: {studentID} <br />
                   Student Major: {studentMajor}
                 </p>
+                {/*
                 <button className="btn btn-outline-primary btn-sm">
                   Edit Profile
                 </button>
+                */}
               </div>
             </div>
           </div>
@@ -86,8 +91,23 @@ export default function Dashboard({ onLogout, onViewCourses }) {
           <div className="col-md-4">
             <div className="card shadow-sm">
               <h5 className="card-header bg-secondary text-light text-center">Course</h5>
-              <div className="card-body text-center">
+              <div className="card-body mb-2">
                 <p className="card-text">
+                  <ul>
+                    <li>
+                      <a href = "">Certificate</a>
+                    </li>
+                    <li>
+                      <a 
+                        href="" onClick={(e) => {
+                          e.preventDefault();
+                          onViewCourses();
+                          }}
+                      >
+                      Recommend Course
+                      </a>
+                    </li>
+                  </ul>
                 </p>
               </div>
             </div>
@@ -100,10 +120,11 @@ export default function Dashboard({ onLogout, onViewCourses }) {
         <SoftHardSkills />
         <br />
 
-        {/* Recommended Courses Button */}
+        {/* Recommended Courses Button 
         <button onClick={onViewCourses} className="btn btn-primary me-2">
           View Recommended Courses
         </button>
+        */}
 
         {/* Timeline */} 
         {/*
