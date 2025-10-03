@@ -141,4 +141,12 @@ a:hover {
   justify-content: space-between;
 }
 
-
+#wrapper{
+    box-shadow: 3px 3px 3px #e4c575;
+    background-color: #fff;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #666666;
+    font-family:Arial, Helvetica, sans-serif;
+}
