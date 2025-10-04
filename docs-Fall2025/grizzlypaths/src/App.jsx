@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import RecommendCourse from "./RecommendCourse";
+import AboutUS from "./AboutUS";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,12 +29,26 @@ export default function App() {
     return <Login onLogin={handleLogin} />;
   }
 
-  if (currentPage === "dashboard") {
-    return <Dashboard onLogout={handleLogout} onViewCourses={() => setCurrentPage("courses")} />;
+  if (currentPage === "dashboard"){
+    return(
+      <Dashboard
+        onLogout={handleLogout}
+        onViewCourses={() => setCurrentPage("courses")}
+        onAboutUS={() => setCurrentPage("AboutUS")}
+      />
+    );
   }
+
+  //if (currentPage === "dashboard") {
+    //return <Dashboard onLogout={handleLogout} onViewCourses={() => setCurrentPage("courses")} />;
+  //}
 
   if (currentPage === "courses") {
     return <RecommendCourse onBack={() => setCurrentPage("dashboard")} />;
+  }
+
+  if (currentPage === "AboutUS") {
+    return <AboutUS onBack={() => setCurrentPage("dashboard")} />;
   }
 
   return null;
