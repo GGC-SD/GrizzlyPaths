@@ -1,173 +1,124 @@
-import { useEffect, useState } from "react";
-import SoftHardSkills from "./SoftHardSkills";
-import Course from "./Course";
+import { useState } from "react";
 
-export default function Dashboard({ onLogout, onViewCourses }) {
-  const [studentName, setStudentName] = useState("");
-  const [studentID, setStudentID] = useState("");
-  const [studentMajor, setStudentMajor] = useState("");
+/* ========== SKILLS & COURSES ========== */
+const SKILLS = [
+  "Java", "Python", "JavaScript", "React",
+  "Web Frontend", "Web Backend / APIs",
+  "Databases / SQL", "NoSQL",
+  "Data Structures", "Algorithms",
+  "Networks", "Operating Systems", "System Administration",
+  "Cybersecurity Basics", "Advanced Security",
+  "Cloud / DevOps", "UX / UI / HCI", "Digital Media", "Mobile",
+  "Graphics / 3D", "AI / ML", "Analytics / BI",
+  "Enterprise / ERP", "Systems Analysis & Design",
+  "Professional Practice / Ethics", "Project / Capstone", "Internship / Research"
+];
 
-  // Load student info from localStorage
-  useEffect(() => {
-    setStudentName(localStorage.getItem("studentName") || "Guest");
-    setStudentID(localStorage.getItem("studentID") || "N/A");
-    setStudentMajor(localStorage.getItem("studentMajor") || "Undecided");
-  }, []);
+const COURSES = [
+  { code: "ITEC 2110", title: "Digital Media", skills: ["Digital Media", "UX / UI / HCI"] },
+  { code: "ITEC 2120", title: "Intro to Programming", skills: ["Java", "Data Structures", "Algorithms"] },
+  { code: "ITEC 2130", title: "Web Technologies", skills: ["JavaScript", "Web Frontend", "Digital Media"] },
+  { code: "ITEC 2135", title: "Engineering Graphics/Design", skills: ["Digital Media"] },
+  { code: "ITEC 2140", title: "Programming Fundamentals", skills: ["Java", "Data Structures", "Algorithms"] },
+  { code: "ITEC 2150", title: "OOP and Data Structures", skills: ["Java", "Data Structures", "Algorithms"] },
+  { code: "ITEC 2201", title: "Intro to Information Systems", skills: ["Systems Analysis & Design"] },
+  { code: "ITEC 3100", title: "Introduction to Networks", skills: ["Networks", "Cybersecurity Basics"] },
+  { code: "ITEC 3300", title: "Information Security", skills: ["Cybersecurity Basics", "Advanced Security"] },
+  { code: "ITEC 4310", title: "Operating Systems Security", skills: ["Advanced Security", "Operating Systems"] },
+  { code: "ITEC 4320", title: "Internet Security", skills: ["Advanced Security", "Networks"] },
+  { code: "ITEC 4330", title: "System Administration", skills: ["System Administration", "Operating Systems"] },
+  { code: "ITEC 4340", title: "Ethical Hacking", skills: ["Advanced Security", "Networks"] },
+  { code: "ITEC 3130", title: "Web Programming & Design", skills: ["JavaScript", "React", "Web Frontend", "Web Backend / APIs", "UX / UI / HCI"] },
+  { code: "ITEC 3150", title: "Algorithms", skills: ["Algorithms", "Data Structures", "Java"] },
+  { code: "ITEC 3160", title: "Programming for Data Analysis", skills: ["Python", "Analytics / BI", "Data Structures", "Algorithms"] },
+  { code: "ITEC 3860", title: "Software Development I", skills: ["Systems Analysis & Design", "Web Backend / APIs", "Project / Capstone"] },
+  { code: "ITEC 3870", title: "Software Development II", skills: ["Systems Analysis & Design", "Project / Capstone"] },
+  { code: "ITEC 4260", title: "Software Testing & QA", skills: ["Project / Capstone"] },
+  { code: "ITEC 3170", title: "Data Intensive Fundamentals", skills: ["Analytics / BI", "NoSQL", "Cloud / DevOps"] },
+  { code: "ITEC 3200", title: "Intro to Databases", skills: ["Databases / SQL", "Web Backend / APIs"] },
+  { code: "ITEC 4200", title: "Advanced Databases", skills: ["Databases / SQL", "NoSQL"] },
+  { code: "ITEC 4210", title: "Information Analytics", skills: ["Analytics / BI", "Databases / SQL"] },
+  { code: "ITEC 4220", title: "Advanced Data Analytics", skills: ["AI / ML", "Analytics / BI", "Python"] },
+  { code: "ITEC 4230", title: "Data Science & Analytics Project", skills: ["Analytics / BI", "Project / Capstone"] },
+  { code: "ITEC 4000", title: "Cloud Computing Technologies", skills: ["Cloud / DevOps", "Databases / SQL"] },
+  { code: "ITEC 3110", title: "Digital Design", skills: ["Digital Media", "UX / UI / HCI"] },
+  { code: "ITEC 3450", title: "Computer Graphics & Multimedia", skills: ["Graphics / 3D", "Digital Media"] },
+  { code: "ITEC 4130", title: "Human‑Computer Interaction", skills: ["UX / UI / HCI"] },
+  { code: "ITEC 4450", title: "Web Development", skills: ["Web Frontend", "Web Backend / APIs", "Databases / SQL", "React"] },
+  { code: "ITEC 4550", title: "Mobile Application Development", skills: ["Mobile", "Web Backend / APIs", "UX / UI / HCI"] },
+  { code: "ITEC 4850", title: "3D Modeling and Animation", skills: ["Graphics / 3D", "Digital Media"] },
+  { code: "ITEC 3600", title: "Operating Systems", skills: ["Operating Systems"] },
+  { code: "ITEC 3700", title: "Systems Analysis & Design", skills: ["Systems Analysis & Design"] },
+  { code: "ITEC 4150", title: "Enterprise Process Integration", skills: ["Enterprise / ERP", "Systems Analysis & Design"] },
+  { code: "ITEC 4750", title: "Enterprise Architecture Design", skills: ["Enterprise / ERP", "Systems Analysis & Design"] },
+  { code: "ITEC 4100", title: "Advanced Networks", skills: ["Networks"] },
+  { code: "ITEC 4170", title: "International Studies in IT", skills: ["Professional Practice / Ethics"] },
+  { code: "ITEC 4700", title: "Artificial Intelligence", skills: ["AI / ML"] },
+  { code: "ITEC 3350", title: "Digital Commerce", skills: ["Systems Analysis & Design", "Web Frontend"] },
+  { code: "ITEC 3900", title: "Professional Practice & Ethics", skills: ["Professional Practice / Ethics"] },
+  { code: "ITEC 4400", title: "Special Topics in IT", skills: ["Internship / Research"] },
+  { code: "ITEC 4810", title: "IT Project I (Capstone)", skills: ["Project / Capstone"] },
+  { code: "ITEC 4820", title: "IT Project II (Capstone)", skills: ["Project / Capstone"] },
+  { code: "ITEC 4860", title: "Software Development Project", skills: ["Project / Capstone"] },
+  { code: "ITEC 4900", title: "IT Internship", skills: ["Internship / Research", "Professional Practice / Ethics"] },
+];
 
-  const handleMajorChange = (e) => {
-    const major = e.target.value;
-    if (major !== "Change Majors") {
-      localStorage.setItem("studentMajor", major);
-      setStudentMajor(major);
-    }
+export default function SkillCourses() {
+  const [selected, setSelected] = useState([]);
+
+  const toggleSkill = (skill) => {
+    setSelected((prev) =>
+      prev.includes(skill)
+        ? prev.filter((s) => s !== skill)
+        : [...prev, skill]
+    );
   };
 
-  {/*
-  const handleDropdownMajor = (major) => {
-    if (!localStorage.getItem("studentMajor")) {
-      localStorage.setItem("studentMajor", major);
-      setStudentMajor(major);
-    }
-  };
-  */}
+  const clearSkills = () => setSelected([]);
 
-  const handleLogoutClick = () => {
-    localStorage.clear();
-    onLogout(); // Call App's logout
-  };
-
-  const majors = [
-    "Software Engineer",
-    "Software Developer",
-    "Systems and Cybersecurity",
-    "Digital Media",
-    "Data Science and Analytics",
-    "Enterprise System"
-  ];
+  // Only show courses when at least one skill is selected
+  const filteredCourses = selected.length === 0
+    ? []
+    : COURSES.filter((c) => c.skills.some((s) => selected.includes(s)));
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-dark">
-          <div className="container-fluid">
-          {/* Select for changing majors */}
-          <select
-            className="form-select form-select-sm"
-            aria-label="small select example"
-            onChange={handleMajorChange}
+      <h3>Pick Skill to see ITEC courses</h3>
+
+      {/* Skill Buttons */}
+      <div className="mb-3">
+        {SKILLS.map((skill) => (
+          <button
+            key={skill}
+            className={`btn me-2 mb-2 ${selected.includes(skill) ? "btn-success" : "btn-outline-primary"}`}
+            onClick={() => toggleSkill(skill)}
           >
-            <option>Change Majors</option>
-            {majors.map((major) => (
-              <option key={major}>{major}</option>
+            {selected.includes(skill) ? "✓ " : "+ "} {skill}
+          </button>
+        ))}
+      </div>
+
+      {/* Clear Button */}
+      <button className="btn btn-secondary mb-3" onClick={clearSkills}>
+        Clear
+      </button>
+
+      {/* Courses List */}
+      {filteredCourses.length > 0 && (
+        <div>
+          <b>Courses Found: {filteredCourses.length}</b>
+          <ul className="list-group mt-2">
+            {filteredCourses.map((course) => (
+              <li key={course.code} className="list-group-item">
+                <b>{course.code}</b> — {course.title} <br />
+                <span style={{ fontSize: "12px", color: "#555" }}>
+                  Skills: {course.skills.join(", ")}
+                </span>
+              </li>
             ))}
-          </select>
-
-          <div className="d-flex ms-auto">
-            <button onClick={handleLogoutClick} className="btn my-btn-primary">
-              Logout
-            </button>
-          </div>
+          </ul>
         </div>
-      </nav>
-
-      {/* Dashboard Content */}
-      <div className="container mt-5">
-        <h1 className="text-center">Welcome to Grizzly Path</h1>
-        <h2 className="mb-3">My Dashboard</h2>
-
-        <div className="row mt-4">
-          {/* Profile Card */}
-          <div className="col-md-4">
-            <div className="card shadow-sm">
-              <div className="card-body text-center">
-                <h5 className="card-title">Profile</h5>
-                <p className="card-text">
-                  Student Name: {studentName} <br />
-                  Student ID: {studentID} <br />
-                  Student Major: {studentMajor}
-                </p>
-                <button className="btn btn-outline-primary btn-sm">
-                  Edit Profile
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <br />
-        <Course />
-        <br />
-        <SoftHardSkills />
-        <br />
-
-        {/* Recommended Courses Button */}
-        <button onClick={onViewCourses} className="btn btn-primary me-2">
-          View Recommended Courses
-        </button>
-
-        {/* Timeline */}
-        <div className="container py-5">
-          <div className="row">
-            <div className="col-md-6 offset-md-3">
-              <ul className="timeline">
-                <li>
-                  <div className="card shadow-sm timelineContainer">
-                    <div className="timeline-badge bg-success">Step 1</div>
-                    <div className="timeline-panel">
-                      <div className="timeline-heading">
-                        <h5>Hard Skills</h5>
-                      </div>
-                      <div className="timeline-body">
-                        <p>Technical skills that are shown in work</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="card shadow-sm timelineContainer">
-                    <div className="timeline-badge bg-success">Step 2</div>
-                    <div className="timeline-panel">
-                      <div className="timeline-heading">
-                        <h5>Soft Skills</h5>
-                      </div>
-                      <div className="timeline-body">
-                        <p>Skills that are used in personal interactions</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal */}
-      <div
-        className="modal fade"
-        id="timelineModal"
-        tabIndex="-1"
-        aria-labelledby="timelineModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="timelineModalLabel">
-                Step Details
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body" id="modalBodyContent">
-              <p>information from react should go in here</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

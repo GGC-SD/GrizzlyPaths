@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SoftHardSkills from "./SoftHardSkills";
 import Course from "./Course";
 
-export default function Dashboard({ onLogout, onViewCourses }) {
+export default function Dashboard({ onLogout, onViewCourses, onAboutUS }) {
   const [studentName, setStudentName] = useState("");
   const [studentID, setStudentID] = useState("");
   const [studentMajor, setStudentMajor] = useState("");
@@ -21,15 +21,6 @@ export default function Dashboard({ onLogout, onViewCourses }) {
       setStudentMajor(major);
     }
   };
-
-  {/*
-  const handleDropdownMajor = (major) => {
-    if (!localStorage.getItem("studentMajor")) {
-      localStorage.setItem("studentMajor", major);
-      setStudentMajor(major);
-    }
-  };
-  */}
 
   const handleLogoutClick = () => {
     localStorage.clear();
@@ -61,7 +52,10 @@ export default function Dashboard({ onLogout, onViewCourses }) {
             ))}
           </select>
 
-          <div className="d-flex ms-auto">
+          <div className="d-flex flex-row gap-2"> 
+            <button onClick={onAboutUS} className="bg-secondary rounded mt-1">
+              About Us
+            </button>
             <button onClick={handleLogoutClick} className="btn my-btn-primary">
               Logout
             </button>
@@ -72,39 +66,68 @@ export default function Dashboard({ onLogout, onViewCourses }) {
       {/* Dashboard Content */}
       <div className="container mt-5">
         <h1 className="text-center">Welcome to Grizzly Path</h1>
+        <hr/>
         <h2 className="mb-3">My Dashboard</h2>
-
         <div className="row mt-4">
-          {/* Profile Card */}
-          <div className="col-md-4">
+          <div className="col-md-4 mb-3">
             <div className="card shadow-sm">
+              <h5 className="card-header bg-secondary text-light text-center">Student Information</h5>
               <div className="card-body text-center">
-                <h5 className="card-title">Profile</h5>
                 <p className="card-text">
                   Student Name: {studentName} <br />
                   Student ID: {studentID} <br />
                   Student Major: {studentMajor}
                 </p>
+                {/*
                 <button className="btn btn-outline-primary btn-sm">
                   Edit Profile
                 </button>
+                */}
               </div>
             </div>
           </div>
-        </div>
-
+        
+          <br />
+          <div className="col-md-4">
+            <div className="card shadow-sm">
+              <h5 className="card-header bg-secondary text-light text-center">Course</h5>
+              <div className="card-body mb-2">
+                <p className="card-text">
+                  <ul>
+                    <li>
+                      <a href = "">Certificate</a>
+                    </li>
+                    <li>
+                      <a 
+                        href="" onClick={(e) => {
+                          e.preventDefault();
+                          onViewCourses();
+                          }}
+                      >
+                      Recommend Course
+                      </a>
+                    </li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>  
+        
         <br />
         <Course />
         <br />
         <SoftHardSkills />
         <br />
 
-        {/* Recommended Courses Button */}
+        {/* Recommended Courses Button 
         <button onClick={onViewCourses} className="btn btn-primary me-2">
           View Recommended Courses
         </button>
+        */}
 
-        {/* Timeline */}
+        {/* Timeline */} 
+        {/*
         <div className="container py-5">
           <div className="row">
             <div className="col-md-6 offset-md-3">
@@ -140,8 +163,10 @@ export default function Dashboard({ onLogout, onViewCourses }) {
           </div>
         </div>
       </div>
+      */} 
 
-      {/* Modal */}
+      {/* Modal */} 
+      {/*
       <div
         className="modal fade"
         id="timelineModal"
@@ -167,7 +192,15 @@ export default function Dashboard({ onLogout, onViewCourses }) {
             </div>
           </div>
         </div>
+      */}
+
       </div>
+      <footer>
+        <div className="footer-row">
+          <p>&copy; <b>2025 Georgia Gwinnett College GrizzlyPath</b></p>
+          <a href="#top"><b>Back to Top </b></a>
+        </div>
+      </footer>
     </div>
-  );
+);
 }

@@ -124,3 +124,29 @@ form {
     border-color: black;
     margin-bottom: 10px;
 }
+
+footer{
+  margin-top: 40px;
+  background-image: url("src/footer.jpg");
+  background-size: cover;
+  height: 50px;
+}
+
+a:hover {
+  color: red;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+#wrapper{
+    box-shadow: 3px 3px 3px #e4c575;
+    background-color: #fff;
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #666666;
+    font-family:Arial, Helvetica, sans-serif;
+}
