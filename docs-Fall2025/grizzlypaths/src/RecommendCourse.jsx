@@ -1,5 +1,3 @@
-//import React from "react";
-
 // Single Course Card
 const CourseCard = ({ title, description, skill }) => (
   <div className="col">
@@ -89,7 +87,7 @@ export default function RecommendCourse({ onBack }) {
           { title: "ITEC 4210", description: "Information Analytics", skill: "Data Structure, Microsoft Azure" },
         ]}
       />
-
+      
       <Section
         id="es"
         title="Enterprise System"
@@ -98,6 +96,12 @@ export default function RecommendCourse({ onBack }) {
           { title: "ITEC 3350", description: "Digital Commerce", skill: "E-commerce and Marketing" },
         ]}
       />
+      
+      <footer>
+        <p>
+          &copy; <b>2025 Georgia Gwinnett College GrizzlyPath</b>
+        </p>
+      </footer>
     </div>
   );
 }
