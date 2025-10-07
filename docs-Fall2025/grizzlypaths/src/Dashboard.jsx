@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SoftHardSkills from "./SoftHardSkills";
 import Course from "./Course";
 
-export default function Dashboard({ onLogout, onViewCourses, onAboutUS }) {
+export default function Dashboard({ onLogout, onViewCourses, onAboutUS, , onViewRoadMap }) {
   const [studentName, setStudentName] = useState("");
   const [studentID, setStudentID] = useState("");
   const [studentMajor, setStudentMajor] = useState("");
@@ -72,7 +72,7 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS }) {
           <div className="col-md-4 mb-3">
             <div className="card shadow-sm">
               <h5 className="card-header bg-secondary text-light text-center">Student Information</h5>
-              <div className="card-body text-center">
+              <div className="card-body text-center mb-3">
                 <p className="card-text">
                   Student Name: {studentName} <br />
                   Student ID: {studentID} <br />
@@ -91,7 +91,7 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS }) {
           <div className="col-md-4">
             <div className="card shadow-sm">
               <h5 className="card-header bg-secondary text-light text-center">Course</h5>
-              <div className="card-body mb-2">
+              <div className="card-body">
                 <p className="card-text">
                   <ul>
                     <li>
@@ -107,12 +107,22 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS }) {
                       Recommend Course
                       </a>
                     </li>
+                    <li>
+                      <a 
+                        href="" onClick={(e) => {
+                          e.preventDefault();
+                          onViewRoadMap();
+                          }}
+                      >
+                      RoadMap
+                      </a>
+                    </li>
                   </ul>
                 </p>
               </div>
             </div>
           </div>
-        </div>  
+        </div>
         
         <br />
         <Course />
