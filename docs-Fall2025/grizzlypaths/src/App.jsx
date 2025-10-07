@@ -3,6 +3,7 @@ import Login from "./Login";
 import Dashboard from "./Dashboard";
 import RecommendCourse from "./RecommendCourse";
 import AboutUS from "./AboutUS";
+import RoadMap from "./Roadmap";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -35,6 +36,7 @@ export default function App() {
         onLogout={handleLogout}
         onViewCourses={() => setCurrentPage("courses")}
         onAboutUS={() => setCurrentPage("AboutUS")}
+        onViewRoadMap={() => setCurrentPage("roadmap")}
       />
     );
   }
@@ -45,6 +47,10 @@ export default function App() {
 
   if (currentPage === "courses") {
     return <RecommendCourse onBack={() => setCurrentPage("dashboard")} />;
+  }
+
+  if (currentPage === "roadmap") {
+    return <RoadMap onBack={() => setCurrentPage("dashboard")} />;
   }
 
   if (currentPage === "AboutUS") {
