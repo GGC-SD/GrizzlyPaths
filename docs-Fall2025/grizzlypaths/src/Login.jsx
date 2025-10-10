@@ -1,18 +1,19 @@
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase"; 
 
 export default function Login({ onLogin }) {
-  const [studentName, setStudentName] = useState("");
-  const [studentID, setStudentID] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (studentName.trim() && studentID.trim()) {
-      localStorage.setItem("studentName", studentName);
-      localStorage.setItem("studentID", studentID);
-      onLogin();
-    } else {
-      setMessage("Please enter both name and ID!");
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      onLogin(); 
+    } catch (error) {
+      setMessage("Login failed: " + error.message);
     }
   };
 
