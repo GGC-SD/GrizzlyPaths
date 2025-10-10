@@ -23,25 +23,25 @@ export default function Login({ onLogin }) {
         <h3 className="text-center mb-3">Grizzly Path Login</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="studentname" className="form-label">Student Name</label>
+            <label htmlFor="email" className="form-label">Email</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
-              id="studentname"
-              value={studentName}
-              onChange={(e) => setStudentName(e.target.value)}
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
           <div className="mb-3">
-            <label htmlFor="studentID" className="form-label">Student ID</label>
+            <label htmlFor="password" className="form-label">Password</label>
             <input
-              type="number"
+              type="password"
               className="form-control"
-              id="studentID"
-              value={studentID}
-              onChange={(e) => setStudentID(e.target.value)}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
