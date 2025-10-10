@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SoftHardSkills from "./SoftHardSkills";
 import Course from "./Course";
 
-export default function Dashboard({ onLogout, onViewCourses, onAboutUS, , onViewRoadMap }) {
+export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRoadMap }) {
   const [studentName, setStudentName] = useState("");
   const [studentID, setStudentID] = useState("");
   const [studentMajor, setStudentMajor] = useState("");
