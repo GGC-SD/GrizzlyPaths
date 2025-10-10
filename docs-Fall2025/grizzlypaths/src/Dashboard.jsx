@@ -28,7 +28,6 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
   };
 
   const majors = [
-    "Software Engineer",
     "Software Developer",
     "Systems and Cybersecurity",
     "Digital Media",
@@ -52,6 +51,7 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
             ))}
           </select>
 
+          {/*
           <div className="d-flex flex-row gap-2"> 
             <button onClick={onAboutUS} className="bg-secondary rounded mt-1">
               About Us
@@ -59,6 +59,17 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
             <button onClick={handleLogoutClick} className="btn my-btn-primary">
               Logout
             </button>
+          </div>
+          */}
+          <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <i className="bi bi-person-circle"></i>
+            </button>
+
+            <div className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+              <a className="dropdown-item" onClick={onAboutUS} >About Us</a>
+              <a className="dropdown-item" onClick={handleLogoutClick} >Logout</a>
+            </div>
           </div>
         </div>
       </nav>
@@ -124,12 +135,14 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
           </div>
         </div>
         
+        {/*
         <br />
         <Course />
         <br />
         <SoftHardSkills />
         <br />
-
+        */}
+        
         {/* Recommended Courses Button 
         <button onClick={onViewCourses} className="btn btn-primary me-2">
           View Recommended Courses
@@ -205,6 +218,14 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
       */}
 
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <footer>
         <div className="footer-row">
           <p>&copy; <b>2025 Georgia Gwinnett College GrizzlyPath</b></p>
