@@ -209,7 +209,7 @@ function Card({ title, info, backText, onClick }) {
   );
 }
 
-export default function ITRoadmap() {
+export default function ITRoadmap({ onBack }) {
   const [majorId, setMajorId] = useState("");
   const [coursesFor, setCoursesFor] = useState(null);
   const skillToCourses = useMemo(buildSkillToCourses, []);
@@ -244,6 +244,16 @@ export default function ITRoadmap() {
   return (
     <div>
       <style>{globalCSS}</style>
+
+      {/* Back to Dashboard button (added) */}
+      <div className="container mt-4">
+        <div className="d-flex justify-content-end">
+          <button onClick={onBack} className="btn btn-secondary mb-4">
+            ← Back to Dashboard
+          </button>
+        </div>
+      </div>
+
       <header>
         <h1>Information Technology Roadmap</h1>
       </header>
@@ -331,4 +341,3 @@ h2{margin:0 0 6px;font-size:18px}
 h3{margin:14px 0 8px;font-size:16px}
 @media (max-width:600px){select.form-select{width:100%;margin-left:0}.controls{gap:8px}}
 `;
-
