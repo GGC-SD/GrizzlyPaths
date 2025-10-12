@@ -51,16 +51,6 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
             ))}
           </select>
 
-          {/*
-          <div className="d-flex flex-row gap-2"> 
-            <button onClick={onAboutUS} className="bg-secondary rounded mt-1">
-              About Us
-            </button>
-            <button onClick={handleLogoutClick} className="btn my-btn-primary">
-              Logout
-            </button>
-          </div>
-          */}
           <div className="dropdown">
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             <i className="bi bi-person-circle"></i>
@@ -134,88 +124,6 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
             </div>
           </div>
         </div>
-        
-        {/*
-        <br />
-        <Course />
-        <br />
-        <SoftHardSkills />
-        <br />
-        */}
-        
-        {/* Recommended Courses Button 
-        <button onClick={onViewCourses} className="btn btn-primary me-2">
-          View Recommended Courses
-        </button>
-        */}
-
-        {/* Timeline */} 
-        {/*
-        <div className="container py-5">
-          <div className="row">
-            <div className="col-md-6 offset-md-3">
-              <ul className="timeline">
-                <li>
-                  <div className="card shadow-sm timelineContainer">
-                    <div className="timeline-badge bg-success">Step 1</div>
-                    <div className="timeline-panel">
-                      <div className="timeline-heading">
-                        <h5>Hard Skills</h5>
-                      </div>
-                      <div className="timeline-body">
-                        <p>Technical skills that are shown in work</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="card shadow-sm timelineContainer">
-                    <div className="timeline-badge bg-success">Step 2</div>
-                    <div className="timeline-panel">
-                      <div className="timeline-heading">
-                        <h5>Soft Skills</h5>
-                      </div>
-                      <div className="timeline-body">
-                        <p>Skills that are used in personal interactions</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      */} 
-
-      {/* Modal */} 
-      {/*
-      <div
-        className="modal fade"
-        id="timelineModal"
-        tabIndex="-1"
-        aria-labelledby="timelineModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="timelineModalLabel">
-                Step Details
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body" id="modalBodyContent">
-              <p>information from react should go in here</p>
-            </div>
-          </div>
-        </div>
-      */}
 
       </div>
       <br></br>
