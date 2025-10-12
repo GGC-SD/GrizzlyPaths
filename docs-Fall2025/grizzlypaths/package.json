@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bootstrap-icons": "^1.13.1",
+    "csv-parser": "^3.2.0",
     "firebase": "^12.4.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
