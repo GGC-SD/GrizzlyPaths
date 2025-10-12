@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SoftHardSkills from "./SoftHardSkills";
 import Course from "./Course";
+import { Link } from "react-router-dom";
 
 export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRoadMap }) {
   const [studentName, setStudentName] = useState("");
@@ -117,6 +118,9 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
                       >
                       RoadMap
                       </a>
+                    </li>
+                    <li>
+                      <Link to="/import">Import CSV to Firebase</Link>
                     </li>
                   </ul>
                 </p>

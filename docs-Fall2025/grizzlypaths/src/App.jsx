@@ -69,6 +69,7 @@ import RecommendCourse from "./RecommendCourse";
 import AboutUS from "./AboutUS";
 import RoadMap from "./Roadmap";
 import Write from "./Component/Write";
+import Read from "./Component/Read";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -106,6 +107,8 @@ export default function App() {
             />
           }
         />
+        <Route
+        path="/import" element={<Read/>} />
         <Route
           path="/courses"
           element={<RecommendCourse onBack={() => window.location.href = "/"} />}
