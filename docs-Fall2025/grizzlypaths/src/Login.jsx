@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, get } from "firebase/database";
 import { auth } from "./firebase"; 
 
 export default function Login({ onLogin }) {
@@ -9,14 +10,31 @@ export default function Login({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      onLogin(); 
+      //sign in
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      // Fetch student info from Realtime Database
+      const db = getDatabase();
+      const studentRef = ref(db, "student/" + uid);
+      const snapshot = await get(studentRef);
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        localStorage.setItem("studentName", data.name);
+        localStorage.setItem("studentID", data.studentID);
+        localStorage.setItem("studentMajor", data.major);
+        onLogin(); 
+      } else {
+        setMessage("Student data not found in database.");
+      }
     } catch (error) {
       setMessage("Login failed: " + error.message);
     }
   };
-
+      
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="card p-4 shadow" style={{ width: "350px" }}>
