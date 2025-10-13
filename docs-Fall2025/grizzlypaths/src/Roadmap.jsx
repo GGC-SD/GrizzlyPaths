@@ -281,17 +281,15 @@ export default function ITRoadmap({ onBack }) {
     <div>
       <style>{globalCSS}</style>
 
-      {/* Back to Dashboard button (added) */}
-      <div className="container mt-4">
+      <header className="mb-4 position-relative">
+        <h1 className="position-absolute top-50 start-50 translate-middle m-0">
+          Information Technology Roadmap
+        </h1>
         <div className="d-flex justify-content-end">
-          <button onClick={onBack} className="btn btn-secondary mb-4">
-            ← Back to Dashboard
+          <button onClick={onBack} className="btn btn-outline-primary">
+            ← Dashboard
           </button>
         </div>
-      </div>
-
-      <header>
-        <h1>Information Technology Roadmap</h1>
       </header>
 
       <div className="wrap">
