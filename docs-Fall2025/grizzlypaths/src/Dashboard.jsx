@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import SoftHardSkills from "./SoftHardSkills";
-import Course from "./Course";
+import { ref, update } from "firebase/database";
+import { auth, database } from "./firebase"; 
 import { Link } from "react-router-dom";
 
 export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRoadMap }) {
@@ -15,17 +15,29 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
     setStudentMajor(localStorage.getItem("studentMajor") || "Undecided");
   }, []);
 
-  const handleMajorChange = (e) => {
+  const handleMajorChange = async (e) => {
     const major = e.target.value;
     if (major !== "Change Majors") {
-      localStorage.setItem("studentMajor", major);
       setStudentMajor(major);
+      localStorage.setItem("studentMajor", major);
+      const user = auth.currentUser;
+      if (!user) {
+      console.error("No user logged in");
+      return;
     }
-  };
+    try{
+      const studentRef = ref(database, "student/" + user.uid);
+      await update(studentRef, {major});
+      console.log("Major updated in Firebase:", major);
+    } catch(error){
+      console.error("Error updating major:", error);
+    }
+  }
+};
 
   const handleLogoutClick = () => {
     localStorage.clear();
-    onLogout(); // Call App's logout
+    onLogout(); 
   };
 
   const majors = [
@@ -37,18 +49,19 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
   ];
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <nav className="navbar navbar-expand-lg bg-dark">
-          <div className="container-fluid">
+          <div className="container-fluid d-flex justify-content-between align-items-center">
           {/* Select for changing majors */}
           <select
             className="form-select form-select-sm"
             aria-label="small select example"
+            value={studentMajor}
             onChange={handleMajorChange}
           >
-            <option>Change Majors</option>
+            <option disabled>Change Majors</option>
             {majors.map((major) => (
-              <option key={major}>{major}</option>
+              <option key={major} value={major}>{major}</option>
             ))}
           </select>
 
@@ -96,9 +109,7 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
               <div className="card-body">
                 <p className="card-text">
                   <ul>
-                    <li>
-                      <a href = "">Certificate</a>
-                    </li>
+                    <li><a href = "">Certificate</a></li>
                     <li>
                       <a 
                         href="" onClick={(e) => {
@@ -130,18 +141,10 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
         </div>
 
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <footer>
+      <footer className="mt-auto">
         <div className="footer-row">
           <p>&copy; <b>2025 Georgia Gwinnett College GrizzlyPath</b></p>
-          <a href="#top"><b>Back to Top </b></a>
+          {/* <a href="#top"><b>Back to Top </b></a>*/} 
         </div>
       </footer>
     </div>
