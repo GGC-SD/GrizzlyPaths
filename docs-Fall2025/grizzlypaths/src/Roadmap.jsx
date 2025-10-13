@@ -1,4 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import JobSelect from "./Component/JobSelect";
+import { app } from "./firebase";
+import { getDatabase, ref, onValue, off } from "firebase/database";
 
 const COURSE_NAME = {
   "ITEC 2110": "Digital Media",
@@ -195,6 +198,9 @@ function Card({ title, info, backText, onClick }) {
     setFlipped((f) => !f);
     if (onClick) onClick();
   };
+
+  const db = getDatabase(app);
+
   return (
     <div className="card" onClick={toggle}>
       <div className={`inner ${flipped ? "flip" : ""}`}>
@@ -217,6 +223,36 @@ export default function ITRoadmap({ onBack }) {
     () => MAJORS.find((m) => m.id === majorId),
     [majorId]
   );
+  const [titles, setTitles] = useState([]);
+  const [loadingTitles, setLoadingTitles] = useState(true);
+  const [selectedJob, setSelectedJob] = useState("");
+  const db = getDatabase(app);
+
+  useEffect(() => {
+    const jobsRef = ref(db, "jobs");
+    const handleSnapshot = (snap) => {
+      const data = snap.val();
+      if (!data) { setTitles([]); setLoadingTitles(false); return; }
+      const rows = Object.values(data);
+      const extracted = rows
+        .map(r => r?.job_title ?? r?.['job title'] ?? r?.jobTitle ?? r?.title ?? null)
+        .filter(Boolean)
+        .map(t => String(t).trim());
+      const unique = Array.from(new Set(extracted)).sort((a,b) => a.localeCompare(b));
+      setTitles(unique);
+      setLoadingTitles(false);
+    };
+    const handleError = (err) => { console.error(err); setTitles([]); setLoadingTitles(false); };
+    onValue(jobsRef, handleSnapshot, handleError);
+    return () => off(jobsRef, "value", handleSnapshot);
+  }, [db]);
+
+  const handleJobChange = (e) => {
+    const selected = e.target.value;
+    setSelectedJob(selected);
+    localStorage.setItem("selectedJob", selected);
+    console.log("Selected job:", selected);
+  };
 
   const renderSkills = () =>
     selectedMajor?.skills.map((skill) => {
@@ -283,8 +319,27 @@ export default function ITRoadmap({ onBack }) {
 
             <div className="field">
               <label htmlFor="jobSelect">Job Role</label>
-              <select id="jobSelect" className="form-select" defaultValue="">
+              {/* <select id="jobSelect" className="form-select" defaultValue="">
                 <option value="">Browse by job…</option>
+              </select> */}
+              <select
+                id="jobSelect"
+                className="form-select"
+                value={selectedJob}
+                onChange={handleJobChange}
+              >
+                <option value="">Browse by job…</option>
+                {loadingTitles ? (
+                  <option value="" disabled>
+                    Loading…
+                  </option>
+                ) : (
+                  titles.map((title) => (
+                    <option key={title} value={title}>
+                      {title}
+                    </option>
+                  ))
+                )}
               </select>
             </div>
           </div>
