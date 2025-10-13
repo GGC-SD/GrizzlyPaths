@@ -91,7 +91,7 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
                 <p className="card-text">
                   Student Name: {studentName} <br />
                   Student ID: {studentID} <br />
-                  Student Major: {studentMajor}
+                  Student Major: {studentMajor} <br/><br/>
                 </p>
                 {/*
                 <button className="btn btn-outline-primary btn-sm">
