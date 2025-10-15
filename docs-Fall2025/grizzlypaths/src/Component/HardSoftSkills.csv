@@ -1,0 +1,18 @@
+id,name,hard_skills,soft_skils
+software_dev,Software Development,"[""Java, JavaScript, React"",
+      ""Web Frontend"",
+      ""Web Backend / APIs"",
+      ""Databases / SQL"",
+      ""Data Structures & Algorithms"",
+      ""Cloud / DevOps"",
+      ""Testing & QA""]","[""Requirements & user stories"",
+      ""Code review & version control"",
+      ""Estimating & prioritization"",
+      ""Writing design docs"",
+      ""Agile teamwork & demos""]"
+systems_security,Systems & Security,"[""Networks"", ""Operating Systems"", ""System Administration"", ""Cybersecurity Basics"", ""Advanced Security""]","[""Incident comms & runbooks"", ""Threat modeling"", ""Policy & governance"", ""Stakeholder training""]"
+data_analytics,Data / Analytics,"[""Python"", ""SQL & NoSQL"", ""Analytics / BI"", ""AI / ML"", ""Cloud (pipelines)""]","[""Data storytelling"", ""Experiment design"", ""Stakeholder alignment"", ""Documentation""]"
+digital_media,Digital Media / UX,"[""UX / UI / HCI"", ""JavaScript & React"", ""Graphics / 3D"", ""Mobile"", ""Web Frontend""]","[""User research"", ""Design critique"", ""Accessibility"", ""Presenting design rationale""]"
+enterprise,Enterprise Systems,"[""Systems Analysis & Design"", ""Databases / SQL"", ""Enterprise / ERP"", ""Cloud / DevOps""]","[""Process modeling"", ""Change management"", ""Requirements traceability"", ""Release planning""]"
+,,,
+,,,
