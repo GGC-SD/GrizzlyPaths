@@ -24,7 +24,7 @@ export default function MajorUploader() {
         const hardSkills = JSON.parse(row.hard_skills.replace(/""/g, '"'));
         const softSkills = JSON.parse(row.soft_skils.replace(/""/g, '"'));
 
-        set(ref(db, `skills/${row.id}`), {
+        set(ref(db, `majors/${row.id}`), {
           name: row.name,
           hard_skills: hardSkills,
           soft_skills: softSkills,
