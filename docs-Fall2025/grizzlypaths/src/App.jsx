@@ -70,6 +70,7 @@ import AboutUS from "./AboutUS";
 import RoadMap from "./Roadmap";
 import Write from "./Component/Write";
 import Read from "./Component/Read";
+import MajorUploader from "./Component/ImportMajors";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -112,6 +113,7 @@ export default function App() {
         <Route path="/roadmap" element={<RoadMap onBack={() => window.location.href = "/"} />} />
         <Route path="/about" element={<AboutUS onBack={() => window.location.href = "/"} />} />
         <Route path="/write" element={<Write />} />
+        <Route path="/major" element={<MajorUploader />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

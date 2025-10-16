@@ -1,49 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Papa from 'papaparse';
-import { getDatabase, ref, push, set } from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
 import { app } from '../firebase';
 
-const csvData = "src\Component\HardSoftSkills.csv";
 const db = getDatabase(app);
+const csvURL = "https://raw.githubusercontent.com/GGC-SD/GrizzlyPaths/main/docs-Fall2025/grizzlypaths/src/Component/HardSoftSkills.csv";
 
-export default function MajorUploader(){
+export default function MajorUploader() {
+  useEffect(() => {
+    const hasUploaded = localStorage.getItem('skillsUploaded');
+    if (hasUploaded) {
+      console.log('Skills already uploaded. Skipping...');
+      return;
+    }
 
-    useEffect(() =>{
+    Papa.parse(csvURL, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        results.data.forEach((row) => {
+          if (!row.id) return;
 
-        const hasUploaded = localStorage.getItem('skillsUploaded');
+          const hardSkills = JSON.parse(row.hard_skills.replace(/""/g, '"'));
+          const softSkills = JSON.parse(row.soft_skils.replace(/""/g, '"'));
 
-        if (hasUploaded) {
-            console.log('Skills already uploaded. Skipping...');
-            return;
-        
-        }
-        const parsed = Papa.parse(csvData, 
-            {
-                header: true,
-                skipEmptyLines: true
-            });
+          set(ref(db, `skills/${row.id}`), {
+            name: row.name,
+            hard_skills: hardSkills,
+            soft_skills: softSkills,
+          });
+        });
 
-            parsed.data.forEach((row) => {
-                if (!row.id) return;
+        localStorage.setItem('skillsUploaded', 'true');
+      },
+    });
+  }, []);
 
-                const hardSkills = JSON.parse(row.hard_skills.replace(/""/g, '"'));
-                const softSkills = JSON.parse(row.soft_skills.replace(/""/g, '"'));
-
-                set(ref(db, 'skills/${row.id}'), {
-                    name: row.name,
-                    hard_skills: row.hardSkills,
-                    soft_skills: row.softSkills,
-                });
-            });
-            localStorage.setItem('skillsUploaded', 'true')
-            
-        }, 
-    []);
-    return  (
-        <div>
-        <h3>Upload Majors CSV</h3>
-        <input type="file" accept=".csv" onChange={handleFileUpload} />
-        {uploaded && <p>Upload complete!</p>}
-        </div>
-    )
+  return <div>Uploading majors to Firebase…</div>;
 }
