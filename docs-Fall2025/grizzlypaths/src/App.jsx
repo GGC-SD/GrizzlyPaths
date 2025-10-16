@@ -71,6 +71,7 @@ import RoadMap from "./Roadmap";
 import Write from "./Component/Write";
 import Read from "./Component/Read";
 import MajorUploader from "./Component/ImportMajors";
+import ReadCourses from "./Component/ImportCourse";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -114,6 +115,7 @@ export default function App() {
         <Route path="/about" element={<AboutUS onBack={() => window.location.href = "/"} />} />
         <Route path="/write" element={<Write />} />
         <Route path="/major" element={<MajorUploader />} />
+        <Route path="/course" element={<ReadCourses />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
