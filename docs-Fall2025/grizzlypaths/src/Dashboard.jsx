@@ -3,6 +3,7 @@ import { ref, update } from "firebase/database";
 import { auth, database } from "./firebase"; 
 import { Link } from "react-router-dom";
 import MajorUploader from "./Component/ImportMajors";
+import ReadCourses from "./Component/ImportCourse";
 
 export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRoadMap }) {
   const [studentName, setStudentName] = useState("");
@@ -136,6 +137,9 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
                     </li>
                     <li>
                       <button onClick={MajorUploader}>Upload Skills to Firebase</button>
+                    </li>
+                    <li>
+                      <button onClick={ReadCourses}>Upload Courses to firebase</button>
                     </li>
                   </ul>
                 </p>
