@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ref, update } from "firebase/database";
 import { auth, database } from "./firebase"; 
 import { Link } from "react-router-dom";
+import MajorUploader from "./Component/ImportMajors";
 
 export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRoadMap }) {
   const [studentName, setStudentName] = useState("");
@@ -134,7 +135,7 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
                       <Link to="/import">Import CSV to Firebase</Link>
                     </li>
                     <li>
-                      <button onClick={uploadSkillsToFirebase}>Upload Skills to Firebase</button>
+                      <button onClick={MajorUploader}>Upload Skills to Firebase</button>
                     </li>
                   </ul>
                 </p>
