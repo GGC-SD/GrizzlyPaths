@@ -1,46 +1,65 @@
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, get } from "firebase/database";
+import { auth } from "./firebase"; 
 
 export default function Login({ onLogin }) {
-  const [studentName, setStudentName] = useState("");
-  const [studentID, setStudentID] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (studentName.trim() && studentID.trim()) {
-      localStorage.setItem("studentName", studentName);
-      localStorage.setItem("studentID", studentID);
-      onLogin();
-    } else {
-      setMessage("Please enter both name and ID!");
+    setMessage("");
+    try {
+      //sign in
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      // Fetch student info from Realtime Database
+      const db = getDatabase();
+      const studentRef = ref(db, "student/" + uid);
+      const snapshot = await get(studentRef);
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        localStorage.setItem("studentName", data.name);
+        localStorage.setItem("studentID", data.studentID);
+        localStorage.setItem("studentMajor", data.major);
+        onLogin(); 
+      } else {
+        setMessage("Student data not found in database.");
+      }
+    } catch (error) {
+      setMessage("Login failed: " + error.message);
     }
   };
-
+      
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="card p-4 shadow" style={{ width: "350px" }}>
         <h3 className="text-center mb-3">Grizzly Path Login</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="studentname" className="form-label">Student Name</label>
+            <label htmlFor="email" className="form-label">Email</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
-              id="studentname"
-              value={studentName}
-              onChange={(e) => setStudentName(e.target.value)}
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
           <div className="mb-3">
-            <label htmlFor="studentID" className="form-label">Student ID</label>
+            <label htmlFor="password" className="form-label">Password</label>
             <input
-              type="number"
+              type="password"
               className="form-control"
-              id="studentID"
-              value={studentID}
-              onChange={(e) => setStudentID(e.target.value)}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>

@@ -1,0 +1,62 @@
+COURSE_NUMBER,COURSE_NAME,COURSE_SKILLS
+"""ITEC 1001""",Intro to Computing,
+"""ITEC 2110""",Digital Media,"[""Digital Media"", ""UX / UI / HCI""]"
+"""ITEC 2120""",Intro to Programming,"[""Java"", ""Data Structures"", ""Algorithms""]"
+"""ITEC 2130""",Web Technologies,"[""JavaScript"", ""Web Frontend"", ""Digital Media""]"
+"""ITEC 2135""",Engineering Graphics/Design,"[""Digital Media""]"
+"""ITEC 2140""",Programming Fundamentals,"[""Java"", ""Data Structures"", ""Algorithms""]"
+"""ITEC 2150""",OOP and Data Structures,"[""Java"", ""Data Structures"", ""Algorithms""]"
+"""ITEC 2201""",Intro to Information Systems,"[""Systems Analysis & Design""]"
+"""ITEC 3100""",Introduction to Networks,"[""Networks"", ""Cybersecurity Basics""]"
+"""ITEC 3110""",Digital Design,"[""Digital Media"", ""UX / UI / HCI""]"
+"""ITEC 3130""",Web Programming & Design,"[
+    ""JavaScript"",
+    ""React"",
+    ""Web Frontend"",
+    ""Web Backend / APIs"",
+    ""UX / UI / HCI"",
+  ]"
+"""ITEC 3150""",Algorithms,"[""Algorithms"", ""Data Structures"", ""Java""]"
+"""ITEC 3160""",Prog for Data Analysis,"[""Python"", ""Analytics / BI"", ""Data Structures"", ""Algorithms""]"
+"""ITEC 3170""",Data Intensive Fundamentals,"[""Analytics / BI"", ""NoSQL"", ""Cloud / DevOps""]"
+"""ITEC 3200""",Intro to Databases,"[""Databases / SQL"", ""Web Backend / APIs""]"
+"""ITEC 3300""",Information Security,"[""Cybersecurity Basics"", ""Advanced Security""]"
+"""ITEC 3350""",Digital Commerce,"[""Systems Analysis & Design"", ""Web Frontend""]"
+"""ITEC 3450""",Computer Graphics and Multimedia,"[""Graphics / 3D"", ""Digital Media""]"
+"""ITEC 3500""",IT Research,
+"""ITEC 3550""",User Centered Design,
+"""ITEC 3600""",Operating Systems,"[""Operating Systems""]"
+"""ITEC 3700""",Systems Analysis & Design,"[""Systems Analysis & Design""]"
+"""ITEC 3860""",Software Development I,"[
+    ""Systems Analysis & Design"",
+    ""Web Backend / APIs"",
+    ""Project / Capstone"",
+  ]"
+"""ITEC 3870""",Software Development II,"[""Systems Analysis & Design"", ""Project / Capstone""]"
+"""ITEC 3900""",Professional Pract and Ethics,"[""Professional Practice / Ethics""]"
+"""ITEC 4000""",Cloud Computing Technologies,"[""Cloud / DevOps"", ""Databases / SQL""]"
+"""ITEC 4100""",Advanced Networks,"[""Networks""]"
+"""ITEC 4110""",Digital Media Capstone Project,
+"""ITEC 4130""",Human Computer Interaction,"[""UX / UI / HCI""]"
+"""ITEC 4150""",Enterprise Process Integration,"[""Enterprise / ERP"", ""Systems Analysis & Design""]"
+"""ITEC 4170""",International Studies in IT,"[""Professional Practice / Ethics""]"
+"""ITEC 4200""",Advanced Databases,"[""Databases / SQL"", ""NoSQL""]"
+"""ITEC 4210""",Information Analytics,"[""Analytics / BI"", ""Databases / SQL""]"
+"""ITEC 4220""",Advanced Data Analytics,"[""AI / ML"", ""Analytics / BI"", ""Python""]"
+"""ITEC 4230""",Data Science and Analytics Proj,"[""Analytics / BI"", ""Project / Capstone""]"
+"""ITEC 4260""",Software Testing and QA,"[""Project / Capstone""]"
+"""ITEC 4310""",Operating Systems Security,"[""Advanced Security"", ""Operating Systems""]"
+"""ITEC 4320""",Internet Security,"[""Advanced Security"", ""Networks""]"
+"""ITEC 4330""",System Administration,"[""System Administration"", ""Operating Systems""]"
+"""ITEC 4340""",Ethical Hacking,"[""Advanced Security"", ""Networks""]"
+"""ITEC 4400""",Special Topics in Infor. Tech,"[""Internship / Research""]"
+"""ITEC 4450""",Web Development,"[""Web Frontend"", ""Web Backend / APIs"", ""Databases / SQL"", ""React""]"
+"""ITEC 4550""",Mobile Application Development,"[""Mobile"", ""Web Backend / APIs"", ""UX / UI / HCI""]"
+"""ITEC 4650""",Game Development,
+"""ITEC 4700""",Artificial Intelligence,"[""AI / ML""]"
+"""ITEC 4750""",Enterprise Architecture Design,"[""Enterprise / ERP"", ""Systems Analysis & Design""]"
+"""ITEC 4810""",Info Technology Project I,"[""Project / Capstone""]"
+"""ITEC 4820""",Info Technology Project II,"[""Project / Capstone""]"
+"""ITEC 4850""",3D Modeling and Animation,"[""Graphics / 3D"", ""Digital Media""]"
+"""ITEC 4860""",Software Development Project,"[""Project / Capstone""]"
+"""ITEC 4900""",Info Technology Intership,"[""Internship / Research"", ""Professional Practice / Ethics""]"
