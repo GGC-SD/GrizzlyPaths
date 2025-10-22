@@ -1,13 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import AddCourseForm from './AddCourseForm';
+import { describe, test, vi } from 'vitest';
+import AddCourseForm from '../src/AddCourseForm';
 
-// Mock Firebase functions
-jest.mock('firebase/database', () => {
+// Mock Firebase functions with Vitest
+vi.mock('firebase/database', () => {
   return {
-    ref: jest.fn(),
-    push: jest.fn(() => ({ key: 'mockedCourseId' })),
-    set: jest.fn(() => Promise.resolve()),
+    ref: vi.fn(),
+    push: vi.fn(() => ({ key: 'mockedCourseId' })),
+    set: vi.fn(() => Promise.resolve()),
   };
 });
 
@@ -26,7 +26,7 @@ describe('AddCourseForm', () => {
   });
 
   test('submits valid course and shows success message', async () => {
-    const { set } = require('firebase/database');
+    const { set } = await import('firebase/database');
 
     render(<AddCourseForm />);
     fireEvent.change(screen.getByLabelText(/course name/i), { target: { value: 'Math' } });
@@ -47,7 +47,7 @@ describe('AddCourseForm', () => {
   });
 
   test('handles Firebase error gracefully', async () => {
-    const { set } = require('firebase/database');
+    const { set } = await import('firebase/database');
     set.mockImplementationOnce(() => Promise.reject(new Error('Permission denied')));
 
     render(<AddCourseForm />);
@@ -68,7 +68,7 @@ describe('AddCourseForm', () => {
 
     await waitFor(() => {
       expect(screen.getByLabelText(/course name/i)).toHaveValue('');
-      expect(screen.getByLabelText(/course number/i)).toHaveValue(null); // number inputs reset to null
+      expect(screen.getByLabelText(/course number/i)).toHaveValue(''); // number inputs reset to empty string
     });
   });
 });
