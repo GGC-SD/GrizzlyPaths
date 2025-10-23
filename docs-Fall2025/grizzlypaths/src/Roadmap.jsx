@@ -1,289 +1,352 @@
-import { useMemo, useState, useEffect } from "react";
-import { app } from "./firebase";
-import { getDatabase, ref, onValue, off } from "firebase/database";
+import React,{useMemo,useRef,useState,useEffect,memo}from"react";
+import Papa from"papaparse";
 
-// --- COURSE DATA ---
-const COURSE_NAME = {
-  "ITEC 1001": "Intro to Computing",
-  "ITEC 2110": "Digital Media",
-  "ITEC 2120": "Intro to Programming",
-  "ITEC 2130": "Web Technologies",
-  "ITEC 2135": "Engineering Graphics/Design",
-  "ITEC 2140": "Programming Fundamentals",
-  "ITEC 2150": "OOP and Data Structures",
-  "ITEC 2201": "Intro to Information Systems",
-  "ITEC 3100": "Introduction to Networks",
-  "ITEC 3110": "Digital Design",
-  "ITEC 3130": "Web Programming and Design",
-  "ITEC 3150": "Algorithms",
-  "ITEC 3160": "Prog for Data Analysis",
-  "ITEC 3170": "Data Intensive Fundamentals",
-  "ITEC 3200": "Intro to Databases",
-  "ITEC 3300": "Information Security",
-  "ITEC 3350": "Digital Commerce",
-  "ITEC 3450": "Computer Graphics and Multimedia",
-  "ITEC 3500": "IT Research",
-  "ITEC 3550": "User Centered Design",
-  "ITEC 3600": "Operating Systems",
-  "ITEC 3700": "Systems Analysis & Design",
-  "ITEC 3860": "Software Development I",
-  "ITEC 3870": "Software Development II",
-  "ITEC 3900": "Professional Pract and Ethics",
-  "ITEC 4000": "Cloud Computing Technologies",
-  "ITEC 4100": "Advanced Networks",
-  "ITEC 4110": "Digital Media Capstone Project",
-  "ITEC 4130": "Human Computer Interaction",
-  "ITEC 4150": "Enterprise Process Integration",
-  "ITEC 4170": "International Studies in IT",
-  "ITEC 4200": "Advanced Databases",
-  "ITEC 4210": "Information Analytics",
-  "ITEC 4220": "Advanced Data Analytics",
-  "ITEC 4230": "Data Science and Analytics Proj",
-  "ITEC 4260": "Software Testing and QA",
-  "ITEC 4310": "Operating Systems Security",
-  "ITEC 4320": "Internet Security",
-  "ITEC 4330": "System Administration",
-  "ITEC 4340": "Ethical Hacking",
-  "ITEC 4400": "Special Topics in Infor. Tech",
-  "ITEC 4450": "Web Development",
-  "ITEC 4550": "Mobile Application Development",
-  "ITEC 4650": "Game Development",
-  "ITEC 4700": "Artificial Intelligence",
-  "ITEC 4750": "Enterprise Architecture Design",
-  "ITEC 4810": "Info Technology Project I",
-  "ITEC 4820": "Info Technology Project II",
-  "ITEC 4850": "3D Modeling and Animation",
-  "ITEC 4860": "Software Development Project",
-  "ITEC 4900": "Info Technology Internship",
+/* ------------ config ------------ */
+const TOP_SKILLS=10;          
+const MAX_COURSE_SKILLS=TOP_SKILLS;
+
+/* ------------ utils ------------ */
+const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9+/#.\s-]/g," ").replace(/\s+/g," ").trim();
+const split=v=>String(v||"").split(/[,;|/]/).map(s=>s.trim()).filter(Boolean);
+const uniq=a=>Array.from(new Set(a));
+const escapeRegExp=str=>String(str).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
+/* ------------ skill vocab + extract ------------ */
+const KNOWN=["JavaScript","TypeScript","React","HTML","CSS","Node","Express","Python","Pandas","NumPy","Scikit-learn","TensorFlow","PyTorch","Java","C++","C#","SQL","NoSQL","PostgreSQL","MongoDB","Linux","Git","Docker","Kubernetes","CI/CD","AWS","Azure","GCP","Networking","Security","Ethical Hacking","Incident Response","ETL","Data Analysis","Machine Learning","Statistics","UX","UI","Figma"];
+const getSkillsFromPosting=j=>{
+  const explicit=split(j?.skills||j?.job_skills||j?.required_skills||j?.skill_list||j?.keywords);
+  const text=`${j?.job_title||""} ${j?.job_description||""}`.toLowerCase();
+  const detected=[]; KNOWN.forEach(k=>{const rx=new RegExp(`\\b${escapeRegExp(k.toLowerCase())}\\b`,"i"); if(rx.test(text)) detected.push(k);});
+  return uniq([...explicit,...detected]);
 };
 
-const COURSE_SKILLS = {
-  "ITEC 2110": ["Digital Media", "UX / UI / HCI"],
-  "ITEC 2120": ["Java", "Data Structures", "Algorithms"],
-  "ITEC 2130": ["JavaScript", "Web Frontend", "Digital Media"],
-  "ITEC 2135": ["Digital Media"],
-  "ITEC 2140": ["Java", "Data Structures", "Algorithms"],
-  "ITEC 2150": ["Java", "Data Structures", "Algorithms"],
-  "ITEC 2201": ["Systems Analysis & Design"],
-  "ITEC 3100": ["Networks", "Cybersecurity Basics"],
-  "ITEC 3300": ["Cybersecurity Basics", "Advanced Security"],
-  "ITEC 4310": ["Advanced Security", "Operating Systems"],
-  "ITEC 4320": ["Advanced Security", "Networks"],
-  "ITEC 4330": ["System Administration", "Operating Systems"],
-  "ITEC 4340": ["Advanced Security", "Networks"],
-  "ITEC 3130": ["JavaScript", "React", "Web Frontend", "Web Backend / APIs", "UX / UI / HCI"],
-  "ITEC 3150": ["Algorithms", "Data Structures", "Java"],
-  "ITEC 3160": ["Python", "Analytics / BI", "Data Structures", "Algorithms"],
-  "ITEC 3860": ["Systems Analysis & Design", "Web Backend / APIs", "Project / Capstone"],
-  "ITEC 3870": ["Systems Analysis & Design", "Project / Capstone"],
-  "ITEC 4260": ["Project / Capstone"],
-  "ITEC 3170": ["Analytics / BI", "NoSQL", "Cloud / DevOps"],
-  "ITEC 3200": ["Databases / SQL", "Web Backend / APIs"],
-  "ITEC 4200": ["Databases / SQL", "NoSQL"],
-  "ITEC 4210": ["Analytics / BI", "Databases / SQL"],
-  "ITEC 4220": ["AI / ML", "Analytics / BI", "Python"],
-  "ITEC 4230": ["Analytics / BI", "Project / Capstone"],
-  "ITEC 4000": ["Cloud / DevOps", "Databases / SQL"],
-  "ITEC 3110": ["Digital Media", "UX / UI / HCI"],
-  "ITEC 3450": ["Graphics / 3D", "Digital Media"],
-  "ITEC 4130": ["UX / UI / HCI"],
-  "ITEC 4450": ["Web Frontend", "Web Backend / APIs", "Databases / SQL", "React"],
-  "ITEC 4550": ["Mobile", "Web Backend / APIs", "UX / UI / HCI"],
-  "ITEC 4850": ["Graphics / 3D", "Digital Media"],
-  "ITEC 3600": ["Operating Systems"],
-  "ITEC 3700": ["Systems Analysis & Design"],
-  "ITEC 4150": ["Enterprise / ERP", "Systems Analysis & Design"],
-  "ITEC 4750": ["Enterprise / ERP", "Systems Analysis & Design"],
-  "ITEC 4100": ["Networks"],
-  "ITEC 4170": ["Professional Practice / Ethics"],
-  "ITEC 4700": ["AI / ML"],
-  "ITEC 3350": ["Systems Analysis & Design", "Web Frontend"],
-  "ITEC 3900": ["Professional Practice / Ethics"],
-  "ITEC 4400": ["Internship / Research"],
-  "ITEC 4810": ["Project / Capstone"],
-  "ITEC 4820": ["Project / Capstone"],
-  "ITEC 4860": ["Project / Capstone"],
-  "ITEC 4900": ["Internship / Research", "Professional Practice / Ethics"],
-};
+/* ------------ soft skills ------------ */
+const SOFT=[["communication","Communication"],["team","Teamwork"],["collaborat","Collaboration"],["problem","Problem solving"],["analytic","Analytical thinking"],["lead","Leadership"],["time","Time management"],["organizat","Organization"],["adapt","Adaptability"],["detail","Attention to detail"],["critical","Critical thinking"],["stakeholder","Stakeholder management"],["present","Presentation"],["document","Documentation"],["mentor","Mentorship"]];
+const softFrom=t=>{const x=norm(t||""),out=new Set(); SOFT.forEach(([n,l])=>{if(x.includes(n)) out.add(l);}); return [...(out.size?out:new Set(["Communication","Teamwork","Problem solving","Time management","Adaptability"]))].slice(0,5);};
 
-const MAJORS = [
-  { id: "sd", name: "Software Development", skills: ["Java", "Data Structures", "Algorithms", "JavaScript", "Web Frontend", "Web Backend / APIs", "React", "Mobile", "Systems Analysis & Design", "Project / Capstone", "Databases / SQL"] },
-  { id: "dsa", name: "Data Science and Analytics", skills: ["Python", "Analytics / BI", "Databases / SQL", "NoSQL", "AI / ML", "Cloud / DevOps", "Data Structures", "Algorithms", "Project / Capstone"] },
-  { id: "dm", name: "Digital Media", skills: ["Digital Media", "UX / UI / HCI", "Web Frontend", "Graphics / 3D", "React", "Mobile"] },
-  { id: "sec", name: "Cyber Security", skills: ["Networks", "Cybersecurity Basics", "Advanced Security", "Operating Systems", "System Administration"] },
-  { id: "ent", name: "Enterprise Systems", skills: ["Systems Analysis & Design", "Enterprise / ERP", "Cloud / DevOps", "Professional Practice / Ethics", "Internship / Research"] },
+/* ------------ CSV ------------ */
+const JOBS_CSV="https://raw.githubusercontent.com/GGC-SD/GrizzlyPaths/main/docs-Spring2025/final_files/merged_jobs_cleaned%20(6).csv";
+
+function useCourseMaps(){
+  const [name,setName]=useState({}),[skills,setSkills]=useState({}),[loading,setL]=useState(true),[err,setE]=useState("");
+  useEffect(()=>{(async()=>{
+    try{
+      const r=await fetch("https://raw.githubusercontent.com/GGC-SD/GrizzlyPaths/main/docs-Fall2025/grizzlypaths/src/Component/Course.csv");
+      if(!r.ok) throw new Error(`HTTP ${r.status}`);
+      const text=(await r.text()).trim(),head=text.match(/^\s*COURSE_NUMBER\s*,\s*COURSE_NAME\s*,\s*COURSE_SKILLS\s*/i); if(!head) throw new Error("Missing headers");
+      const rx=/\s*"*"{0,1}([A-Z]{4}\s*\d{4}[A-Z]?)"*"{0,1}\s*,\s*([^,]+?)\s*,\s*("?\[[^\]]*\]"?)/g; let m,nm={},sk={};
+      while((m=rx.exec(text.slice(head[0].length)))){
+        const code=m[1].trim(), name=m[2].trim();
+        let raw=m[3].trim().replace(/^"|\s*"$/g,"").replace(/""/g,'"').replace(/,\s*\]/g,"]"), arr=[];
+        try{const p=JSON.parse(raw); if(Array.isArray(p)) arr=p.map(z=>String(z).trim()).filter(Boolean);}
+        catch{arr=raw.replace(/^\[|\]$/g,"").split(/[,;|]/).map(z=>z.replace(/["']/g,"").trim()).filter(Boolean);}
+        nm[code]=name; sk[code]=arr;
+      }
+      setName(nm); setSkills(sk);
+    }catch(e){setE(String(e.message||e));}finally{setL(false);}
+  })()},[]);
+  return { courseName:name, courseSkills:skills, loading, err };
+}
+
+function useJobsCSV(url=JOBS_CSV){
+  const [jobs,setJobs]=useState([]),[loading,setL]=useState(true),[err,setE]=useState("");
+  useEffect(()=>{let off=false;(async()=>{
+    try{
+      const res=await fetch(url); if(!res.ok) throw new Error(`HTTP ${res.status}`); const text=await res.text();
+      Papa.parse(text,{header:true,skipEmptyLines:true,complete:r=>{
+        if(off) return;
+        const pick=(row,keys)=>{for(const c of keys){const k=Object.keys(row).find(k0=>k0===c||k0.toLowerCase()===c.toLowerCase()); if(k&&String(row[k]).trim()!=="") return row[k];} return "";};
+        const mapped=(Array.isArray(r.data)?r.data:[]).map(x=>{
+          const title=String(pick(x,["job_title","title","Job Title","Position","role","Role"])||"").trim();
+          const company=String(pick(x,["company_name","company","Company","employer"])||"").trim();
+          const desc=String(pick(x,["job_description","description","Job Description","desc"])||"").trim();
+          const type=String(pick(x,["job_type","type","employment_type","Employment Type"])||"").trim();
+          const level=String(pick(x,["job_seniority_level","seniority","level","Seniority"])||"").trim();
+          const skills=getSkillsFromPosting({job_title:title,job_description:desc,skills:pick(x,["skills","job_skills","required_skills","skill_list","keywords","Keywords","top_skills"])});
+          return {job_title:title,company_name:company,job_description:desc,job_type:type,job_seniority_level:level,skills};
+        });
+        setJobs(mapped);
+      },error:e=>{if(!off) setE(String(e?.message||e));}});
+    }catch(e){if(!off) setE(String(e?.message||e));}finally{if(!off) setL(false);}
+  })(); return()=>{off=true}},[url]);
+  return { jobs, loading, err };
+}
+
+/* ------------ majors & job types ------------ */
+const MAJORS=[
+  {id:"sw",label:"Software Development",color:"#6C63FF"},
+  {id:"ds",label:"Data Science & Analytics",color:"#3E8EFA"},
+  {id:"es",label:"Enterprise Systems",color:"#00B894"},
+  {id:"sec",label:"Systems Security",color:"#E17055"},
+  {id:"dm",label:"Digital Media",color:"#A55EEA"},
 ];
-
-// --- UTILITY ---
-const buildSkillToCourses = () => {
-  const map = {};
-  Object.entries(COURSE_SKILLS).forEach(([course, skills]) => {
-    skills.forEach(skill => {
-      if (!map[skill]) map[skill] = [];
-      map[skill].push(course);
-    });
-  });
-  Object.values(map).forEach(arr => arr.sort());
-  return map;
+const JOB_TYPES={
+  sw:["Software Engineer","Software Developer","Project Manager","Cloud","Automation Engineer"],
+  ds:["AI","Data Analyst","Product Manager","Data Scientist","Data Engineer"],
+  es:["Project Manager","Cloud Engineer","Systems Analyst","Enterprise Architect","Security Analyst"],
+  sec:["Systems Analyst","Systems Engineer","Threat Intelligence Analyst","Application Security Engineer","Security Analyst"],
+  dm:["Marketing","UI","UX","Web Designer","UX/UI Designer"],
+};
+const MAP_RULES={
+  sw:[["Software Engineer",/\b(software\s*engineer|swe)\b/i],["Software Developer",/\b(software\s*developer|developer(?!.*web)|programmer)\b/i],["Project Manager",/\b(project\s*manager|scrum\s*master|program\s*manager)\b/i],["Cloud",/\b(cloud|aws|azure|gcp|devops|sre|kubernetes|terraform)\b/i],["Automation Engineer",/\b(automation\s*engineer|test\s*automation|qa|sdet)\b/i]],
+  ds:[["AI",/\b(ai|machine\s*learning|ml|deep\s*learning|llm|nlp)\b/i],["Data Analyst",/\b(data\s*analyst|bi\s*analyst|business\s*intelligence)\b/i],["Product Manager",/\b(product\s*manager|product\s*owner)\b/i],["Data Scientist",/\b(data\s*scientist)\b/i],["Data Engineer",/\b(data\s*engineer|etl|warehouse|pipelines)\b/i]],
+  es:[["Project Manager",/\b(project\s*manager|program\s*manager)\b/i],["Cloud Engineer",/\b(cloud\s*engineer|devops|sre|aws|azure|gcp)\b/i],["Systems Analyst",/\b(systems?\s*analyst|business\s*analyst|ba)\b/i],["Enterprise Architect",/\b(enterprise\s*architect|solutions?\s*architect|soa|architecture)\b/i],["Security Analyst",/\b(security\s*analyst|soc|siem|iam|threat)\b/i]],
+  sec:[["Systems Analyst",/\b(systems?\s*analyst|grc|governance|risk|compliance)\b/i],["Systems Engineer",/\b(systems?\s*engineer|security\s*engineer|blue\s*team)\b/i],["Threat Intelligence Analyst",/\b(threat\s*intelligence|ti\s*analyst|threat\s*analyst)\b/i],["Application Security Engineer",/\b(application\s*security|appsec|secure\s*code|sast|dast)\b/i],["Security Analyst",/\b(security\s*analyst|soc|siem|incident|ir|detection)\b/i]],
+  dm:[["Marketing",/\b(marketing|brand|content\s*marketing|growth)\b/i],["UI",/\b(ui(?!\/ux)|interface\s*designer)\b/i],["UX",/\b(ux(?!\/ui)|user\s*experience|researcher)\b/i],["Web Designer",/\b(web\s*designer|web\s*design)\b/i],["UX\/UI Designer",/\b(ux\/ui|ui\/ux|product\s*designer)\b/i]],
 };
 
-// --- CARD COMPONENT ---
-const Card = ({ title, info, backText }) => {
-  const [flipped, setFlipped] = useState(false);
+/* ------------ UI atoms  ------------ */
+const Card=memo(function Card({title,info,onToggle,isFlipped=false,weight=1,accent}){
   return (
-    <div className="card" onClick={() => setFlipped(f => !f)}>
-      <div className={`inner ${flipped ? "flip" : ""}`}>
-        <div className="face front">
-          <div className="title">{title}</div>
-          {info && <div className="sub">{info}</div>}
-          <div className="pill">click to flip</div>
-        </div>
-        <div className="face back">{backText}</div>
+    <div className="card" style={{'--w':weight,'--accent':accent||'#4a7'}} onClick={()=>onToggle&&onToggle()} role="button" aria-label={title}>
+      <div className={`inner ${isFlipped?"flip":""}`}>
+        <div className="face front"><div className="title">{title}</div><div className="sub">{info||" "}</div></div>
+        <div className="face back"></div>
       </div>
     </div>
   );
-};
+});
+const CourseCard=memo(function CourseCard({code,name,skills}){
+  const[flip,setFlip]=useState(false);
+  return <Card title={`${code} — ${name}`} onToggle={()=>setFlip(f=>!f)} isFlipped={flip} weight={1} accent="#95a" info={skills?.length?`Skills: ${skills.join(" • ")}`:"No listed skills."} />;
+});
 
-// --- MAIN COMPONENT ---
-export default function ITRoadmap({ onBack }) {
-  const [majorId, setMajorId] = useState("");
-  const [selectedJob, setSelectedJob] = useState("");
-  const [jobData, setJobData] = useState({});
-  const skillToCourses = useMemo(buildSkillToCourses, []);
-  const db = getDatabase(app);
+/* ------------ scales ------------ */
+const scale01=(v,min,max)=> max<=min?1:(v-min)/(max-min);
+const toWeightJob=(v,min,max,lo=0.35,hi=3.4)=> lo+(hi-lo)*scale01(v,min,max);
+const toWeightSkill=(v,min,max,lo=0.45,hi=2.6)=> lo+(hi-lo)*scale01(v,min,max);
 
-  // Fetch job data
-  useEffect(() => {
-    const jobRef = ref(db, "job");
-    const unsubscribe = onValue(
-      jobRef,
-      snapshot => setJobData(snapshot.val() || {}),
-      err => console.error(err)
-    );
-    return () => off(jobRef, "value", unsubscribe);
-  }, [db]);
+/* ------------ integerize ------------ */
+function integerizeCounts(countMap,total){
+  const entries=[...countMap.entries()].map(([skill,raw])=>({skill,raw,floor:Math.floor(raw),frac:raw-Math.floor(raw)}));
+  let sumFloor=entries.reduce((a,e)=>a+e.floor,0), remain=Math.max(0,total-sumFloor);
+  entries.sort((a,b)=> b.frac-b.frac || b.raw-a.raw || a.skill.localeCompare(b.skill));
+  for(let i=0;i<remain;i++) if(entries[i]) entries[i].floor+=1;
+  return entries.map(e=>({skill:e.skill,count:e.floor})).sort((a,b)=>b.count-a.count||a.skill.localeCompare(b.skill));
+}
 
-  const selectedMajor = MAJORS.find(m => m.id === majorId);
-  const jobs = selectedMajor && jobData[selectedMajor.name] ? Object.keys(jobData[selectedMajor.name]) : [];
-  const selectedJobInfo = selectedMajor && selectedJob && jobData[selectedMajor.name] ? jobData[selectedMajor.name][selectedJob] : null;
+/* ------------ component ------------ */
+export default function Roadmap({onBack}){
+  const {courseName,courseSkills,loading:cLoad,err:cErr}=useCourseMaps();
+  const {jobs:JOBS,loading:jLoad,err:jErr}=useJobsCSV();
+  const[majorId,setMajor]=useState(null),[activeType,setActiveType]=useState(null);
+  const jobTypesRef=useRef(null),skillsRef=useRef(null);
+  const scrollTo=ref=>ref?.current?.scrollIntoView({behavior:"smooth",block:"start"});
 
-  // Courses for selected job
-  const jobCourses = selectedJobInfo?.course
-    ? Array.isArray(selectedJobInfo.course)
-      ? selectedJobInfo.course.map(c => c.trim())
-      : selectedJobInfo.course.split(",").map(c => c.trim())
-    : [];
+  const mapToType=(mid,title)=>{
+    const rules=MAP_RULES[mid]||[];
+    for(const [label,rx]of rules) if(rx.test(String(title))) return label;
+    const fallback=(JOB_TYPES[mid]||[]).slice(-1)[0];
+    return fallback||"Other";
+  };
 
-  // Render skill cards
-  const renderSkills = () =>
-    selectedMajor?.skills.map(skill => {
-      const list = skillToCourses[skill] || [];
-      if (!list.length) return null;
-      return <Card key={skill} title={skill} info={`${list.length} course${list.length > 1 ? "s" : ""}`} backText="Click to view related courses" />;
+  /* ----- pick allowed top skills & filter postings ----- */
+  const summarizeType=(typeId)=>{
+    const postingsAll=JOBS.filter(j=>mapToType(majorId,String(j.job_title||""))===typeId);
+    const rawAll=new Map();
+    const postingsWithAny=postingsAll.filter(j=>{
+      const s=getSkillsFromPosting(j); if(!s.length) return false;
+      const w=1/s.length; s.forEach(k=>rawAll.set(k,(rawAll.get(k)||0)+w)); return true;
     });
-
-  // Render job course cards
-  const renderJobCourses = () =>
-    jobCourses.map(code => {
-      const courseName = COURSE_NAME[code] || "No Name";
-      const skillsDesc = (COURSE_SKILLS[code] || []).join(" • ") || "No description";
-      return <Card key={code} title={`${code} — ${courseName}`} backText={skillsDesc} />;
+    const allowed=[...rawAll.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,TOP_SKILLS).map(([k])=>k);
+    const allowSet=new Set(allowed);
+    const postingsKept=postingsWithAny.filter(j=>getSkillsFromPosting(j).some(s=>allowSet.has(s)));
+    const rawAllowed=new Map();
+    postingsKept.forEach(j=>{
+      const s=getSkillsFromPosting(j).filter(x=>allowSet.has(x));
+      const w=1/s.length; s.forEach(k=>rawAllowed.set(k,(rawAllowed.get(k)||0)+w));
     });
+    const intList=integerizeCounts(rawAllowed,postingsKept.length);
+    return {allowed, postings:postingsKept, intList};
+  };
 
-  return (
-    <div className="roadmap">
-      <style>{globalCSS}</style>
+  /* ----- job type cards: counts based on filtered postings that match  ----- */
+  const bucketCounts=useMemo(()=>{
+    if(!majorId) return [];
+    const types=JOB_TYPES[majorId]||[];
+    const rows=types.map(label=>{
+      const {postings}=summarizeType(label);
+      return [label, postings.length];
+    });
+    const min=rows.length?Math.min(...rows.map(r=>r[1])):1, max=rows.length?Math.max(...rows.map(r=>r[1])):1;
+    return rows.map(([label,count])=>({label,count,weight:toWeightJob(count,min,max)}));
+  },[majorId,JOBS]);
+
+  /* ----- skills for active type ----- */
+  const typeSkills=useMemo(()=>{
+    if(!activeType||!majorId) return {ordered:[],counts:new Map(),postings:0,allowed:new Set()};
+    const {allowed,postings,intList}=summarizeType(activeType);
+    return {
+      ordered:intList.map(e=>e.skill),
+      counts:new Map(intList.map(e=>[e.skill,e.count])),
+      postings:postings.length,
+      allowed:new Set(allowed)
+    };
+  },[activeType,majorId,JOBS]);
+
+  const hardWeights=useMemo(()=>{
+    const skills=typeSkills.ordered,counts=skills.map(s=>typeSkills.counts.get(s)||0);
+    const min=Math.min(...(counts.length?counts:[1])),max=Math.max(...(counts.length?counts:[1]));
+    return skills.map(s=>{const c=typeSkills.counts.get(s)||0; return {skill:s,count:c,weight:toWeightSkill(c,min,max)};});
+  },[typeSkills]);
+
+  /* ----- soft skills  ----- */
+  const softSkills=useMemo(()=>{
+    const desc=JOBS.filter(j=>activeType?mapToType(majorId,String(j.job_title||""))===activeType:true).map(j=>j.job_description||"").join("\n");
+    return softFrom(desc).slice(0,5);
+  },[activeType,majorId,JOBS]);
+
+  /* ----- courses:skills; cap skills listed ----- */
+  const courses=useMemo(()=>{
+    const allowed=typeSkills.allowed; if(!allowed.size) return [];
+    const codes=Object.keys(courseName);
+    const scored=codes.map(code=>{
+      const courseSkillNorm=(courseSkills[code]||[]).map(norm);
+      const overlap=courseSkillNorm.filter(s=>allowed.has(KNOWN.find(k=>norm(k)===s)||"__none__"));
+      return {code,overlap};
+    }).filter(x=>x.overlap.length>0);
+    scored.sort((a,b)=>b.overlap.length-a.overlap.length||a.code.localeCompare(b.code));
+    return scored.slice(0,5).map(x=>x.code);
+  },[typeSkills,courseName,courseSkills]);
+
+  useEffect(()=>{setActiveType(null); if(majorId) setTimeout(()=>scrollTo(jobTypesRef),50);},[majorId]);
+
+  const accent=MAJORS.find(m=>m.id===majorId)?.color||"#4a7";
+
+  return(
+    <div>
+      <style>{GLOBAL_CSS}</style>
       <header className="mb-4 position-relative">
         <h1 className="position-absolute top-50 start-50 translate-middle m-0">Information Technology Roadmap</h1>
-        <div className="d-flex justify-content-end">
-          <button onClick={onBack} className="btn btn-outline-primary">← Dashboard</button>
-        </div>
+        <div className="d-flex justify-content-end"><button onClick={onBack} className="btn btn-outline-primary">← Dashboard</button></div>
       </header>
 
       <div className="wrap">
-        <section className="stage">
-          <div className="controls">
-            <div className="field">
-              <label>Concentration</label>
-              <select
-                value={majorId}
-                onChange={e => {
-                  setMajorId(e.target.value);
-                  setSelectedJob("");
-                }}
-              >
-                <option value="">Select a concentration…</option>
-                {MAJORS.map(m => (
-                  <option key={m.id} value={m.id}>{m.name}</option>
-                ))}
-              </select>
-            </div>
-            <div className="field">
-              <label>Job Role</label>
-              <select
-                value={selectedJob}
-                onChange={e => setSelectedJob(e.target.value)}
-                disabled={!selectedMajor}
-              >
-                <option value="">{selectedMajor ? "Select a job…" : "Select a major first"}</option>
-                {jobs.map(j => (
-                  <option key={j} value={j}>{j}</option>
-                ))}
-              </select>
-            </div>
+        <section className="stage" aria-live="polite">
+          {(cErr||jErr)&&<div className="error">Load error: {cErr||jErr}</div>}
+          {(cLoad||jLoad)&&<div className="hint">Loading data…</div>}
+
+          <div className="legend">
+            <span className="step">1</span> Pick a <b>Major</b> &nbsp;→&nbsp; 
+            <span className="step">2</span> Click a <b>Job Type</b> &nbsp;→&nbsp;
+            <span className="step">3</span> Explore <b>Skills</b> & <b>Courses</b>
           </div>
 
-          {selectedJobInfo && (
-            <div className="mt-3">
-              <p><strong>Soft Skills:</strong> {Array.isArray(selectedJobInfo.soft) ? selectedJobInfo.soft.join(", ") : selectedJobInfo.soft || "N/A"}</p>
-              <p><strong>Hard Skills:</strong> {Array.isArray(selectedJobInfo.hard) ? selectedJobInfo.hard.join(", ") : selectedJobInfo.hard || "N/A"}</p>
-              <p><strong>Courses:</strong>{" "}
-                {selectedJobInfo.course
-                  ? Array.isArray(selectedJobInfo.course)
-                    ? selectedJobInfo.course.map(c => c.trim()).join(", ")
-                    : selectedJobInfo.course.split(",").map(c => c.trim()).join(", ")
-                  : "N/A"}
-              </p>
-            </div>
-          )}
+          <div className="crumbs">
+            <span>Home</span>
+            {majorId&&<span>› {MAJORS.find(m=>m.id===majorId)?.label}</span>}
+            {activeType&&<span>› {activeType}</span>}
+          </div>
 
-          <h2>{selectedMajor ? selectedMajor.name : "Select a Concentration"}</h2>
+          <h2>Choose a Major</h2>
           <div className="grid">
-            {selectedJobInfo ? renderJobCourses() : renderSkills()}
+            {MAJORS.map(m=>(
+              <Card key={m.id} title={m.label} isFlipped={majorId===m.id}
+                onToggle={()=>setMajor(majorId===m.id?null:m.id)} accent={m.color}
+              />
+            ))}
           </div>
+
+          {majorId&&<>
+            <h2 ref={jobTypesRef} style={{marginTop:16}}>Job Types in {MAJORS.find(m=>m.id===majorId)?.label}</h2>
+            <div className="grid">
+              {bucketCounts.map(b=>(
+                <Card key={b.label} title={b.label}
+                  info={`${b.count} postings`} isFlipped={activeType===b.label}
+                  weight={b.weight} accent={accent}
+                  onToggle={()=>{const next=activeType===b.label?null:b.label; setActiveType(next); if(next) setTimeout(()=>skillsRef.current?.scrollIntoView({behavior:"smooth",block:"start"}),60);}}
+                />
+              ))}
+            </div>
+          </>}
+
+          {activeType&&<>
+            <h2 ref={skillsRef} style={{marginTop:18}}>Skills for “{activeType}”</h2>
+            <div className="grid mt8">
+              {hardWeights.filter(h=>h.count>0).map(h=>(
+                <Card key={`hs-${h.skill}`} title={h.skill.toUpperCase()}
+                  info={<span><span className="dot" /> {h.count}</span>}
+                  weight={h.weight} accent={accent} onToggle={()=>{}}
+                />
+              ))}
+            </div>
+
+            <h3 style={{marginTop:14,fontSize:16}}>Common Soft Skills</h3>
+            <div className="grid mt8">
+              {softSkills.map(s=><Card key={`ss-${s}`} title={s} info="" accent={accent} onToggle={()=>{}} />)}
+            </div>
+
+            <h2 style={{marginTop:18}}>Courses that teach these skills</h2>
+            <div className="grid">
+              {courses.map(code=>{
+                const raw=(courseSkills[code]||[]);
+                const display=(raw||[])
+                  .filter(s=>typeSkills.allowed.has(KNOWN.find(k=>norm(k)===norm(s))||"__none__"))
+                  .slice(0,MAX_COURSE_SKILLS);
+                if(display.length===0) return null;
+                return <CourseCard key={code} code={code} name={courseName[code]||"Course"} skills={display} />;
+              })}
+            </div>
+          </>}
         </section>
       </div>
     </div>
   );
 }
 
-const globalCSS = `
-:root{--primaryButtonColor:#FF0000;--primaryButtonRadius:12px;--primaryButtonHover:darkred;--primaryButtonText:white}
+/* ------------ styles ------------ */
+const GLOBAL_CSS=`
+:root{--ink:#163b20;--inkSub:#2b6a41;--card:#fff;--stroke:#bad7c8;}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial, sans-serif;background:linear-gradient(to right,#36d352,#ace5bc);min-height:100vh;color:#163b20}
+body{font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(to right,#36d352,#ace5bc);min-height:100vh;color:var(--ink)}
 header{padding:18px 20px;text-align:center}
 h1{margin:0;font-size:22px}
 .wrap{max-width:1100px;margin:0 auto;padding:0 16px 28px}
-.stage{background:#fff;border:1px solid #000;border-radius:12px;box-shadow:0 5px 20px rgba(0,0,0,.08);padding:16px}
-.controls{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
-.field{display:flex;flex-direction:column;gap:6px;padding:8px 10px;background:#fff;border:1px solid #000;border-radius:12px}
-.field label{font-weight:600;font-size:13px}
-select.form-select{width:150px;margin-left:10px;border-width:1px;border-color:black;border-style:solid;border-radius:8px;padding:6px 8px;font-weight:600;background:#fff}
-.hint{font-size:12px;color:#2b6a41;margin:4px 2px 12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.card{perspective:1000px;cursor:pointer}
-.inner{position:relative;width:100%;height:140px;transform-style:preserve-3d;transition:transform .5s}
+.stage{
+  background:#fff;
+  border:none;               /* removed faint outline */
+  border-radius:16px;
+  box-shadow:none;           /* removed subtle shadow lines */
+  padding:16px
+}
+.hint{font-size:12px;color:var(--inkSub);margin:4px 2px 12px}
+.legend{display:flex;align-items:center;gap:10px;background:#f3fff8;border:1px solid #bce6d2;padding:8px 12px;border-radius:12px;margin-bottom:10px;font-size:14px}
+.legend .step{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:999px;background:#0b8a4b;color:#fff;font-weight:800;font-size:12px}
+.crumbs{display:flex;gap:8px;align-items:center;color:#0b5f38;font-size:13px;margin:8px 0}
+.crumbs span{opacity:.9}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;justify-content:center}
+
+.card{perspective:1000px;cursor:pointer;contain:content}
+.inner{
+  position:relative;width:100%;height:calc(160px * var(--w,1));
+  transform-style:preserve-3d;will-change:transform;transform:translateZ(0);
+  transition:transform .2s ease;
+  background:var(--card);
+  border-radius:14px;border:1px solid var(--stroke);
+}
+.inner:hover{transform:translateY(-1px)}
 .inner.flip{transform:rotateY(180deg)}
-.face{position:absolute;inset:0;background:#fff;border:1px solid #000;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px;backface-visibility:hidden;box-shadow:0 5px 15px rgba(0,0,0,.05)}
-.front:hover{box-shadow:0 0 0 3px rgba(0,0,0,.10)}
-.back{transform:rotateY(180deg);font-size:13px;color:#2b6a41}
-.title{font-weight:700;line-height:1.25}
-.sub{font-size:12px;color:#2b6a41;margin-top:6px}
-.pill{margin-top:8px;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #000;color:#2b6a41}
-h2{margin:0 0 6px;font-size:18px}
-h3{margin:14px 0 8px;font-size:16px}
-@media (max-width:600px){select.form-select{width:100%;margin-left:0}.controls{gap:8px}}
+.face{
+  position:absolute;inset:0;background:var(--card);border-radius:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:12px 14px;backface-visibility:hidden;overflow:auto;
+  -ms-overflow-style:none;scrollbar-width:none
+}
+.face::-webkit-scrollbar{display:none}
+.face.front{border-left:6px solid var(--accent,#4a7);}
+.back{transform:rotateY(180deg)}
+
+.title{font-weight:900;letter-spacing:.2px;line-height:1.2;overflow-wrap:anywhere;font-size:clamp(13px,calc(13px + .8vw * var(--w,1)),21px);max-height:3.6em}
+.sub{display:flex;align-items:center;gap:6px;font-size:clamp(11px,calc(10px + .4vw * var(--w,1)),15px);color:var(--inkSub);margin-top:6px;line-height:1.2;overflow-wrap:anywhere;max-height:2.6em}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent,#4a7)}
+
+.error{font-size:13px;color:#a31d1d;background:#fff3f3;border:1px solid #ffcccc;padding:10px;border-radius:10px}
+h2{margin:12px 0 6px;font-size:18px}
+h3{margin:10px 0 4px}
+.mt8{margin-top:8px}
+@media (max-width:600px){.grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));}}
+@media (prefers-reduced-motion: reduce){
+  .inner, .inner:hover{transition:none;transform:none}
+}
 `;
-
-
-
