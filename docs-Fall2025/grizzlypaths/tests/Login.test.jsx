@@ -1,3 +1,4 @@
+//This emulates the environment
 import Login from "../src/Login";
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, test, vi, beforeEach, expect } from 'vitest';
@@ -21,6 +22,7 @@ vi.mock('firebase/database', async(importOriginal) => {
     };
 });
 
+//import statements as if this is the actual page
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, get } from "firebase/database";
 
