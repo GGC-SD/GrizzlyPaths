@@ -132,15 +132,6 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
                       RoadMap
                       </a>
                     </li>
-                    <li>
-                      <Link to="/import">Import CSV to Firebase</Link>
-                    </li>
-                    <li>
-                      <button onClick={MajorUploader}>Upload Skills to Firebase</button>
-                    </li>
-                    <li>
-                      <button onClick={ReadCourses}>Upload Courses to firebase</button>
-                    </li>
                   </ul>
                 </p>
               </div>
