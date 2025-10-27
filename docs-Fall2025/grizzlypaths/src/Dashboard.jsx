@@ -85,55 +85,42 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
         <h1 className="text-center">Welcome to Grizzly Path</h1>
         <hr/>
         <h2 className="mb-3">My Dashboard</h2>
-        <div className="row mt-4">
-          <div className="col-md-4 mb-3">
-            <div className="card shadow-sm">
-              <h5 className="card-header bg-secondary text-light text-center">Student Information</h5>
-              <div className="card-body text-center mb-3">
-                <p className="card-text">
-                  Student Name: {studentName} <br />
-                  Student ID: {studentID} <br />
-                  Student Major: {studentMajor} <br/><br/>
-                </p>
-                {/*
-                <button className="btn btn-outline-primary btn-sm">
-                  Edit Profile
-                </button>
-                */}
-              </div>
+        <div className="row mt-4 align-items-stretch">
+          <div className="col-md-4 mb-3 flex">
+            <div className="card shadow-sm flex-fill">
+              <h5 className="card-header bg-secondary text-light text-center">
+                <i className="bi bi-person"></i>
+                Student Information
+                </h5>
+                <div className="card-body d-flex flex-column justify-content-center text-center">
+                  <p className="mb-1">Student Name: {studentName} </p> 
+                  <p className="mb-1">Student ID: {studentID}</p>
+                  <p className="mb-1">Student Major: {studentMajor}</p>
+                </div>
             </div>
           </div>
         
-          <br />
-          <div className="col-md-4">
-            <div className="card shadow-sm">
-              <h5 className="card-header bg-secondary text-light text-center">Course</h5>
-              <div className="card-body">
-                <p className="card-text">
-                  <ul>
-                    <li><a href = "">Certificate</a></li>
-                    <li>
-                      <a 
-                        href="" onClick={(e) => {
+          <div className="col-md-4 mb-3 d-flex">
+            <div className="card shadow-sm flex-fill">
+              <h5 className="card-header bg-secondary text-light text-center">
+                <i class="bi bi-card-checklist me-1"></i>
+                Course
+                </h5>
+              <div className="card-body py-3s">
+                  <ul className="list-unstyled mb-0">
+                    <li className="mb-1"><a href="" onClick={(e) => {
                           e.preventDefault();
                           onViewCourses();
                           }}
-                      >
-                      Recommend Course
-                      </a>
+                      > Recommend Course </a>
                     </li>
-                    <li>
-                      <a 
-                        href="" onClick={(e) => {
+                    <li><a href="" onClick={(e) => {
                           e.preventDefault();
                           onViewRoadMap();
                           }}
-                      >
-                      RoadMap
-                      </a>
+                      >RoadMap</a>
                     </li>
                   </ul>
-                </p>
               </div>
             </div>
           </div>
