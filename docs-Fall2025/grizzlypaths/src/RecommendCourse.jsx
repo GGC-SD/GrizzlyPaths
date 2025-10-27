@@ -1,13 +1,15 @@
 // Single Course Card
-const CourseCard = ({ title, description, skill }) => (
+const CourseCard = ({ title, description, skill, prerequisite }) => (
   <div className="col">
-    <div className="card shadow-sm">
-      <div className="card-body text-center">
+    <div className="card h-100 shadow-sm border-0">
+      <div className="card-body d-flex flex-column justify-content-center text-center">
         <h5 className="card-title">{title}</h5>
-        <p className="card-text">
-          {description}
-          <br />
+        <p className="card-text mb-0">{description}</p>
+        <p className="mb-0">
           <strong>Skill:</strong> {skill}
+        </p>
+        <p className="mb-0">
+          <strong>Prerequisite:</strong> {prerequisite}
         </p>
       </div>
     </div>
@@ -29,6 +31,7 @@ const Section = ({ id, title, courses }) => (
             title={course.title}
             description={course.description}
             skill={course.skill}
+            prerequisite= {course.prerequisite}
           />
         ))}
       </div>
@@ -52,10 +55,14 @@ export default function RecommendCourse({ onBack }) {
         id="sd"
         title="Software Development"
         courses={[
-          { title: "ITEC 2140", description: "Programming Fundamental", skill: "Java" },
-          { title: "ITEC 2150", description: "Intermediate Programming", skill: "Java" },
-          { title: "ITEC 3150", description: "Advanced Programming", skill: "Java" },
-          { title: "ITEC 3860", description: "Software Development 1", skill: "Java, SQL" },
+          { title: "ITEC 3150", description: "Advanced Programming", skill: "Java", prerequisite: "ITEC2150"},
+          { title: "ITEC 3200", description: "Intro to Database", skill: "SQL", prerequisite: "(ITEC2140 or ITEC2120) and (ITEC2201 or BUSA3100)"},
+          { title: "ITEC 3450", description: "Comp Graphics and Multimedia", skill: "GDI", prerequisite: "Math1113 and ITEC2110 and ITEC2140"},
+          { title: "ITEC 3860", description: "Software Development 1", skill: "Java, SQL",  prerequisite: "ITEC2150, ITEC2201"},
+          { title: "ITEC 3870", description: "Software Development 2", skill: "Front-end, Back-end", prerequisite: "ITEC3860, ITEC3150"},
+          { title: "ITEC 4450", description: "Web Development", skill: "PHP, SQL", prerequisite: "ITEC2130, ITEC2150, ITEC3200"},
+          { title: "ITEC 4550", description: "Mobile Aplication Development", skill: "Android, IOS application", prerequisite: "ITEC2110, ITEC2150"},
+          { title: "ITEC 4650", description: "Game Development", skill: "Computer Gaming", prerequisite: "ITEC2150, ITEC3450"},
         ]}
       />
 
