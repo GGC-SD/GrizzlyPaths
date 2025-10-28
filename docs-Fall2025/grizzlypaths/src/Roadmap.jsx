@@ -233,7 +233,6 @@ export default function Roadmap({onBack}){
           </div>
 
           <div className="crumbs">
-            <span>Home</span>
             {majorId&&<span>› {MAJORS.find(m=>m.id===majorId)?.label}</span>}
             {activeType&&<span>› {activeType}</span>}
           </div>
