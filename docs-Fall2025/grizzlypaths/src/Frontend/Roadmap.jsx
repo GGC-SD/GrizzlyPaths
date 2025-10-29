@@ -218,7 +218,7 @@ export default function Roadmap({onBack}){
       <style>{GLOBAL_CSS}</style>
       <header className="mb-4 position-relative">
         <h1 className="position-absolute top-50 start-50 translate-middle m-0">Information Technology Roadmap</h1>
-        <div className="d-flex justify-content-end"><button onClick={onBack} className="btn btn-outline-primary">← Dashboard</button></div>
+        <div className="d-flex justify-content-end"><button onClick={onBack} className="btn btn-outline-primary">← </button></div>
       </header>
 
       <div className="wrap">
