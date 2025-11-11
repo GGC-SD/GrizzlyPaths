@@ -39,7 +39,6 @@ export default function App() {
             <Route path="/" element={<Login onLogin={handleLogin} />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="*" element={<Navigate to="/" />} />
           </>
         ) : (
           <>
