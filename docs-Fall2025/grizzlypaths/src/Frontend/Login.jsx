@@ -15,6 +15,7 @@ export default function Login({ onLogin }) {
       //sign in
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
+      await auth.currentUser.getIdToken(true);
 
       // Fetch student info from Realtime Database
       const db = getDatabase();
@@ -64,8 +65,12 @@ export default function Login({ onLogin }) {
             />
           </div>
 
+          <h6><a href="/forgotpassword">Forgot Password?</a></h6>
+
           <button type="submit" className="btn btn-primary w-100">Login</button>
         </form>
+
+        <h6 className="text-center"><a href="/signup">Don't have an account? Sign up</a></h6>
 
         {message && <div className="mt-3 text-center text-danger">{message}</div>}
       </div>

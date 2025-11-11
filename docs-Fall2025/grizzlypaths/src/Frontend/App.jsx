@@ -10,6 +10,8 @@ import Write from "../Component/Write";
 import Read from "../Component/Read"
 import MajorUploader from "../Component/ImportMajors";
 import ReadCourses from "../Component/ImportCourse";
+import ForgotPassword from "./ForgotPassword";
+import SignUp from "./SignUp";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,13 +31,18 @@ export default function App() {
     setLoggedIn(false);
   };
 
-  if (!loggedIn) {
-    return <Login onLogin={handleLogin} />;
-  }
-
   return (
     <Router>
       <Routes>
+        {!loggedIn ? (
+          <>
+            <Route path="/" element={<Login onLogin={handleLogin} />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
+        ) : (
+          <>
         <Route
           path="/"
           element={
@@ -51,10 +58,14 @@ export default function App() {
         <Route path="/courses" element={<RecommendCourse onBack={() => window.location.href = "/"} />} />
         <Route path="/roadmap" element={<RoadMap onBack={() => window.location.href = "/"} />} />
         <Route path="/about" element={<AboutUS onBack={() => window.location.href = "/"} />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/write" element={<Write />} />
         <Route path="/major" element={<MajorUploader />} />
         <Route path="/course" element={<ReadCourses />} />
         <Route path="*" element={<Navigate to="/" />} />
+        </>
+        )}
       </Routes>
     </Router>
   );
