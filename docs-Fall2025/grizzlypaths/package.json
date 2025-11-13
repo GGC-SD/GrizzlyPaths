@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "bootstrap-icons": "^1.13.1",
+    "cors": "^2.8.5",
     "csv-parser": "^3.2.0",
+    "express": "^5.1.0",
     "firebase": "^12.4.0",
     "papaparse": "^5.5.3",
     "react": "^19.1.1",
@@ -35,5 +37,13 @@
     "jsdom": "^27.0.1",
     "vite": "^7.1.9",
     "vitest": "^3.2.4"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
