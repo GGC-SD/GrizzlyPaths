@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Papa from 'papaparse';
 import { getDatabase, ref, set } from 'firebase/database';
-import { app } from '../firebase';
+import { app } from "../Backend/firebase";
 
 const db = getDatabase(app);
 const csvURL = "https://raw.githubusercontent.com/GGC-SD/GrizzlyPaths/refs/heads/main/docs-Fall2025/grizzlypaths/src/Component/Course.csv";
@@ -42,4 +42,3 @@ export default function ReadCourses() {
     });
   
 }
-
