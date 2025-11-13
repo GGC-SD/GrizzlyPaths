@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ref, update } from "firebase/database";
 import { auth, database } from "../Backend/firebase";
+import Read from "../Component/Read";
 //import { Link } from "react-router-dom";
 //import MajorUploader from "./Component/ImportMajors";
 //import ReadCourses from "./Component/ImportCourse";
@@ -121,6 +122,17 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
                       >RoadMap</a>
                     </li>
                   </ul>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 mb-3 d-flex">
+            <div className="card shadow-sm flex-fill">
+              <h5 className="card-header bg-secondary text-light text-center">
+                <i class="bi bi-graph-up"></i>
+                Admin
+                </h5>
+              <div className="card-body d-flex flex-column justify-content-center text-center">
+                <Read />
               </div>
             </div>
           </div>
