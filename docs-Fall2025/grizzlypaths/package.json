@@ -11,12 +11,17 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@lightningchart/lcjs": "^8.1.0",
     "bootstrap-icons": "^1.13.1",
     "csv-parser": "^3.2.0",
     "firebase": "^12.4.0",
     "papaparse": "^5.5.3",
+    "plotly.js": "^3.2.0",
+    "plotly.js-basic-dist": "^3.2.0",
+    "plotly.js-dist": "^3.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-plotly.js": "^2.6.0",
     "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
