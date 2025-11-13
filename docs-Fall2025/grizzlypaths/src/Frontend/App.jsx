@@ -56,7 +56,7 @@ export default function App() {
         <Route path="/import" element={<Read/>} />
         <Route path="/courses" element={<RecommendCourse onBack={() => window.location.href = "/"} />} />
         <Route path="/roadmap" element={<RoadMap onBack={() => window.location.href = "/"} />} />
-        <Route path="/about" element={<AboutUS onBack={() => window.location.href = "/"} />} />
+        <Route path="/about" element={<AboutUS onBack={() => window.location.href = "/"}/>} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/write" element={<Write />} />
