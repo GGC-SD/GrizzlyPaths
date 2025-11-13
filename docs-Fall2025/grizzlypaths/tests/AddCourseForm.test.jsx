@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, test, vi } from 'vitest';
-import AddCourseForm from '../src/AddCourseForm';
+import AddCourseForm from '../src/Frontend/AddCourseForm';
 
 // Mock Firebase functions with Vitest
 vi.mock('firebase/database', () => {

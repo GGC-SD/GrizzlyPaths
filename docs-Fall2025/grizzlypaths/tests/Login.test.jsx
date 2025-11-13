@@ -1,5 +1,5 @@
 //This emulates the environment
-import Login from "../src/Login";
+import Login from "../src/Frontend/Login";
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, test, vi, beforeEach, expect } from 'vitest';
 

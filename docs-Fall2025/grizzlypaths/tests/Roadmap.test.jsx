@@ -2,7 +2,7 @@
 import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
-import Roadmap from "../src/Roadmap";
+import Roadmap from "../src/Frontend/Roadmap";
 
 const click = (el) => fireEvent.click(el);
 
