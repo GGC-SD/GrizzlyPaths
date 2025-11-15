@@ -6,7 +6,7 @@ This tool is designed to assist IT students in exploring different entry-level p
 __Spring 2025 Scope:__
 Further develop the website tool by cleaning, analyzing, and creating visualizations from webscraped job posting sites such as LinkedIn, Glassdoor, and Indeed.com. These results will be used to attain the top 5-10 jobs and their correlating primary technical and soft skills depending on major or field. The user selected job/skill will result in the tool displaying courses that teach those necessary skills, ensuring the student will learn the skills necessary to attain their dream job. The team is working to update and revamp the current website to be more interactive and dynamic for users. 
 
-#### Updates Fall 2025:
+__Updates Fall 2025:__
 GrizzlyPaths is a web application that is meant to help upcoming IT majors by showing them a road map of skills that will be required for jobs in the desired industry. Our focus is on creating a road map that will display 10 job titles that will be displayed based on the occurrence within multiple job searching websites. As they choose the job, hard and soft skills will then be displayed based on importance from a variety of companies. Those skills will have corresponding courses at Georgia Gwinnett College that students must attend. 
 
 ## Project Demo Video
