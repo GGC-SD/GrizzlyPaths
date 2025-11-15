@@ -74,6 +74,9 @@ GrizzlyPaths is a web application that is meant to help upcoming IT majors by sh
 * ITEC 2140 Introduction to Java, Profession Xin Xu, April 28, 2021
 
 ## Technology
+### Fall '25
+* [Firebase] (https://firebase.google.com/)
+* HTML/CSS, JavaScript, React.js, Chart.js, Vite, Vitest
 ### Spring '25
 * [Colab Notebook](https://colab.google/)
 * [PowerBi](https://app.powerbi.com/home?experience=power-bi)
