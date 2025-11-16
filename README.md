@@ -131,7 +131,7 @@ __Updates Fall 2025:__
 
 1. [Install Visual Studio Code](https://code.visualstudio.com/download)
 2. [Install Git](https://git-scm.com/downloads)
-3. [Install Node.js](https://nodejs.org/en/download)
+3. [Install Node.js](https://nodejs.org/en/download)<br>
    3.1: Verify installation
    * node -v
    * npm -v
