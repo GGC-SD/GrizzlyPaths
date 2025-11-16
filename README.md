@@ -134,8 +134,8 @@ __Updates Fall 2025:__
 3. [Install Node.js](https://nodejs.org/en/download)<br>
    3.1: Verify installation
    * node -v
-   * npm -v<br>
-   
+   * npm -v
+
 4: Clone the respository:
    * git clone https://github.com/GGC-SD/GrizzlyPaths.git  
    * cd GrizzlyPaths/docs-Fall2025<br>
