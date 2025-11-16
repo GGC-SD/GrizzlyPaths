@@ -125,7 +125,32 @@ I utilized the website kaggle.com to obtain the job listing datasets, Microsoft 
         * Worked through list to create common word and skill set dictionaries
         * Formatted to put back into Python coding to build dictionaries
     7. Created analysis loop to filter out common words and filter down to skill words
-    8. Created histogram plot to display skills words in a ranked order     
+    8. Created histogram plot to display skills words in a ranked order
+
+__Updates Fall 2025:__
+
+1. [Install Visual Studio Code](https://code.visualstudio.com/download)
+2. [Install Git](https://git-scm.com/downloads)
+3. [Install Node.js](https://nodejs.org/en/download)
+   3.1: Verify installation
+   * node -v
+   * npm -v
+4: Clone the respository:
+   * git clone https://github.com/GGC-SD/GrizzlyPaths.git  
+   * cd GrizzlyPaths/docs-Fall2025
+5: Install project dependencies:
+   * React-router-dom: npm install react-router-dom
+   * Bootstrap: npm install bootstrap@5.3.3
+   * Bootstrap-icon: npm install bootstrap-icons
+   * Vite: npm install -D vite
+   * React-chartjs-2: npm install react-chartjs-2
+   * Paraphase: npm install papaparse
+   * Csv-parser: npm install csv-parser
+   * Firebase CLI globally for deployment: npm install -g firebase-tools
+   * Install Firebase SDK in the project: npm install firebase
+   * Vitest: npm install -D vitest
+   * Jest: npm install -D jest
+
 
 ## Usage
 1. Open up colab Notebook for project
