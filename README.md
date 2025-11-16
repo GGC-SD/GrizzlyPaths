@@ -10,12 +10,14 @@ __Updates Fall 2025:__
 GrizzlyPaths is a web application that is meant to help upcoming IT majors by showing them a road map of skills that will be required for jobs in the desired industry. Our focus is on creating a road map that will display 10 job titles that will be displayed based on the occurrence within multiple job searching websites. As they choose the job, hard and soft skills will then be displayed based on importance from a variety of companies. Those skills will have corresponding courses at Georgia Gwinnett College that students must attend. 
 
 ## Project Demo Video
+### Fall '25: 
 ### Spring '25: [Spring 2025 Presentation](https://drive.google.com/file/d/1bj1rbmg5UvHdfhg2SQcOoPqxyHSE80DV/view)
 ### Fall '23: [Fall 2023 Presentation](https://github.com/GGC-DSA/itskills/assets/60529957/c88c3360-a92b-4571-852c-53548882d7f2)
 ### Spring '23:  [Grizzly Insights Screencast](https://github.com/GGC-DSA/itskills/blob/main/media/Spr%20'23/ItSkills%20Screencast%20Spring%202023.mp4)
 ### Summer '21: [Hugh Smith Presentation](https://github.com/GGC-DSA/itskills/blob/main/media/Sum%20'21/Presentation.mp4)
 
 ## Project Website
+### Fall '25: 
 ### Spring '25: [Grizzly Paths Website Link](https://itskills-1.onrender.com/)
 ### Spring '23: [Grizzly Path](ggc-dsa.github.io/itskills/)
 
@@ -34,9 +36,6 @@ GrizzlyPaths is a web application that is meant to help upcoming IT majors by sh
 ## Fall '25 Team
 * Students: Sidibaba Simpara - Project Manager & UI/UX design, Hieu Do - Lead Programmer & Documentation Lead, Charles Sarpong - Testing Lead, William Chokbengboune - Data Modeler & Client Liaison
 * Advisor: Dr. Anca Doloc-Mihu
-
-
-
 
 ## Spring '25 Team
 * Student: Michelle Webb - Data Analyzer/Project Manager, Nikhita Nikhita- Visualization/Project Documenter, Krishan Bhalsod - Data Modeler/Data Analyzer/data cleaning/collection, Lucas Leon Visualization/Client_Liason
