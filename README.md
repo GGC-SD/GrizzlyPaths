@@ -150,6 +150,10 @@ __Updates Fall 2025:__
     * Install Firebase SDK in the project: `npm install firebase`
     * Vitest: `npm install -D vitest`
     * Jest: `npm install -D jest`
+6. **Run the project:**
+    * npm run dev
+7. **Run the test:**
+    * npm run test
 
 
 ## Usage
