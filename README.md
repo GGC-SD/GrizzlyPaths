@@ -201,6 +201,12 @@ __Updates Fall 2025:__
 * [Simply Hired CSV files](https://github.com/GGC-DSA/itskills/tree/main/Spr%20'23/SimplyHiredData)
 
 ## Main methods for Analysis, ML/AI
+### Fall '25
+- Firebase - Log in page with full function.
+- Show the general of student information in dashboard.
+- There is a general list of 3000/4000 recommended courses in each major.
+- Have a donut chart to show to top 5 jobs for each major.
+
 ### Spr '25: 
 - Python - value counts
 - Prince module for MCA
