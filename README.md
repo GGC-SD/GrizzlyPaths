@@ -134,10 +134,10 @@ __Updates Fall 2025:__
 3. [Install Node.js](https://nodejs.org/en/download)<br>
    3.1: Verify installation
    * node -v
-   * npm -v
+   * npm -v<br>
 4: Clone the respository:
    * git clone https://github.com/GGC-SD/GrizzlyPaths.git  
-   * cd GrizzlyPaths/docs-Fall2025
+   * cd GrizzlyPaths/docs-Fall2025<br>
 5: Install project dependencies:
    * React-router-dom: npm install react-router-dom
    * Bootstrap: npm install bootstrap@5.3.3
