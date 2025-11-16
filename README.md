@@ -151,10 +151,9 @@ __Updates Fall 2025:__
     * Vitest: `npm install -D vitest`
     * Jest: `npm install -D jest`
 6. **Run the project:**
-    * npm run dev
+    * `npm run dev`
 7. **Run the test:**
-    * npm run test
-
+    * `npm run test`
 
 ## Usage
 1. Open up colab Notebook for project
