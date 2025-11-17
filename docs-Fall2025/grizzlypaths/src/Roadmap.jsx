@@ -314,15 +314,15 @@ h1{margin:0;font-size:22px}
 .crumbs{display:flex;gap:8px;align-items:center;color:#0b5f38;font-size:13px;margin:8px 0}
 .crumbs span{opacity:.9}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;justify-content:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;justify-content:center}  /* considered change this */
 
-.card{perspective:1000px;cursor:pointer;contain:content}
+.card{perspective:1000px;cursor:pointer;contain:content}                              /* Might remove due to performance concerns */
 .inner{
   position:relative;width:100%;height:calc(160px * var(--w,1));
   transform-style:preserve-3d;will-change:transform;transform:translateZ(0);
   transition:transform .2s ease;
   background:var(--card);
-  border-radius:14px;border:1px solid var(--stroke);
+  border-radius:14px;border:1px solid var(--stroke);        /* considered change this */
 }
 .inner:hover{transform:translateY(-1px)}
 .inner.flip{transform:rotateY(180deg)}
@@ -333,7 +333,7 @@ h1{margin:0;font-size:22px}
   -ms-overflow-style:none;scrollbar-width:none
 }
 .face::-webkit-scrollbar{display:none}
-.face.front{border-left:6px solid var(--accent,#4a7);}
+.face.front{border-left:6px solid var(--accent,#4a7);}        /* considered change this */
 .back{transform:rotateY(180deg)}
 
 .title{font-weight:900;letter-spacing:.2px;line-height:1.2;overflow-wrap:anywhere;font-size:clamp(13px,calc(13px + .8vw * var(--w,1)),21px);max-height:3.6em}
