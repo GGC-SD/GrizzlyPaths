@@ -84,7 +84,7 @@ export default function Read() {
 
   return (
     <div>
-      <button onClick={importCSV} disabled={loading}>
+      <button onClick={importCSV} disabled={loading} class="btn-as-link">
         {loading ? 'Importing...' : 'Import CSV to Firebase'}
       </button>
     </div>
