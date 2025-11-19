@@ -1,49 +1,49 @@
-import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function MajorsChart({ majorId, setMajor }) {
-  const MAJORS = [
-    { id: "sw", label: "Software Development", color: "#6C63FF" },
-    { id: "sec", label: "Cyber", color: "#E17055" },
-    { id: "ds", label: "Data Science", color: "#3E8EFA" },
-    { id: "dm", label: "Digital Media", color: "#A55EEA" },
-    { id: "es", label: "Enterprise Systems", color: "#00B894" },
+export default function Chart({ labels, values, title, onSliceClick }) {
+
+  const COLORS = [
+    "#007bff", "#28a745", "#dc3545", "#ffc107",
+    "#6f42c1", "#fd7e14", "#20c997", "#e83e8c",
   ];
 
   const data = {
-    labels: MAJORS.map((m) => m.label),
+    labels,
     datasets: [
       {
-        label: "Majors",
-        data: MAJORS.map(() => 1),
-        backgroundColor: MAJORS.map((m) =>
-          majorId === m.id ? m.color : `${m.color}66`
-        ),
+        label: title,
+        data: values,
+        backgroundColor: labels.map((_, i) => COLORS[i % COLORS.length]),
         borderWidth: 1,
       },
     ],
   };
 
   const options = {
-  responsive: true,       
-  maintainAspectRatio: false,
-  plugins: {
-    legend:{ 
-    diplay: true,
-    position: 'bottom',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: "bottom" },
     },
-  },
-  onClick: (evt, elements) => {
-    if(!elements.length) return;
-    const index = elements[0].index;
-    const id = MAJORS[index].id;
-    setMajor(majorId == id ? null : id);
-  },
-  cutout: "50%",
-};
 
-  return <Doughnut data={data} options={options} />;
+    // ENABLE CLICKING
+    onClick: (evt, elements) => {
+      if (!elements.length) return;
+      const index = elements[0].index;
+      if (onSliceClick) onSliceClick(index);
+    },
+
+    cutout: "50%",
+  };
+
+  return (
+    <div style={{ width: "100%", maxWidth: 380, margin: "0 auto 10px" }}>
+      <div style={{ width: "100%", aspectRatio: "1/1" }}>
+        <Doughnut data={data} options={options} />
+      </div>
+      <h3 style={{ textAlign: "center", marginTop: 8 }}>{title}</h3>
+    </div>
+  );
 }
