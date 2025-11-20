@@ -1,0 +1,19 @@
+Global CSS File: interfaceSettings.css
+https://github.com/GGC-SD/GrizzlyPaths/blob/main/docs-Fall2025/grizzlypaths/src/Frontend/interfaceSettings.css
+
+Team Member: Hieu
+Global Variable
+--primaryButtonColor: Sets the background color of logout buttons, use for GrizzlyPathsInterface.html
+--primaryButtonRadius: Sets the border radius of logout buttons, use for GrizzlyPathsInterface.html
+--primaryButtonHover: Sets the hover background color of logout buttons, use for GrizzlyPathsInterface.html
+--primaryButtonText: Sets the text color on hover for logout buttons, use for GrizzlyPathsInterface.html
+
+William Chokbengboune
+--form-select: highlighted width, use for GrizzlyPathsInterface.html
+--timelineContainer: custom global variable used for timeline, use for GrizzlyPathsInterface.html
+
+Sidibaba Simpara
+-- Created the css file
+-- Reseter: Removes default margin/padding browsers might add, use for GrizzlyPathsInterface.html
+-- timeline li: Positions each li item along the line
+-- container: applied function that creates a white card-like box for your login form. 
