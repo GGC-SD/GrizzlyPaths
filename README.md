@@ -226,7 +226,8 @@ __Updates Fall 2025:__
 ![Software Developer Common Skills for Web Developer](https://github.com/GGC-DSA/itskills/blob/main/media/Spr%20'23/Software%20Development%20Results/SD_CommonSkills_WebDeveloper.jpg)
 
 ### Fall 2025 Remaining Scope
-
+1. 
+2. 
 
 ### Spring 2025 Remaining Scope
 1. Have a continuous influx of data with live job posting data
