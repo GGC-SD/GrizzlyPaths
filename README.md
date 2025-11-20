@@ -225,6 +225,9 @@ __Updates Fall 2025:__
 ![Systems and Security Common Job Titles](https://github.com/GGC-DSA/itskills/blob/main/media/Spr%20'23/Systems%20and%20Security%20Results/SAS_Common_JobTitles.jpg)
 ![Software Developer Common Skills for Web Developer](https://github.com/GGC-DSA/itskills/blob/main/media/Spr%20'23/Software%20Development%20Results/SD_CommonSkills_WebDeveloper.jpg)
 
+### Fall 2025 Remaining Scope
+
+
 ### Spring 2025 Remaining Scope
 1. Have a continuous influx of data with live job posting data
 2. Create a survey for IT faculty to gather which specific skills are taught for each class - Dr. Anca can distribute
