@@ -83,7 +83,7 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
 
       {/* Dashboard Content */}
       <div className="container mt-5">
-        <h1 className="text-center">Welcome to Grizzly Path</h1>
+        <h1 className="text-center">Welcome to Grizzly Paths !</h1>
         <hr/>
         <h2 className="mb-3">My Dashboard</h2>
         <div className="row mt-4 align-items-stretch">
