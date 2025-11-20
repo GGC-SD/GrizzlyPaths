@@ -1,9 +1,5 @@
 Global CSS File: interfaceSettings.css
-<<<<<<< HEAD
-File Location (Path in Project): /GGC-SD/GrizzlyPaths/tree/main/docs-Fall20255/interfaceSettings.css
-=======
-File Location (Path in Project): /GGC-SD/GrizzlyPaths/docs-Fall20255/interfaceSettings.css
->>>>>>> faf8a64de1f57a6117e8aeeebddca67a4cf39395
+https://github.com/GGC-SD/GrizzlyPaths/blob/main/docs-Fall2025/grizzlypaths/src/Frontend/interfaceSettings.css
 
 Team Member: Hieu
 Global Variable
