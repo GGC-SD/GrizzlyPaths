@@ -17,3 +17,6 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## Link to LICENSE.md
 [LICENSE.md](https://github.com/GGC-SD/GrizzlyPaths/blob/main/docs-Fall2025/LICENSE.md)
+
+For detail information about the tool, installation step, etc, [click here](https://github.com/GGC-SD/GrizzlyPaths/blob/main/README.md) under Fall 2025 
+
