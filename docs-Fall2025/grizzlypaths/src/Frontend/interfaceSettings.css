@@ -125,20 +125,8 @@ form {
     margin-bottom: 10px;
 }
 
-footer{
-  margin-top: 40px;
-  background-image: url("/src/Frontend/footer.jpg");
-  background-size: cover;
-  height: 50px;
-}
-
 a:hover {
   color: red;
-}
-
-.footer-row {
-  display: flex;
-  justify-content: space-between;
 }
 
 .legend {
@@ -177,29 +165,31 @@ a:hover {
   }
 }
 
-.btn-as-link {
-  /* Reset default button styles */
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  
-  /* Apply link styling */
-  color: #0000EE; /* Standard link blue. Use #0645AD for Wikipedia style */
-  text-decoration: underline;
-  cursor: pointer; /* Changes mouse to hand icon */
-  font-family: inherit; /* Matches your other text font */
-  font-size: 16px; /* Adjust to match your link size */
+.page-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Optional: Visual feedback when hovering */
-.btn-as-link:hover {
-  color: #0000aa; /* Slightly darker blue on hover */
+.content {
+  flex: 0; 
 }
 
-.btn-as-link:focus {
-  outline: 2px solid #0000EE; /* Accessibility focus ring */
+footer {
+  background-image: url("/src/Frontend/footer.jpg");
+  background-size: cover;
+  height: 40px;
+  width: 100%;
 }
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+
 
 
 

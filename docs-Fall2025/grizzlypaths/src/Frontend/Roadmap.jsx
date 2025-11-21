@@ -6,13 +6,13 @@ import Chart from "./Chart"; // assumes Chart({labels,values,title,onSliceClick}
 const TOP_SKILLS=10;
 const MAX_COURSE_SKILLS=TOP_SKILLS;
 
-/* utils (same as yours) */
+/* utils */
 const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9+/#.\s-]/g," ").replace(/\s+/g," ").trim();
 const split=v=>String(v||"").split(/[,;|/]/).map(s=>s.trim()).filter(Boolean);
 const uniq=a=>Array.from(new Set(a));
 const escapeRegExp=str=>String(str).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
 
-/* hard skills detection list (same) */
+/* hard skills */
 const KNOWN=["JavaScript","TypeScript","React","HTML","CSS","Node","Express","Python","Pandas","NumPy","Scikit-learn","TensorFlow","PyTorch","Java","C++","C#","SQL","NoSQL","PostgreSQL","MongoDB","Linux","Git","Docker","Kubernetes","CI/CD","AWS","Azure","GCP","Networking","Security","Ethical Hacking","Incident Response","ETL","Data Analysis","Machine Learning","Statistics","UX","UI","Figma"];
 const getSkillsFromPosting=j=>{
   const explicit=split(j?.skills||j?.job_skills||j?.required_skills||j?.skill_list||j?.keywords);
@@ -25,7 +25,7 @@ const getSkillsFromPosting=j=>{
   return uniq([...explicit,...detected]);
 };
 
-/* soft skills (unused for now but left in place) */
+/* soft skills (unused) */
 const SOFT=[ /* ... */ ];
 const softFrom=t=>{
   const x=norm(t||""),out=new Set();
@@ -33,7 +33,7 @@ const softFrom=t=>{
   return [...(out.size?out:new Set(["Communication","Teamwork","Problem solving","Time management","Adaptability"]))].slice(0,5);
 };
 
-/* CSV urls & loaders (unchanged) */
+/* CSV urls & loaders */
 const JOBS_CSV="https://raw.githubusercontent.com/GGC-SD/GrizzlyPaths/main/docs-Spring2025/final_files/merged_jobs_cleaned%20(6).csv";
 
 function useCourseMaps(){
@@ -116,7 +116,7 @@ function useJobsCSV(url=JOBS_CSV){
   return {jobs,loading,err};
 }
 
-/* majors & job types (same) */
+/* majors & job types */
 const MAJORS=[
   {id:"sw",label:"Software Development",color:"#6C63FF"},
   {id:"ds",label:"Data Science & Analytics",color:"#3E8EFA"},
@@ -169,7 +169,7 @@ const MAP_RULES={
   ],
 };
 
-/* UI small components (kept) */
+/* UI small components */
 const Card=memo(function Card({title,info,onToggle,isFlipped=false,weight=1,accent}){
   return(
     <div className="card" style={{'--w':weight,'--accent':accent||'#4a7'}} onClick={()=>onToggle&&onToggle()} role="button" aria-label={title}>
@@ -222,7 +222,7 @@ const CourseCard = memo(function CourseCard({ code, name, skills }) {
 });
 
 
-/* integerize helper (kept) */
+/* integerize helper */
 function integerizeCounts(countMap,total){
   const entries=[...countMap.entries()].map(([skill,raw])=>({skill,raw,floor:Math.floor(raw),frac:raw-Math.floor(raw)}));
   let sumFloor=entries.reduce((a,e)=>a+e.floor,0),remain=Math.max(0,total-sumFloor);
@@ -252,7 +252,7 @@ export default function Roadmap({onBack}){
 
   const scrollTo=ref=>ref?.current?.scrollIntoView({behavior:"smooth",block:"start"});
 
-  /* mapToType using MAP_RULES (keeps your earlier logic) */
+  /* mapToType using MAP_RULES */
   const mapToType=(mid,title)=>{
     const rules=MAP_RULES[mid]||[];
     for(const [label,rx]of rules) if(rx.test(String(title))) return label;
@@ -260,7 +260,7 @@ export default function Roadmap({onBack}){
     return fallback||"Other";
   };
 
-  /* summarizeType reused to compute skill weights (keeps your earlier logic) */
+  /* summarizeType reused to compute skill weights */
   const summarizeType=(typeId)=>{
     const postingsAll=JOBS.filter(j=>mapToType(majorId,String(j.job_title||""))===typeId);
     const rawAll=new Map();
@@ -287,7 +287,7 @@ export default function Roadmap({onBack}){
     return {allowed,postings:postingsKept,intList};
   };
 
-  /* bucketCounts for job posting chart (when you click a major) */
+  /* bucketCounts for job posting chart */
   const bucketCounts=useMemo(()=>{
     if(!majorId) return [];
     const types=JOB_TYPES[majorId]||[];
@@ -321,7 +321,7 @@ export default function Roadmap({onBack}){
     });
   },[typeSkills]);
 
-  /* courses list: compute courses that match allowed skills (already in your code) */
+  /* courses list: compute courses that match allowed skills */
   const courses=useMemo(()=>{
     const allowed=typeSkills.allowed;
     if(!allowed.size) return[];
@@ -339,16 +339,14 @@ export default function Roadmap({onBack}){
 
   /* when major changes, reset everything and show job posting view */
   useEffect(()=>{
-    let timer;
     setActiveType(null);
     setActiveSkill(null);
     if(majorId){
       setView("jobs");
-      timer = setTimeout(()=>scrollTo(jobTypesRef),50);
+      setTimeout(()=>scrollTo(jobTypesRef),50);
     } else {
       setView(null);
     }
-    return()=>clearTimeout(timer);
   },[majorId]);
 
   /* when activeType (job type) is set, switch to skill view */
@@ -523,10 +521,10 @@ export default function Roadmap({onBack}){
   );
 }
 
-/* styles (minified — kept most of your CSS but compacted and made height respond to --w) */
+/* styles */
 const GLOBAL_CSS=`
 :root{--ink:#163b20;--inkSub:#2b6a41;--card:#fff;--stroke:#bad7c8;}*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(to right,#36d352,#ace5bc);min-height:100vh;color:var(--ink)}
+body{font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(to right,#36d352,#ace5bc);min-height:100vh;color:var(--ink);}
 header{padding:18px 20px;text-align:center}h1{margin:0;font-size:22px}
 .wrap{max-width:1100px;margin:0 auto;padding:0 16px 28px}
 .stage{background:#fff;border:none;border-radius:16px;box-shadow:none;padding:16px}
@@ -551,12 +549,12 @@ h2{margin:12px 0 6px;font-size:18px}h3{margin:10px 0 4px}.mt8{margin-top:8px}
 @media (prefers-reduced-motion:reduce){.inner,.inner:hover{transition:none;transform:none}}
 /* KEEP/ADJUST THIS LINE: Ensure the small size for the major row */
 .majors-row .inner {
-  height: 70px !important; 
+  height: 70px; 
 }
 
-/* FIX FOR MAJOR CARD FLIP: Keep the flip prevention rules */
+/*Keep the flip prevention rules */
 .majors-row .inner.flip {
-  transform: translateZ(0) !important;
+  transform: translateZ(0);
 }
 .majors-row .inner.flip .back {
   visibility: hidden;
@@ -566,4 +564,3 @@ h2{margin:12px 0 6px;font-size:18px}h3{margin:10px 0 4px}.mt8{margin-top:8px}
   transform: none;
 }
 `;
-

@@ -63,6 +63,7 @@ export default function RecommendCourse({ onBack }) {
           { title: "ITEC 4450", description: "Web Development", skill: "PHP, SQL", prerequisite: "ITEC2130, ITEC2150, ITEC3200"},
           { title: "ITEC 4550", description: "Mobile Aplication Development", skill: "Android, IOS application", prerequisite: "ITEC2110, ITEC2150"},
           { title: "ITEC 4650", description: "Game Development", skill: "Computer Gaming", prerequisite: "ITEC2150, ITEC3450"},
+          { title: "ITEC 4700", description: "Artificial Intelligence", skill: "AI", prerequisite: "ITEC2150 or ITEC3160"},
         ]}
       />
 
@@ -70,9 +71,15 @@ export default function RecommendCourse({ onBack }) {
         id="cy"
         title="System and Cybersecurity"
         courses={[
-          { title: "ITEC 3100", description: "Introduction to Network", skill: "Hardware and Networking" },
-          { title: "ITEC 3300", description: "Information Security", skill: "Core Security Principles" },
-          { title: "ITEC 3600", description: "Operation System", skill: "OS Architecture" },
+          { title: "ITEC 3100", description: "Introduction to Network", skill: "Hardware and Networking", prerequisite: "ITEC1001, ITEC2140, ENGL 1101" },
+          { title: "ITEC 3300", description: "Information Security", skill: "Core Security Principles", prerequisite: "(ITEC2201 or MIS3100) and (ITEC or ITEC2140)" },
+          { title: "ITEC 3600", description: "Operation System", skill: "OS Architecture", prerequisite: "ITEC2150, ITEC2201" },
+          { title: "ITEC 4000", description: "Cloud Computing", skill: "AWS", prerequisite: "ITEC3100" },
+          { title: "ITEC 4100", description: "Advanced Networking", skill: "Hardware and Networking", prerequisite: "ITEC3100" },
+          { title: "ITEC 4310", description: "Operating Systems Security", skill: "OS security", prerequisite: "ITEC3300" },
+          { title: "ITEC 4320", description: "Internet Security", skill: "Networking Security", prerequisite: "ITEC2150, ITEC3100, ITEC3300" },
+          { title: "ITEC 4330", description: "System Administration", skill: "System Administration", prerequisite: "ITEC3100, ITEC3600" },
+          { title: "ITEC 4340", description: "Ethical Hacking", skill: "Ethical Hacker/ Security Specialist", prerequisite: "ITEC2140, ITEC3100, ITEC3300" },
         ]}
       />
 
@@ -80,9 +87,11 @@ export default function RecommendCourse({ onBack }) {
         id="dm"
         title="Digital Media"
         courses={[
-          { title: "ITEC 2110", description: "Digital Media", skill: "Adobe, HTML" },
-          { title: "ITEC 2130", description: "Web Technology", skill: "HTML, CSS, Javascript, Jquery" },
-          { title: "ITEC 4450", description: "Web Development", skill: "HTML, CSS, PHP" },
+          { title: "ITEC 3110", description: "Digital Design", skill: "Design Process", prerequisite: "ITEC2110" },
+          { title: "ITEC 3550", description: "User Centered Design", skill: "GUI", prerequisite: "ITEC2110, ITEC2150, ITEC2201" },
+          { title: "ITEC 4110", description: "Digital Media Capstone Project", skill: "Digital Media realm", prerequisite: "2 courses from ITEC4450, ITEC4550, ITEC4650, ITEC4130" },
+          { title: "ITEC 4450", description: "Web Development", skill: "PHP, SQL", prerequisite: "ITEC2130, ITEC2150, ITEC3200"},
+          { title: "ITEC 4850", description: "3D Modeling and Animation", skill: "3D model generation and animation", prerequisite: "ITEC2110" },
         ]}
       />
 
@@ -90,8 +99,11 @@ export default function RecommendCourse({ onBack }) {
         id="ds"
         title="Data Science and Analytics"
         courses={[
-          { title: "MATH 2050", description: "Introduction to Statistic", skill: "Statistic, R" },
-          { title: "ITEC 4210", description: "Information Analytics", skill: "Data Structure, Microsoft Azure" },
+          { title: "ITEC 3160", description: "Prog for Data Analysis", skill: "Python", prerequisite: "ITEC2120 or ITEC2140" },
+          { title: "ITEC 3170", description: "Data Intensive Fundamentals", skill: "Statistics and Mathematics", prerequisite: "ITEC2150 or ITEC3160" },
+          { title: "ITEC 4210", description: "Information Analytics", skill: "Data Structure, Microsoft Azure", prerequisite: "ITEC3200 and (ITEC3160 or ITEC2150)" },
+          { title: "ITEC 4220", description: "Advanced Data Analytics", skill: "Data Visualization", prerequisite: "MATH2450, MATH 2050, ITEC4210" },
+          { title: "ITEC 4230", description: "Data Science & Analytics Proj", skill: "Programming, Statistic, SQL", prerequisite: "ITEC4210, ITEC4220" },
         ]}
       />
       
@@ -99,15 +111,23 @@ export default function RecommendCourse({ onBack }) {
         id="es"
         title="Enterprise System"
         courses={[
-          { title: "ITEC 2201", description: "Information Systems", skill: "Strategic Application" },
-          { title: "ITEC 3350", description: "Digital Commerce", skill: "E-commerce and Marketing" },
+          { title: "ITEC 3350", description: "Digital Commerce", skill: "E-commerce and Marketing", prerequisite: "ITEC2201 or MIS3100" },
+          { title: "ITEC 3700", description: "Systems Analysis and Design", skill:"SQL, Project Libre, Visual Paradigm", prerequisite: "ITEC2201, ITEC2150" },
+          { title: "ITEC 4150", description: "Enterprise Process Integration", skill: "ESB", prerequisite: "ITEC2150, ITEC3200, ITEC3700" },
+          { title: "ITEC 4750", description: "Enterprise Architecture Design", skill: "Data Architecture, Data Architecture", prerequisite: "ITEC2201, ITEC4150" },
+          { title: "ITEC 4810", description: "Info Technology Project 1", skill: "Technical Awareness", prerequisite: "ITEC3100, ITEC3200, ITEC3300, ITEC3700" },
+          { title: "ITEC 4820", description: "Info Technology Project 2", skill: "Technical Awareness", prerequisite: "ITEC4810" },
         ]}
       />
+      <br></br>
       
-      <footer>
-        <p>
-          &copy; <b>2025 Georgia Gwinnett College GrizzlyPath</b>
-        </p>
+      <footer className="mt-auto">
+        <div className="footer-row">
+          <p>&copy; <b>Github has the following Copyright: © 2025 GitHub, Inc.
+          <br></br>
+          GGC has: © 2025 Georgia Gwinnett College</b>
+          </p>
+        </div>
       </footer>
     </div>
   );

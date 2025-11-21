@@ -47,3 +47,6 @@ export default function Chart({ labels, values, title, onSliceClick }) {
     </div>
   );
 }
+
+
+

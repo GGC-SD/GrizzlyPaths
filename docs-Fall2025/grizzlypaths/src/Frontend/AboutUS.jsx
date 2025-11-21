@@ -35,4 +35,3 @@ export default function AboutUS({ onBack }) {
     </div>
   );
 }
-
