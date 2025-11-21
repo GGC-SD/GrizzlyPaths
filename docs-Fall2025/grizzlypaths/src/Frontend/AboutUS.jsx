@@ -29,7 +29,7 @@ export default function AboutUS({ onBack }) {
 
       <footer className="mt-auto">
         <div className="footer-row">
-          <p>&copy; <b>2025 Georgia Gwinnett College GrizzlyPath</b></p>
+          <p><b>© 2025 Georgia Gwinnett College Grizzly Path</b></p>
         </div>
       </footer>
     </div>
