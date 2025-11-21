@@ -165,6 +165,30 @@ a:hover {
   }
 }
 
+.btn-as-link {
+  /* Reset default button styles */
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  
+  /* Apply link styling */
+  color: #0000EE; /* Standard link blue. Use #0645AD for Wikipedia style */
+  text-decoration: underline;
+  cursor: pointer; /* Changes mouse to hand icon */
+  font-family: inherit; /* Matches your other text font */
+  font-size: 16px; /* Adjust to match your link size */
+}
+
+/* Optional: Visual feedback when hovering */
+.btn-as-link:hover {
+  color: #0000aa; /* Slightly darker blue on hover */
+}
+
+.btn-as-link:focus {
+  outline: 2px solid #0000EE; /* Accessibility focus ring */
+}
+
 .page-layout {
   min-height: 100vh;
   display: flex;
@@ -186,10 +210,3 @@ footer {
   display: flex;
   justify-content: space-between;
 }
-
-
-
-
-
-
-
