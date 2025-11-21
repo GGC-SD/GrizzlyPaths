@@ -339,14 +339,16 @@ export default function Roadmap({onBack}){
 
   /* when major changes, reset everything and show job posting view */
   useEffect(()=>{
+    let timer;
     setActiveType(null);
     setActiveSkill(null);
     if(majorId){
       setView("jobs");
-      setTimeout(()=>scrollTo(jobTypesRef),50);
+      timer = setTimeout(()=>scrollTo(jobTypesRef),50);
     } else {
       setView(null);
     }
+    return()=>clearTimeout(timer);
   },[majorId]);
 
   /* when activeType (job type) is set, switch to skill view */

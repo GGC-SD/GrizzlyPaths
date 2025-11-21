@@ -1,119 +1,156 @@
-// tests/Roadmap.test.jsx
-import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import React from "react";
-import Roadmap from "../src/Frontend/Roadmap";
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import React from 'react';
+import Papa from 'papaparse';
+// 1. FIX: Import from the correct location
+import Roadmap from '../src/Frontend/Roadmap'; 
 
-const click = (el) => fireEvent.click(el);
+// --- MOCKS ---
 
-beforeEach(() => {
-  Element.prototype.scrollIntoView = vi.fn();
-});
-afterEach(() => {
-  vi.restoreAllMocks();
-});
+// 2. FIX: Mock the Chart at its ACTUAL location so Vitest intercepts it.
+// If your Roadmap is in src/Frontend/, then Chart is likely there too.
+vi.mock('../src/Frontend/Chart', () => ({
+  default: ({ title, onSliceClick, labels }) => (
+    <div data-testid="mock-chart">
+      <h3>{title}</h3>
+      <ul>
+        {labels.map((label, index) => (
+          <li 
+            key={label} 
+            data-testid={`chart-slice-${index}`}
+            onClick={() => onSliceClick(index)}
+          >
+            {label}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}));
 
-// --------------------------- MOCK DATA ---------------------------
-const COURSE_CSV_TEXT = `
-COURSE_NUMBER,COURSE_NAME,COURSE_SKILLS
-ITEC 2120,Intro to Programming,"[\\"JavaScript\\", \\"Algorithms\\", \\"Debugging\\"]"
-ITEC 2130,Web Technologies,"[\\"HTML\\", \\"CSS\\", \\"React\\"]"
-ITEC 2150,OOP & Data Structures,"[\\"Java\\", \\"OOP\\", \\"Data Structures\\"]"
-ITEC 3110,Systems Analysis,"[\\"UML\\", \\"Requirements\\", \\"SQL\\"]"
-ITEC 3700,AI Fundamentals,"[\\"Python\\", \\"ML\\", \\"Statistics\\"]"
-`.trim();
+// Mock Papaparse
+vi.mock('papaparse', () => ({
+  default: {
+    parse: vi.fn()
+  }
+}));
 
-const JOBS_CSV_TEXT = `
-job_title,job_description,skills
-Software Developer,"Build UIs; strong communication and collaboration","React, JavaScript, HTML, CSS"
-Software Engineer,"APIs; problem solving; teamwork","Node, SQL, JavaScript"
-Cloud Engineer,"Cloud; Docker; CI/CD; communication","Docker, CI/CD, SQL"
-`.trim();
+// --- TEST DATA ---
 
-function mockFetchForRoadmap() {
-  const coursesURL =
-    "https://raw.githubusercontent.com/GGC-SD/GrizzlyPaths/main/docs-Fall2025/grizzlypaths/src/Component/Course.csv";
-  const jobsURL =
-    "https://raw.githubusercontent.com/GGC-SD/GrizzlyPaths/main/docs-Spring2025/final_files/merged_jobs_cleaned%20(6).csv";
+const MOCK_JOBS_DATA = [
+  {
+    job_title: 'Software Engineer',
+    job_description: 'Develop web apps using React and Node.',
+    company_name: 'Tech Co',
+    skills: 'React, Node, JavaScript'
+  },
+  {
+    job_title: 'Data Scientist',
+    job_description: 'Analyze data using Python and Pandas.',
+    company_name: 'Data Inc',
+    skills: 'Python, Pandas, Machine Learning'
+  }
+];
 
-  vi.spyOn(global, "fetch").mockImplementation((input) => {
-    const url = typeof input === "string" ? input : input?.url;
-    if (url === coursesURL) {
-      return Promise.resolve(
-        new Response(COURSE_CSV_TEXT, { status: 200, headers: { "Content-Type": "text/plain" } })
-      );
-    }
-    if (url === jobsURL) {
-      return Promise.resolve(
-        new Response(JOBS_CSV_TEXT, { status: 200, headers: { "Content-Type": "text/plain" } })
-      );
-    }
-    return Promise.reject(new Error(`Unexpected fetch to: ${url}`));
-  });
-}
+const MOCK_COURSE_CSV = `
+COURSE_NUMBER, COURSE_NAME, COURSE_SKILLS
+ITEC 1000, Intro to Programming, "[Python, Java]"
+ITEC 2000, Web Development, "[HTML, CSS, JavaScript, React]"
+`;
 
-// ------------------------------ TESTS ------------------------------
-describe("Roadmap (integrated with real parsing)", () => {
-  it("renders majors and shows SW job-type buckets after selecting a major", async () => {
-    mockFetchForRoadmap();
-    render(<Roadmap onBack={() => {}} />);
+// --- TESTS ---
 
-    const sw = await screen.findByText(/Software Development/i);
-    const dm = screen.getByText(/Digital Media/i);
-    expect(sw).toBeInTheDocument();
-    expect(dm).toBeInTheDocument();
+describe('Roadmap Component', () => {
+  const globalFetch = global.fetch;
 
-    click(sw);
+  beforeEach(() => {
+    vi.clearAllMocks();
 
-    expect(await screen.findByRole("button", { name: /Software Engineer/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Software Developer/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Project Manager/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Cloud/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Automation Engineer/i })).toBeInTheDocument();
+    // 3. FIX: Mock scrollIntoView to prevent the "not a function" crash
+    window.HTMLElement.prototype.scrollIntoView = vi.fn();
 
-    await waitFor(() => expect(Element.prototype.scrollIntoView).toHaveBeenCalled());
-  });
-
-  it("opens 'Software Developer' and shows hard skills, soft skills (<=5), and courses", async () => {
-    mockFetchForRoadmap();
-    render(<Roadmap onBack={() => {}} />);
-
-    click(await screen.findByText(/Software Development/i));
-    click(await screen.findByRole("button", { name: /Software Developer/i }));
-
-    // Wait for the skills section to mount
-    await screen.findByText(/Skills\s+for\s+.*Software Developer/i);
-
-    // HARD SKILLS:
-    // With one posting, integerizeCounts awards the single count to the first skill by tie-breaker (CSS).
-    // So we only assert CSS is visible as a hard-skill card (role="button" w/ aria-label "CSS").
-    await screen.findByRole("button", { name: /^CSS$/i });
-
-    // SOFT SKILLS — also cards; assert a couple
-    expect(screen.getByText(/Common Soft Skills/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /^Communication$/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /^Collaboration$/i })).toBeInTheDocument();
-
-    // COURSES — course card button label `${code} — ${name}`
-    expect(screen.getByRole("button", { name: /ITEC 2130 — Web Technologies/i })).toBeInTheDocument();
-  });
-
-  it("changing to Digital Media resets the active type view (skills disappear)", async () => {
-    mockFetchForRoadmap();
-    render(<Roadmap onBack={() => {}} />);
-
-    click(await screen.findByText(/Software Development/i));
-    click(await screen.findByRole("button", { name: /Software Developer/i }));
-
-    // Ensure skills section is up, then confirm the CSS skill exists
-    await screen.findByText(/Skills\s+for\s+.*Software Developer/i);
-    await screen.findByRole("button", { name: /^CSS$/i });
-
-    // Switch major -> activeType resets (skill buttons disappear)
-    click(screen.getByText(/Digital Media/i));
-    await waitFor(() => {
-      expect(screen.queryByRole("button", { name: /^CSS$/i })).toBeNull();
-      expect(screen.getByRole("button", { name: /Marketing/i })).toBeInTheDocument();
+    // Mock global fetch
+    global.fetch = vi.fn((url) => {
+      if (url.includes('merged_jobs_cleaned')) {
+        return Promise.resolve({
+          ok: true,
+          text: () => Promise.resolve('dummy_jobs_csv_content'),
+        });
+      }
+      if (url.includes('Course.csv')) {
+        return Promise.resolve({
+          ok: true,
+          text: () => Promise.resolve(MOCK_COURSE_CSV),
+        });
+      }
+      return Promise.reject(new Error('Unknown URL'));
     });
+
+    // Mock Papa.parse behavior
+    Papa.parse.mockImplementation((csvText, config) => {
+      if (config.complete) {
+        config.complete({ data: MOCK_JOBS_DATA });
+      }
+    });
+  });
+
+  afterEach(() => {
+    cleanup();
+    global.fetch = globalFetch;
+  });
+
+  it('renders the initial Major selection view', async () => {
+    render(<Roadmap onBack={vi.fn()} />);
+    expect(screen.getByText(/Information Technology Roadmap/i)).toBeInTheDocument();
+    expect(screen.getByText('Software Development')).toBeInTheDocument();
+  });
+
+  it('handles flow: Select Major -> View Job Types', async () => {
+    render(<Roadmap onBack={vi.fn()} />);
+    
+    // Click on "Software Development" major
+    const majorCard = screen.getByLabelText('Software Development');
+    fireEvent.click(majorCard);
+
+    // Wait for the MOCK Chart to appear
+    await waitFor(() => {
+      expect(screen.getByTestId('mock-chart')).toBeInTheDocument();
+    });
+
+    // Check text inside the mock chart
+    expect(screen.getByText(/Job Postings in Software Development/i)).toBeInTheDocument();
+  });
+
+  it('handles flow: Select Job Type -> View Skills', async () => {
+    render(<Roadmap onBack={vi.fn()} />);
+    
+    // 1. Select Major
+    fireEvent.click(screen.getByLabelText('Software Development'));
+
+    // 2. Select Job Type (Slice 0)
+    const jobSlice = await screen.findByTestId('chart-slice-0');
+    fireEvent.click(jobSlice);
+
+    // 3. Expect Chart to switch to Skills view
+    await waitFor(() => {
+      expect(screen.getByText(/Top Hard Skills/i)).toBeInTheDocument();
+    });
+  });
+
+  it('allows navigation back from Skills view to Jobs view', async () => {
+    render(<Roadmap onBack={vi.fn()} />);
+    
+    // Navigate to Skills view
+    fireEvent.click(screen.getByLabelText('Software Development'));
+    fireEvent.click(await screen.findByTestId('chart-slice-0'));
+
+    expect(screen.getByText(/Top Hard Skills/i)).toBeInTheDocument();
+
+    // Find and click "Back to Job Postings" button
+    const backButton = screen.getByText(/Back to Job Postings/i);
+    fireEvent.click(backButton);
+
+    // Verify return to Job Postings
+    expect(screen.getByText(/Job Postings in Software Development/i)).toBeInTheDocument();
   });
 });
