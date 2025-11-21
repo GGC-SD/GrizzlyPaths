@@ -120,15 +120,6 @@ export default function RecommendCourse({ onBack }) {
         ]}
       />
       <br></br>
-      
-      <footer className="mt-auto">
-        <div className="footer-row">
-          <p>&copy; <b>Github has the following Copyright: © 2025 GitHub, Inc.
-          <br></br>
-          GGC has: © 2025 Georgia Gwinnett College</b>
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
