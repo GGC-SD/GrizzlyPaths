@@ -125,8 +125,20 @@ form {
     margin-bottom: 10px;
 }
 
+footer{
+  margin-top: 40px;
+  background-image: url("/src/Frontend/footer.jpg");
+  background-size: cover;
+  height: 50px;
+}
+
 a:hover {
   color: red;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
 }
 
 .legend {
@@ -187,26 +199,4 @@ a:hover {
 
 .btn-as-link:focus {
   outline: 2px solid #0000EE; /* Accessibility focus ring */
-}
-
-.page-layout {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.content {
-  flex: 0; 
-}
-
-footer {
-  background-image: url("/src/Frontend/footer.jpg");
-  background-size: cover;
-  height: 40px;
-  width: 100%;
-}
-
-.footer-row {
-  display: flex;
-  justify-content: space-between;
 }
