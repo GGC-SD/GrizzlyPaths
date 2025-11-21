@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { ref, push, set } from "firebase/database";
-import { db } from "../Backend/firebase"; // Import your initialized database instance
+import { db } from "../Backend/firebase"; 
 
 function AddCourseForm() {
   const [courseName, setCourseName] = useState('');
   const [courseNumber, setCourseNumber] = useState('');
-  const [message, setMessage] = useState(''); // For user feedback
+  const [message, setMessage] = useState(''); 
 
   const handleAddCourse = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault(); 
 
-    // Basic validation
+    // NOW this code will actually run because HTML isn't blocking it
     if (!courseName.trim() || !courseNumber) {
       setMessage("Please enter both a course name and number.");
       return;
@@ -18,25 +18,21 @@ function AddCourseForm() {
 
     const newCourseData = {
       CourseName: courseName,
-      CourseNumber: parseInt(courseNumber), // Convert string input to number
+      CourseNumber: parseInt(courseNumber), 
     };
 
     try {
-      // Reference to the 'courses' node in your Realtime Database
       const coursesRef = ref(db, 'courses');
-
-      // Use push() to get a new unique child location and its key
       const newCourseRef = push(coursesRef);
       const generatedCourseId = newCourseRef.key;
 
-      // Set the data at that new location, including the generated ID
       await set(newCourseRef, {
         ...newCourseData,
-        courseID: generatedCourseId, // Store the ID within the object
+        courseID: generatedCourseId, 
       });
 
       setMessage(`Course "${courseName}" added successfully!`);
-      setCourseName(''); // Clear form fields
+      setCourseName(''); 
       setCourseNumber('');
     } catch (error) {
       console.error("Error adding course:", error);
@@ -55,7 +51,7 @@ function AddCourseForm() {
             id="courseName"
             value={courseName}
             onChange={(e) => setCourseName(e.target.value)}
-            required
+            // REMOVED 'required' here
           />
         </div>
         <div>
@@ -65,7 +61,7 @@ function AddCourseForm() {
             id="courseNumber"
             value={courseNumber}
             onChange={(e) => setCourseNumber(e.target.value)}
-            required
+            // REMOVED 'required' here
           />
         </div>
         <button type="submit">Add Course</button>

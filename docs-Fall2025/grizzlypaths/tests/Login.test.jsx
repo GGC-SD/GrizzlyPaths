@@ -1,126 +1,161 @@
-//This emulates the environment
-import Login from "../src/Frontend/Login";
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, test, vi, beforeEach, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
+import React from 'react';
+// 1. Ensure this path is correct for your project structure
+import Login from '../src/Frontend/Login'; 
 
-vi.mock('firebase/auth', async(importOriginal) => {
-    const actual = await importOriginal();
-    return {
-        ...actual,
-        getAuth: vi.fn(() => ({})),
-        signInWithEmailAndPassword: vi.fn(),
-    };
-});
+// =================================================
+// 2. Mock Firebase SDK functions
+// =================================================
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getDatabase, ref, get } from 'firebase/database';
 
-vi.mock('firebase/database', async(importOriginal) => {
-    const actual = await importOriginal();
-    return {
-        ...actual,
-        getDatabase: vi.fn(() => ({})),
-        ref: vi.fn(),
-        get: vi.fn(),
-    };
-});
+// 3. FIX: Import auth from the EXACT same path you use in vi.mock below
+import { auth } from '../src/Backend/firebase';
 
-//import statements as if this is the actual page
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, get } from "firebase/database";
+// Mock firebase/app (Prevents crash if real file loads)
+vi.mock('firebase/app', () => ({
+  initializeApp: vi.fn(),
+}));
 
-describe('Login component', () => {
-  let onLoginMock;
+// Mock firebase/auth
+vi.mock('firebase/auth', () => ({
+  signInWithEmailAndPassword: vi.fn(),
+  getAuth: vi.fn(() => ({})), // Return object so it doesn't crash if real file loads
+}));
+
+// Mock firebase/database
+vi.mock('firebase/database', () => ({
+  getDatabase: vi.fn(),
+  ref: vi.fn(),
+  get: vi.fn(),
+}));
+
+// 4. FIX: Mock the local file using the EXACT path including 'src'
+// This replaces the real file entirely with our custom 'auth' object
+vi.mock('../src/Backend/firebase', () => ({
+  auth: {
+    currentUser: {
+      getIdToken: vi.fn(),
+    },
+  },
+}));
+
+// =================================================
+// 3. The Test Suite
+// =================================================
+describe('Login Component', () => {
+  
+  const mockOnLogin = vi.fn();
 
   beforeEach(() => {
-    onLoginMock = vi.fn();
-    localStorage.clear();
     vi.clearAllMocks();
+    localStorage.clear();
+    
+    // Default behavior for getIdToken
+    if (auth.currentUser) {
+        auth.currentUser.getIdToken.mockResolvedValue('mock-token');
+    }
+    
+    // Default behavior for database
+    getDatabase.mockReturnValue({}); 
+    ref.mockReturnValue({});
   });
 
-  test('renders email and password inputs and login button', () => {
-    render(<Login onLogin={onLoginMock} />);
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+  afterEach(() => {
+    cleanup();
   });
 
-  test('successful login stores student data and calls onLogin', async () => {
-    // Mock Firebase Auth success
-    signInWithEmailAndPassword.mockResolvedValueOnce({
-      user: { uid: 'mockedUID' },
+  it('renders the login form correctly', () => {
+    render(<Login onLogin={mockOnLogin} />);
+
+    expect(screen.getByRole('heading', { name: /Grizzly Path Login/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/Email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Login/i })).toBeInTheDocument();
+  });
+
+  it('updates input fields when user types', () => {
+    render(<Login onLogin={mockOnLogin} />);
+
+    const emailInput = screen.getByLabelText(/Email/i);
+    const passInput = screen.getByLabelText(/Password/i);
+
+    fireEvent.change(emailInput, { target: { value: 'test@ggc.edu' } });
+    fireEvent.change(passInput, { target: { value: 'password123' } });
+
+    expect(emailInput.value).toBe('test@ggc.edu');
+    expect(passInput.value).toBe('password123');
+  });
+
+  it('handles SUCCESSFUL login', async () => {
+    // Setup Mocks for Success
+    const mockUid = 'user-123';
+    
+    signInWithEmailAndPassword.mockResolvedValue({
+      user: { uid: mockUid }
     });
 
-    // Mock Database snapshot
-    get.mockResolvedValueOnce({
+    get.mockResolvedValue({
       exists: () => true,
       val: () => ({
-        name: 'Alice',
-        studentID: '12345',
-        major: 'CS',
-      }),
+        name: 'John Doe',
+        studentID: '900123456',
+        major: 'Software Development'
+      })
     });
 
-    render(<Login onLogin={onLoginMock} />);
+    render(<Login onLogin={mockOnLogin} />);
 
-    fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'test@example.com' },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'password123' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+    // Simulate User Action
+    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'john@ggc.edu' } });
+    fireEvent.change(screen.getByLabelText(/Password/i), { target: { value: 'secret' } });
+    fireEvent.click(screen.getByRole('button', { name: /Login/i }));
 
+    // Assertions
     await waitFor(() => {
-      expect(localStorage.getItem('studentName')).toBe('Alice');
-      expect(localStorage.getItem('studentID')).toBe('12345');
-      expect(localStorage.getItem('studentMajor')).toBe('CS');
-      expect(onLoginMock).toHaveBeenCalled();
+      expect(signInWithEmailAndPassword).toHaveBeenCalledWith(expect.any(Object), 'john@ggc.edu', 'secret');
+      expect(ref).toHaveBeenCalledWith(expect.any(Object), `student/${mockUid}`);
+      expect(localStorage.getItem('studentName')).toBe('John Doe');
+      expect(localStorage.getItem('studentID')).toBe('900123456');
+      expect(mockOnLogin).toHaveBeenCalled();
     });
   });
 
-  test('shows error if student data not found', async () => {
-    signInWithEmailAndPassword.mockResolvedValueOnce({
-      user: { uid: 'mockedUID' },
+  it('displays error when Auth fails (Wrong Password/Email)', async () => {
+    signInWithEmailAndPassword.mockRejectedValue(new Error('Firebase: Error (auth/wrong-password).'));
+
+    render(<Login onLogin={mockOnLogin} />);
+
+    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'wrong@ggc.edu' } });
+    fireEvent.change(screen.getByLabelText(/Password/i), { target: { value: 'wrongpass' } });
+    fireEvent.click(screen.getByRole('button', { name: /Login/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Login failed: Firebase: Error \(auth\/wrong-password\)/i)).toBeInTheDocument();
+      expect(mockOnLogin).not.toHaveBeenCalled();
+    });
+  });
+
+  it('displays error when User authenticates but has NO Database Record', async () => {
+    signInWithEmailAndPassword.mockResolvedValue({
+      user: { uid: 'ghost-user' }
     });
 
-    get.mockResolvedValueOnce({
+    get.mockResolvedValue({
       exists: () => false,
+      val: () => null
     });
 
-    render(<Login onLogin={onLoginMock} />);
+    render(<Login onLogin={mockOnLogin} />);
 
-    fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'test@example.com' },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'password123' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: /login/i }));
+    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'ghost@ggc.edu' } });
+    fireEvent.change(screen.getByLabelText(/Password/i), { target: { value: 'password' } });
+    fireEvent.click(screen.getByRole('button', { name: /Login/i }));
 
     await waitFor(() => {
-      expect(
-        screen.getByText(/student data not found in database/i)
-      ).toBeInTheDocument();
-    });
-  });
-
-  test('shows error message on login failure', async () => {
-    signInWithEmailAndPassword.mockRejectedValueOnce(
-      new Error('Invalid credentials')
-    );
-
-    render(<Login onLogin={onLoginMock} />);
-
-    fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'wrong@example.com' },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'badpass' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: /login/i }));
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(/login failed: invalid credentials/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Student data not found in database/i)).toBeInTheDocument();
+      expect(mockOnLogin).not.toHaveBeenCalled();
     });
   });
 });
