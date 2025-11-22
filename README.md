@@ -36,6 +36,7 @@ GrizzlyPaths is a web application that is meant to help upcoming IT majors by sh
 
 ## Fall '25 Team
 <img src="https://raw.githubusercontent.com/GGC-SD/GrizzlyPaths/main/docs-Fall2025/TeamFlyer.webp" alt="Team Flyer" width="25%">
+<img src="https://github.com/GGC-SD/GrizzlyPaths/blob/main/docs-Fall2025/TeamPhotos.webp" alt="Team Flyer" width="25%">
 
 * Students: Sidibaba Simpara - Project Manager & UI/UX design, Hieu Do - Lead Programmer & Documentation Lead, Charles Sarpong - Testing Lead, William Chokbengboune - Data Modeler & Client Liaison
 * Advisor: Dr. Anca Doloc-Mihu
