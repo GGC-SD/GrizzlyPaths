@@ -141,20 +141,20 @@ __Updates Fall 2025:__
     * `git clone https://github.com/GGC-SD/GrizzlyPaths.git`
     * `cd GrizzlyPaths/docs-Fall2025`
 5. **Install project dependencies:**
+    * React + Vite: `npm create vite@latest my-react-app -- --template` (Replace my-react-app with your desired project name)
     * React-router-dom: `npm install react-router-dom`
     * Bootstrap: `npm install bootstrap@5.3.3`
     * Bootstrap-icon: `npm install bootstrap-icons`
-    * Vite: `npm install -D vite`
     * React-chartjs-2: `npm install react-chartjs-2`
     * Paraphase: `npm install papaparse`
     * Csv-parser: `npm install csv-parser`
     * Firebase CLI globally for deployment: `npm install -g firebase-tools`
     * Install Firebase SDK in the project: `npm install firebase`
-    * Vitest: `npm install -D vitest`
-    * Jest: `npm install -D jest`
-6. **Run the project:**
+    * Vitest: `npm install vitest --save-dev`
+    * Jest: `npm install jest --save-dev `
+7. **Run the project:**
     * `npm run dev`
-7. **Run the test:**
+8. **Run the test:**
     * `npm run test`
 
 ## Usage
