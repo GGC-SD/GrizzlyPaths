@@ -1,4 +1,5 @@
-•	Admin authentication must be implemented in further iterations of project.
+TODO(Future Improvement)
+• Admin authentication must be implemented in further iterations of project.
 •	Visualization of information can be improved if necessary.
 •	Page formatting needs to be improved.
 •	Webscraping and updating button must be added to admin box.
