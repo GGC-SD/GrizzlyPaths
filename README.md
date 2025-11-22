@@ -229,9 +229,11 @@ __Updates Fall 2025:__
 ![Software Developer Common Skills for Web Developer](https://github.com/GGC-DSA/itskills/blob/main/media/Spr%20'23/Software%20Development%20Results/SD_CommonSkills_WebDeveloper.jpg)
 
 ### Fall 2025 Remaining Scope
-1. Implement admin feature
-2. Webscraping
-3. Implement google collab notebook
+1. Admin authentication must be implemented in further iterations of project.
+2. Visualization of information can be improved if necessary.
+3. Page formatting needs to be improved.
+4. Webscraping and updating button must be added to admin box.
+5. Course history section that has intractability with roadmap needs to be added to student.
 
 ### Spring 2025 Remaining Scope
 1. Have a continuous influx of data with live job posting data
