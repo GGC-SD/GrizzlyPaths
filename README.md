@@ -78,8 +78,12 @@ GrizzlyPaths is a web application that is meant to help upcoming IT majors by sh
 
 ## Technology
 ### Fall '25
-* [Firebase](https://firebase.google.com/)
-* HTML/CSS, JavaScript, React.js, Chart.js, Vite, Vitest
+* Backend: [Firebase](https://firebase.google.com/)
+* Frontend: HTML/CSS, JavaScript
+* Project Dependencies: React + Vite, Jest, Vitest, Boostrap, Paraphase, CSV-parser, Chart, Firebase SDK, Firebase CLI
+* Version Control: Git & Github
+* Project Management: Jira
+
 ### Spring '25
 * [Colab Notebook](https://colab.google/)
 * [PowerBi](https://app.powerbi.com/home?experience=power-bi)
