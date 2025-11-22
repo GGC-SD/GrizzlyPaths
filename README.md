@@ -219,7 +219,8 @@ __Updates Fall 2025:__
 - Firebase - Log in page with full function.
 - Show the general of student information in dashboard.
 - There is a general list of 3000/4000 recommended courses in each major.
-- Have a donut chart to show to top 5 jobs for each major.
+- Have a chart to show to top 5 jobs for each major.
+- Import button for cleaned csv of merged data is in place.
 
 ### Spr '25: 
 - Python - value counts
