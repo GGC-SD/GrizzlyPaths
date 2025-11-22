@@ -178,7 +178,7 @@ __Updates Fall 2025:__
 1.	Log in to the website. If you don’t have an account, click the link to create one. If you have an account but you forgot your password, click the link to reset password
 2.	In the dashboard, you can change the major by using the dropdown. 
 3.	You can click on the Recommend Course link to see 3000/4000 level courses for the each major.
-4.	You can click on the Roadmap to see the visualize of the job posting for each major. When you click the major that you want to choose, it will show the job posting. When you click the job posting, it will show the technical skill of that job postings. Then, you can click on the technical skill to show the classes that you need to take. 
+4.	You can click on the Roadmap to see the visualize of the job posting for each major. When you click the major that you want to choose, it will show the job posting. When you click the job posting, it will show the technical skill of that job postings. Then, you can click on the technical skill to show the classes that you need to take. To change jobs, click the arrow in the bottom of the screen to reload the wheel. The wheel will then disappear and only show the majors.
 5.	The logout is located in the upper right corner of the Dashboard.
 
 
