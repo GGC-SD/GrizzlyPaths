@@ -1,3 +1,40 @@
+/**
+ * SignUp Component
+ * ----------------
+ * This component handles user registration using Firebase Authentication
+ * and stores additional profile information inside Firebase Realtime Database.
+ *
+ * Workflow:
+ * 1. User enters required fields:
+ *      - Full Name
+ *      - Email
+ *      - Password
+ *      - Student ID
+ *      - Major
+ *
+ * 2. createUserWithEmailAndPassword() creates a new Firebase Auth user.
+ * 3. On success, Firebase returns a userCredential containing the UID.
+ * 4. Using the UID, the component stores additional user profile data at:
+ *        Realtime Database → "student/<uid>"
+ *
+ * 5. Displays a confirmation message and redirects the user to login.
+ *
+ * State Variables:
+ * - name: User's full name
+ * - email: User's email address
+ * - password: Account password
+ * - studentID: Numeric or alphanumeric student ID
+ * - major: User's selected major from dropdown list
+ * - message: Status or error message for UI feedback
+ *
+ * Navigation:
+ * - Uses react-router-dom's useNavigate() to redirect after successful signup.
+ *
+ * Firebase Services Used:
+ * - Firebase Authentication → createUserWithEmailAndPassword()
+ * - Firebase Realtime Database → set() to store student data
+ */
+
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
@@ -18,7 +55,7 @@ export default function SignUp() {
     setMessage("");
 
     try {
-      // Create new user
+      // Create new user and store it in authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
 
@@ -30,6 +67,7 @@ export default function SignUp() {
         major,
       });
 
+      //Automatically redirect back to login page after successfully register
       setMessage("Account created successfully! Redirecting to login...");
       setTimeout(() => navigate("/"), 2500);
     } catch (error) {

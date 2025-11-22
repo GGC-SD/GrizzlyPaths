@@ -1,4 +1,48 @@
-// Single Course Card
+/**
+ * RecommendCourse Component
+ * -------------------------
+ * This module displays recommended ITEC courses grouped by major categories.
+ * It includes reusable UI components for course cards and section headers.
+ *
+ * Components:
+ * 
+ * 1. CourseCard
+ *    - Renders an individual course card
+ *    - Displays: course title, description, skill focus, and prerequisites
+ *
+ *    Props:
+ *    - title (string): Name of the course (e.g., "ITEC 3150")
+ *    - description (string): Short course summary
+ *    - skill (string): Primary skill the course teaches
+ *    - prerequisite (string): Required courses before taking this course
+ *
+ * 2. Section
+ *    - Renders a course section (e.g., “Software Development”, “Cybersecurity”)
+ *    - Displays a section heading and a grid of CourseCard components
+ *
+ *    Props:
+ *    - id (string): HTML anchor ID for navigation
+ *    - title (string): Section heading
+ *    - courses (array): List of course objects, each containing:
+ *          { title, description, skill, prerequisite }
+ *
+ * 3. RecommendCourse
+ *    - Parent component that renders all ITEC major categories
+ *    - Provides a "Back to Dashboard" button
+ *    - Passes course data into each Section component
+ *
+ *    Props:
+ *    - onBack (function): Callback triggered when user clicks "Back"
+ *
+ * Notes:
+ * - Uses Bootstrap card & grid layout classes.
+ * - Sections include Software Development, Cybersecurity, Digital Media,
+ *   Data Science & Analytics, and Enterprise Systems.
+ * - All course information is static and stored in arrays inside this component.
+ */
+
+//create the course card
+//course title, description, skill focus, and prerequisites
 const CourseCard = ({ title, description, skill, prerequisite }) => (
   <div className="col">
     <div className="card h-100 shadow-sm border-0">
@@ -16,7 +60,8 @@ const CourseCard = ({ title, description, skill, prerequisite }) => (
   </div>
 );
 
-// Section containing multiple courses
+//Renders a course section
+//Displays a section heading and a grid of CourseCard components
 const Section = ({ id, title, courses }) => (
   <>
     <br/>

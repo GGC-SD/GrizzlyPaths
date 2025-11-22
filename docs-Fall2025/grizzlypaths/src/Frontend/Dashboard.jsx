@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import { ref, update } from "firebase/database";
 import { auth, database } from "../Backend/firebase";
 import Read from "../Component/Read";
-//import { Link } from "react-router-dom";
-//import MajorUploader from "./Component/ImportMajors";
-//import ReadCourses from "./Component/ImportCourse";
 
 export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRoadMap }) {
   const [studentName, setStudentName] = useState("");
@@ -38,6 +35,9 @@ export default function Dashboard({ onLogout, onViewCourses, onAboutUS, onViewRo
   }
 };
 
+  // handle logout
+  // Clearing all stored user data from localStorage
+  // redirect back to login page
   const handleLogoutClick = () => {
     localStorage.clear();
     onLogout(); 

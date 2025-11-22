@@ -1,3 +1,32 @@
+/**
+ * ForgotPassword Component
+ * ------------------------
+ * This component allows a user to reset their password through Firebase Authentication.
+ * The user enters their email and receives a password reset link if the email is valid.
+ *
+ * Features:
+ * - Validates email input before enabling submission.
+ * - Sends a Firebase password reset email.
+ * - Displays success or error messages based on Firebase response.
+ * - Automatically redirects back to the login page after successful email dispatch.
+ *
+ * Workflow:
+ * 1. User clicks "Send Reset Link".
+ * 2. Firebase sends a password reset email if the account exists.
+ * 3. UI displays success message and auto-navigates back to Login after 3 seconds.
+ *
+ * State Variables:
+ * - email (string): Stores the user’s email input.
+ * - message (string): Displays success/error feedback.
+ * - success (boolean): Tracks whether the reset email was successfully sent.
+ *
+ * External Dependencies:
+ * - Firebase Authentication (sendPasswordResetEmail)
+ * - React Router (useNavigate) for navigation
+ * - Bootstrap classes for UI styling
+ */
+
+
 import { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +38,11 @@ export default function ForgotPassword() {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
+  //handle function
+  //authenticate using email
+  //if the email is valid, send the reset password link using that email
+  //automatically redirect to the login page
+  //if the email is invalid, send the error
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");

@@ -1,3 +1,30 @@
+/**
+ * Login Component
+ * ----------------
+ * This component handles user authentication using Firebase Authentication
+ * and retrieves associated student data stored in Firebase Realtime Database.
+ *
+ * Workflow:
+ * 1. User enters email + password.
+ * 2. signInWithEmailAndPassword() authenticates the user.
+ * 3. Firebase returns a userCredential containing the UID.
+ * 4. Using the UID, we retrieve the student's profile info from:
+ *        Realtime Database → "student/<uid>"
+ * 5. If data exists:
+ *        - Save student info to localStorage
+ *        - Call onLogin() to update the app state
+ *    If not:
+ *        - Display "Student data not found"
+ *
+ * Props:
+ * - onLogin (function): Callback executed after successful login and data retrieval.
+ *
+ * State Variables:
+ * - email: Stores the user's email input
+ * - password: Stores the user's password input
+ * - message: Stores success/error messages for UI feedback
+ */
+
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, get } from "firebase/database";
@@ -8,25 +35,34 @@ export default function Login({ onLogin }) {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  /**
+   * Handles form submission:
+   * - prevents page reload
+   * - performs Firebase Auth login
+   * - retrieves student data from Realtime Database
+   * - stores user info locally
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
     try {
-      //sign in
+      // Authenticate the user with Firebase Auth
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
       await auth.currentUser.getIdToken(true);
 
-      // Fetch student info from Realtime Database
+      // Retrieve student info from Realtime Database
       const db = getDatabase();
       const studentRef = ref(db, "student/" + uid);
       const snapshot = await get(studentRef);
 
       if (snapshot.exists()) {
         const data = snapshot.val();
+        // student info store in the database
         localStorage.setItem("studentName", data.name);
         localStorage.setItem("studentID", data.studentID);
         localStorage.setItem("studentMajor", data.major);
+        // Notify parent component login succeeded
         onLogin(); 
       } else {
         setMessage("Student data not found in database.");
