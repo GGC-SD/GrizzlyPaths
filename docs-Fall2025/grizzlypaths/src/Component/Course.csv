@@ -9,13 +9,6 @@ COURSE_NUMBER,COURSE_NAME,COURSE_SKILLS
 """ITEC 2201""",Intro to Information Systems,"[""Systems Analysis & Design""]"
 """ITEC 3100""",Introduction to Networks,"[""Networks"", ""Cybersecurity Basics""]"
 """ITEC 3110""",Digital Design,"[""Digital Media"", ""UX / UI / HCI""]"
-"""ITEC 3130""",Web Programming & Design,"[
-    ""JavaScript"",
-    ""React"",
-    ""Web Frontend"",
-    ""Web Backend / APIs"",
-    ""UX / UI / HCI"",
-  ]"
 """ITEC 3150""",Algorithms,"[""Algorithms"", ""Data Structures"", ""Java""]"
 """ITEC 3160""",Prog for Data Analysis,"[""Python"", ""Analytics / BI"", ""Data Structures"", ""Algorithms""]"
 """ITEC 3170""",Data Intensive Fundamentals,"[""Analytics / BI"", ""NoSQL"", ""Cloud / DevOps""]"
@@ -27,11 +20,7 @@ COURSE_NUMBER,COURSE_NAME,COURSE_SKILLS
 """ITEC 3550""",User Centered Design,
 """ITEC 3600""",Operating Systems,"[""Operating Systems""]"
 """ITEC 3700""",Systems Analysis & Design,"[""Systems Analysis & Design""]"
-"""ITEC 3860""",Software Development I,"[
-    ""Systems Analysis & Design"",
-    ""Web Backend / APIs"",
-    ""Project / Capstone"",
-  ]"
+"""ITEC 3860""",Software Development I,"[""Systems Analysis & Design"",""Web Backend / APIs"",""Project / Capstone"",]"
 """ITEC 3870""",Software Development II,"[""Systems Analysis & Design"", ""Project / Capstone""]"
 """ITEC 3900""",Professional Pract and Ethics,"[""Professional Practice / Ethics""]"
 """ITEC 4000""",Cloud Computing Technologies,"[""Cloud / DevOps"", ""Databases / SQL""]"
