@@ -248,6 +248,7 @@ __Updates Fall 2025:__
 3. Page formatting needs to be improved.
 4. Webscraping and updating button must be added to admin box.
 5. Course history section that has intractability with roadmap needs to be added to student.
+6. Main page needs to be separated into 3 view for student, admin, and guest, so that login isn’t necessary.
 
 ### Spring 2025 Remaining Scope
 1. Have a continuous influx of data with live job posting data
