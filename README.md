@@ -189,7 +189,8 @@ __Updates Fall 2025:__
 
 ## Datasets
 ### Fall 2025
-* [Datasets](https://github.com/GGC-DSA/itskills/blob/main/docs-Spring2025/final_files/merged_jobs_cleaned%20(6).csv)
+* [Job Posting Datasets](https://github.com/GGC-DSA/itskills/blob/main/docs-Spring2025/final_files/merged_jobs_cleaned%20(6).csv)
+* [Course.csv](https://github.com/GGC-SD/GrizzlyPaths/blob/main/docs-Fall2025/grizzlypaths/src/Component/Course.csv)
 ### Spring 2025
 * [Original Glassdoor](https://github.com/GGC-DSA/itskills/blob/main/docs-Spring2025/colab_files/Glassdoor%20job%20listings%20information.csv)
 * [Original LinkedIn](https://github.com/GGC-DSA/itskills/blob/main/docs-Spring2025/colab_files/Linkedin%20job%20listings%20information.csv)
