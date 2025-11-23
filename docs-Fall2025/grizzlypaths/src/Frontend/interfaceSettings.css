@@ -1,10 +1,3 @@
-:root {
-  --primaryButtonColor: #FF0000;
-  --primaryButtonRadius: 12px;
-  --primaryButtonHover: darkred;
-  --primaryButtonText: white;
-}
-
 /* General body styling */
 body {
   font-family: Arial, sans-serif;
@@ -12,18 +5,8 @@ body {
   min-height: 100vh;
 }
 
-/* Buttons */
-.my-btn-primary {
-    background-color: var(--primaryButtonColor);
-    border-radius: var(--primaryButtonRadius);
-}
-
-.my-btn-primary:hover {
-    background-color: var(--primaryButtonHover);
-    color: var(--primaryButtonText);
-}
-
 /* Center the form container */
+/* login page */
 form {
   background: #fff;
   padding: 25px 30px;
