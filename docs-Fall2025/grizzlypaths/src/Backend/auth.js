@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import {auth} from "./firebase";
 
-import {createUserWithEmailAndPassword} from "./firebase/auth";
+//import {createUserWithEmailAndPassword} from "./firebase/auth";
 
 export const doCreateUserWithEmailAndPassword = async(email,password) => {
     return createUserWithEmailAndPassword(auth,email,password);
