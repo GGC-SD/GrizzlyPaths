@@ -17,7 +17,6 @@ GrizzlyPaths is a web application that is meant to help upcoming IT majors by sh
 ### Summer '21: [Hugh Smith Presentation](https://github.com/GGC-DSA/itskills/blob/main/media/Sum%20'21/Presentation.mp4)
 
 ## Project Website
-### Fall '25: Our app can not be deployed yet. Follow the step in Project Setup/Installation Fall 2025 section to run it locally. 
 ### Spring '25: [Grizzly Paths Website Link](https://itskills-1.onrender.com/)
 ### Spring '23: [Grizzly Path](ggc-dsa.github.io/itskills/)
 
