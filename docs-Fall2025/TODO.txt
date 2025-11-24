@@ -5,3 +5,5 @@ TODO(Future Improvement)
 •	Webscraping and updating button must be added to admin box.
 •	Course history section that has intractability with roadmap needs to be added to student.
 •	Main page needs to be separated into 3 view for student, admin, and guest, so that login isn’t necessary.
+•	Information needs to be cleaned further.
+•	Class surveys need to be made.

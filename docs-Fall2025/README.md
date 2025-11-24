@@ -18,6 +18,23 @@ If you are developing a production application, we recommend using TypeScript wi
 ## Link to LICENSE.md
 [LICENSE.md](https://github.com/GGC-SD/GrizzlyPaths/blob/main/docs-Fall2025/LICENSE.md)
 
+## Instructions to install dependencies
+o	React + Vite: npm create vite@latest my-react-app -- --template (Replace my-react-app with your desired project name)
+o	React-router-dom: npm install react-router-dom
+o	Bootstrap: npm install bootstrap@5.3.3
+o	Bootstrap-icon: npm install bootstrap-icons
+o	React-chartjs-2: npm install react-chartjs-2
+o	Paraphase: npm install papaparse
+o	Csv-parser: npm install csv-parser
+o	Firebase CLI globally for deployment: npm install -g firebase-tools
+o	Install Firebase SDK in the project: npm install firebase
+o	Vitest: npm install vitest --save-dev
+o	Jest: npm install jest --save-dev 
+
+## Run the project
+To run this project, npm run dev is needed.
+
+
 ##
 For detail information about the tool, technology, installation step, etc, [click here](https://github.com/GGC-SD/GrizzlyPaths/blob/main/README.md) to see under each section  
 
